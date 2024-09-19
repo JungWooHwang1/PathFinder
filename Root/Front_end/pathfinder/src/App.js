@@ -7,7 +7,7 @@ import PF_Find from "./HTML/PF_Find";
 function App() {
   return (
     <div className="App">
-      <PF_Find />
+      <PF_Lost />
     </div>
   );
 }
