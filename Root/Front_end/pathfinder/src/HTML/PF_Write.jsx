@@ -1,6 +1,4 @@
 import React, { Component } from "react";
-import Form from "react-bootstrap/Form";
-import Button from "react-bootstrap/Button"; // 변경된 경로
 import "../CSS/PF_Main.css";
 import "../CSS/Write.css";
 
@@ -48,21 +46,21 @@ class Write extends Component {
 
         return (
             <div className="PF_container">
-                <Form onSubmit={this.handleSubmit}>
-                    <Form.Group className="up-title" controlId="Input-title">
-                        <Form.Label>제목</Form.Label>
-                        <Form.Control type="text" placeholder="제목을 입력하세요" />
-                    </Form.Group>
+                <form onSubmit={this.handleSubmit}>
+                    <form className="up-title" id="Input-title">
+                        <form>제목</form>
+                        <form typeof="text" aria-placeholder="제목을 입력하세요" />
+                    </form>
 
-                    <Form.Group className="up-content" controlId="input-content">
-                        <Form.Label>내용</Form.Label>
-                        <Form.Control as="textarea" rows={3} placeholder="내용을 입력하세요" />
-                    </Form.Group>
+                    <form className="up-content" id="input-content">
+                        <form>내용</form>
+                        <form typeof="textarea" aria-rowspan={3} aria-placeholder="내용을 입력하세요" />
+                    </form>
 
-                    <Form.Group className="up-img" controlId="formFile">
-                        <Form.Label>이미지 업로드</Form.Label>
-                        <Form.Control type="file" accept="image/*" onChange={this.handleImageChange} />
-                    </Form.Group>
+                    <form className="up-img" id="formFile">
+                        <form>이미지 업로드</form>
+                        <form typeof="file" acceptCharset="image/*" onChange={this.handleImageChange} />
+                    </form>
 
                     {/* 이미지 미리보기 */}
                     {imagePreviewUrl && (
@@ -72,19 +70,19 @@ class Write extends Component {
                                 alt="이미지 미리보기"
                                 style={{ width: "300px", height: "auto" }}
                             />
-                            <Button variant="danger" onClick={this.handleImageCancel} style={{ marginTop: "10px" }}>
+                            <button id="danger" onClick={this.handleImageCancel} style={{ marginTop: "10px" }}>
                                 이미지 선택 취소
-                            </Button>
+                            </button>
                         </div>
                     )}
 
-                    <Button variant="info" type="submit">
+                    <button id="info" type="submit">
                         작성완료
-                    </Button>
-                    <Button variant="secondary" onClick={this.handleCancel}>
+                    </button>
+                    <button id="secondary" onClick={this.handleCancel}>
                         취소
-                    </Button>
-                </Form>
+                    </button>
+                </form>
             </div>
         );
     }
