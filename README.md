@@ -1,7 +1,7 @@
 # PathFinder 
 
-## npm 추가 라이브러리
-
+## npm 외부 라이브러리
+## npm install react-icons --save //icon 라이브러리
 
 ## "찾아드림" 로고 제작
 ## 9월 7일 18시까지 
