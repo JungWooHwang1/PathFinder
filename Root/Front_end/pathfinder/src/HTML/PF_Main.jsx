@@ -3,9 +3,9 @@ import "../CSS/PF_Main.css"
 
 const PF_Container = () => {
     return (
-        <div class = "body">
+        <div class="body">
             <header class="PF_header">
-                <img class ="main_logo"src="" alt="main_logo" />
+                <img class="main_logo" src="" alt="main_logo" />
                 <div class="search_area">
                     <form class="serch-box" action="" method="get">
                         <input class="search_txt" type="search" title="검색어를 입력해 주세요." placeholder="검색어를 입력해 주세요." maxlength="255" autocomplete="off" data-atcmp-element></input>
@@ -19,7 +19,8 @@ const PF_Container = () => {
                             <li><a href="">찾아주세요!(분실물)</a></li>
                             <li><a href="">찾아가세요(습득물)</a></li>
                             <li><a href="">사라졌어요!(반려동물)</a></li>
-                            <li><a href="">급해요!(현상수배)</a></li>                        </ul>
+                            <li><a href="">급해요!(현상수배)</a></li>
+                        </ul>
                     </nav>
                     <div class="PF_main">
                         <section class="PF_section1">
@@ -50,8 +51,5 @@ const PF_Container = () => {
     )
 }
 
-<script>
-
-</script>
 
 export default PF_Container;
