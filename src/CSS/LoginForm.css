@@ -81,4 +81,5 @@
   background: #fff;
   border: none;
   outline: none;
+  z-index: 1;
 }
