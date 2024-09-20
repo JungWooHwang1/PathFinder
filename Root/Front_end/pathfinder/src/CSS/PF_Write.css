@@ -23,10 +23,21 @@
 
 .calendar-popup {
   position: absolute;
-  top: 100%; /* 버튼 바로 아래에 위치하게 하기 위해 */
-  left: 0;
-  z-index: 1000; /* 다른 요소들 위에 표시되도록 */
+  top: 150px; /* 버튼 바로 아래에 위치하게 하기 위해 */
+
+  z-index: 10; /* 다른 요소들 위에 표시되도록 */
   background: white; /* 배경색 지정 */
   border: 1px solid #ddd; /* 테두리 스타일 */
-  padding: 10px; /* 여백 */
+}
+.lost_period {
+  margin-bottom: 20px; /* 필드셋 간의 여백 조정 */
+  width: 400px;
+}
+
+.date-input-group {
+  display: inline-flex;
+  align-items: center; /* 입력 필드와 버튼을 세로로 정렬 */
+}
+.lost_inputbox {
+  width: 400px;
 }

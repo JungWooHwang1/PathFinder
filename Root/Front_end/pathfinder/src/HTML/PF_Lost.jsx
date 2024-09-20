@@ -1,6 +1,8 @@
 import React, { useState } from "react";
+import Calendar from "react-calendar";
 import "../CSS/PF_Main.css";
-import "../CSS/Write.css";
+import "../CSS/PF_Write.css";
+import "react-calendar/dist/Calendar.css"; // 스타일을 import
 
 const PF_Lost = () => {
   // 상태 관리
@@ -13,6 +15,9 @@ const PF_Lost = () => {
     LST_PLACE: "",
     P_ATC_ID: "",
   });
+  const [showCalendar, setShowCalendar] = useState(false); // 달력 표시 여부
+  const [calendarType, setCalendarType] = useState(""); // 달력 타입 (시작일/종료일)
+  const [date, setDate] = useState(new Date()); // 선택된 날짜
 
   // 핸들러 함수
   const handleChange = (e) => {
@@ -27,6 +32,28 @@ const PF_Lost = () => {
     e.preventDefault();
     // 검색 요청 처리
     console.log("검색 폼 제출:", formData);
+  };
+
+  const handleCalendarToggle = (type) => {
+    setCalendarType(type);
+    setShowCalendar((prev) => !prev); // 토글을 위해 prev로 설정
+  };
+
+  const handleDateChange = (newDate) => {
+    const formattedDate = newDate.toISOString().split("T")[0].replace(/-/g, "");
+    if (calendarType === "START_YMD") {
+      setFormData((prevData) => ({
+        ...prevData,
+        START_YMD: formattedDate,
+      }));
+    } else if (calendarType === "END_YMD") {
+      setFormData((prevData) => ({
+        ...prevData,
+        END_YMD: formattedDate,
+      }));
+    }
+    setDate(newDate);
+    setShowCalendar(false); // 달력 선택 후 닫기
   };
 
   return (
@@ -67,7 +94,10 @@ const PF_Lost = () => {
           {/* 검색 폼 */}
           <form onSubmit={handleSearchSubmit}>
             <div className="findList">
-              <div className="lost_qfind2" style={{ display: "flex" }}>
+              <div
+                className="lost_qfind2"
+                style={{ display: "flex", position: "relative" }}
+              >
                 {/* 왼쪽 3개 */}
                 <div style={{ flex: 1, paddingRight: "10px" }}>
                   {/* 분류명 */}
@@ -96,43 +126,59 @@ const PF_Lost = () => {
                   </fieldset>
 
                   {/* 기간 */}
-                  <fieldset className="lost_inputbox">
+                  <fieldset className="lost_period">
                     <legend>분실기간 입력</legend>
                     <label htmlFor="startYmdInput">기간</label>
-                    <input
-                      type="text"
-                      name="START_YMD"
-                      id="startYmdInput"
-                      value={formData.START_YMD}
-                      readOnly
-                      title="검색 시작일"
-                    />
-                    <button
-                      type="button"
-                      className="cal_btn"
-                      title="검색 시작일 달력"
-                      onClick={() => alert("달력 선택 기능")}
-                    >
-                      달력 열기
-                    </button>
+                    <div className="date-input-group">
+                      <input
+                        type="text"
+                        title="검색시작일"
+                        name="START_YMD"
+                        id="startYmdInput"
+                        className="search_text isNumber"
+                        size="10"
+                        value={formData.START_YMD}
+                        readOnly
+                        onChange={handleChange}
+                      />
+                      <button
+                        type="button"
+                        className="cal_btn"
+                        onClick={() => handleCalendarToggle("START_YMD")}
+                        title="검색 시작일 달력 레이어 새창"
+                      >
+                        달력 열기
+                      </button>
+                    </div>
                     <span>~</span>
-                    <input
-                      type="text"
-                      name="END_YMD"
-                      id="endYmdInput"
-                      value={formData.END_YMD}
-                      readOnly
-                      title="검색 종료일"
-                    />
-                    <button
-                      type="button"
-                      className="cal_btn"
-                      title="검색 종료일 달력"
-                      onClick={() => alert("달력 선택 기능")}
-                    >
-                      달력 열기
-                    </button>
+                    <div className="date-input-group">
+                      <input
+                        type="text"
+                        title="검색종료일"
+                        name="END_YMD"
+                        id="endYmdInput"
+                        className="search_text isNumber"
+                        size="10"
+                        value={formData.END_YMD}
+                        readOnly
+                        onChange={handleChange}
+                      />
+                      <button
+                        type="button"
+                        className="cal_btn"
+                        onClick={() => handleCalendarToggle("END_YMD")}
+                        title="검색 종료일 달력 레이어 새창"
+                      >
+                        달력 열기
+                      </button>
+                    </div>
                   </fieldset>
+                  {/* 달력 렌더링 */}
+                  {showCalendar && (
+                    <div className="calendar-popup">
+                      <Calendar onChange={handleDateChange} value={date} />
+                    </div>
+                  )}
 
                   {/* 분실물명 */}
                   <fieldset className="lost_inputbox">
@@ -215,7 +261,15 @@ const PF_Lost = () => {
               <tbody>{/* 검색 결과를 여기에 표시 */}</tbody>
             </table>
           </div>
-
+          <nav id="sub_lnb">
+            <ul>
+              <li>
+                <a href="" class="subMenu_select">
+                  분실물 게시물 등록
+                </a>
+              </li>
+            </ul>
+          </nav>
           {/* 페이징 가로 정렬 */}
           <div
             id="paging"
