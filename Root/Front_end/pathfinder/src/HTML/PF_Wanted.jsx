@@ -4,7 +4,7 @@ import "../CSS/PF_Main.css";
 import "../CSS/PF_Write.css";
 import "react-calendar/dist/Calendar.css"; // 스타일을 import
 
-const PF_Lost = () => {
+const PF_Wanted = () => {
   // 상태 관리
   const [formData, setFormData] = useState({
     PRDT_CL_NM: "",
@@ -90,19 +90,19 @@ const PF_Lost = () => {
         </nav>
 
         <div id="contents">
-          <h2>분실물 검색</h2>
+          <h2>수배물 검색</h2>
           {/* 검색 폼 */}
           <form onSubmit={handleSearchSubmit}>
             <div className="findList">
               <div
-                className="lost_qfind2"
+                className="Wanted_qfind2"
                 style={{ display: "flex", position: "relative" }}
               >
                 {/* 왼쪽 3개 */}
                 <div style={{ flex: 1, paddingRight: "10px" }}>
                   {/* 분류명 */}
-                  <fieldset className="lost_inputbox">
-                    <legend>분실물 종류 입력</legend>
+                  <fieldset className="Wanted_inputbox">
+                    <legend>수배물 종류 입력</legend>
                     <label htmlFor="PRDT_CL_NM">분류명</label>
                     <input
                       type="text"
@@ -126,8 +126,8 @@ const PF_Lost = () => {
                   </fieldset>
 
                   {/* 기간 */}
-                  <fieldset className="lost_period">
-                    <legend>분실기간 입력</legend>
+                  <fieldset className="Wanted_period">
+                    <legend>수배기간 입력</legend>
                     <label htmlFor="startYmdInput">기간</label>
                     <div className="date-input-group">
                       <input
@@ -180,10 +180,10 @@ const PF_Lost = () => {
                     </div>
                   )}
 
-                  {/* 분실물명 */}
-                  <fieldset className="lost_inputbox">
-                    <legend>분실물명 입력</legend>
-                    <label htmlFor="lstPrdtNm">분실물명</label>
+                  {/* 수배물명 */}
+                  <fieldset className="Wanted_inputbox">
+                    <legend>수배물명 입력</legend>
+                    <label htmlFor="lstPrdtNm">수배물명</label>
                     <input
                       type="text"
                       id="lstPrdtNm"
@@ -197,10 +197,10 @@ const PF_Lost = () => {
 
                 {/* 오른쪽 3개 */}
                 <div style={{ flex: 1, paddingLeft: "10px" }}>
-                  {/* 분실지역 */}
-                  <fieldset className="lost_inputbox">
-                    <legend>분실지역 입력</legend>
-                    <label htmlFor="lstLctCd">분실지역</label>
+                  {/* 수배지역 */}
+                  <fieldset className="Wanted_inputbox">
+                    <legend>수배지역 입력</legend>
+                    <label htmlFor="lstLctCd">수배지역</label>
                     <select
                       name="LST_LCT_CD"
                       id="lstLctCd"
@@ -212,10 +212,10 @@ const PF_Lost = () => {
                     </select>
                   </fieldset>
 
-                  {/* 분실장소 */}
-                  <fieldset className="lost_inputbox">
-                    <legend>분실장소 입력</legend>
-                    <label htmlFor="LST_PLACE">분실장소</label>
+                  {/* 수배장소 */}
+                  <fieldset className="Wanted_inputbox">
+                    <legend>수배장소 입력</legend>
+                    <label htmlFor="LST_PLACE">수배장소</label>
                     <input
                       type="text"
                       id="LST_PLACE"
@@ -226,7 +226,7 @@ const PF_Lost = () => {
                     />
                   </fieldset>
                   <fieldset className="retainer">
-                    <legend>의뢰 보상</legend>
+                    <legend>의뢰 비용 선택</legend>
                     <label htmlFor="placeSeCd">의뢰비용</label>
                     <select
                       name="PLACE_SE_CD"
@@ -248,7 +248,7 @@ const PF_Lost = () => {
               </div>
 
               <p style={{ textAlign: "center" }}>
-                <button type="submit" className="btn_01" title="분실물 검색">
+                <button type="submit" className="btn_01" title="수배물 검색">
                   검색
                 </button>
               </p>
@@ -258,9 +258,9 @@ const PF_Lost = () => {
           <div className="find_listBox">
             <table
               className="type01"
-              summary="관리번호, 분실물명, 분실장소, 분실일자"
+              summary="관리번호, 수배물명, 수배장소, 수배일자"
             >
-              <caption>분실물 목록 조회 결과 테이블</caption>
+              <caption>수배물 목록 조회 결과 테이블</caption>
               <colgroup>
                 <col style={{ width: "160px" }} />
                 <col style={{ width: "auto" }} />
@@ -272,9 +272,10 @@ const PF_Lost = () => {
                   <th scope="col" className="first">
                     관리번호
                   </th>
-                  <th scope="col">분실물명</th>
-                  <th scope="col">분실장소</th>
-                  <th scope="col">분실일자</th>
+                  <th scope="col">수배물명</th>
+                  <th scope="col">수배장소</th>
+                  <th scope="col">수배일자</th>
+                  <th scope="col">의뢰비용</th>
                 </tr>
               </thead>
               <tbody>{/* 검색 결과를 여기에 표시 */}</tbody>
@@ -284,7 +285,7 @@ const PF_Lost = () => {
             <ul>
               <li>
                 <a href="" class="subMenu_select">
-                  분실물 게시물 등록
+                  현상수배 게시물 등록
                 </a>
               </li>
             </ul>
@@ -318,4 +319,4 @@ const PF_Lost = () => {
   );
 };
 
-export default PF_Lost;
+export default PF_Wanted;

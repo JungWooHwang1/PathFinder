@@ -1,10 +1,81 @@
-import React, { useState } from "react";
-import Calendar from "react-calendar";
+import React, { useState, useEffect } from "react";
 import "../CSS/PF_Main.css";
 import "../CSS/PF_Write.css";
-import "react-calendar/dist/Calendar.css"; // 스타일을 import
 
-const PF_Upload = () => {
+const PF_Animal_Upload = () => {
+  const [showMap, setShowMap] = useState(false);
+  const [imagePreview, setImagePreview] = useState(null);
+
+  useEffect(() => {
+    const loadKakaoMap = () => {
+      const script = document.createElement("script");
+      script.src = `//dapi.kakao.com/v2/maps/sdk.js?appkey=c4a41bf411d48221a36238c0e2fab540`;
+      script.async = true;
+      script.onload = () => {
+        if (window.kakao && window.kakao.maps) {
+          window.kakao.maps.load(() => {
+            const container = document.getElementById("map");
+            const options = {
+              center: new window.kakao.maps.LatLng(33.450701, 126.570667),
+              level: 3,
+            };
+            new window.kakao.maps.Map(container, options);
+          });
+        } else {
+          console.error("Kakao Maps API가 로드되지 않았습니다.");
+        }
+      };
+
+      document.head.appendChild(script);
+    };
+
+    if (showMap) {
+      if (!window.kakao) {
+        loadKakaoMap();
+      } else {
+        const container = document.getElementById("map");
+        const options = {
+          center: new window.kakao.maps.LatLng(33.450701, 126.570667),
+          level: 3,
+        };
+        new window.kakao.maps.Map(container, options);
+      }
+    }
+
+    return () => {
+      const existingScript = document.querySelector(
+        `script[src*="dapi.kakao.com"]`
+      );
+      if (existingScript) {
+        document.head.removeChild(existingScript);
+      }
+    };
+  }, [showMap]);
+
+  const handleFileChange = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      const previewUrl = URL.createObjectURL(file);
+      setImagePreview(previewUrl);
+    }
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+
+    const lstPlace = document.getElementById("LST_PLACE").value;
+    const lstDate = document.getElementById("LST_DTE").value;
+    const lstLctCd = document.getElementById("LST_LCT_CD").value;
+    const lstSigungu = document.getElementById("LST_SIGUNGU").value;
+
+    if (!lstPlace || !lstDate || !lstLctCd || !lstSigungu) {
+      alert("필수 입력 항목을 모두 채워주세요.");
+      return;
+    }
+
+    console.log("폼 제출 성공!");
+  };
+
   return (
     <div className="body">
       <header className="PF_header">
@@ -39,9 +110,9 @@ const PF_Upload = () => {
         </nav>
         <div id="content" tabIndex="-1">
           <div className="contents_common">
-            <h2>분실물 신고</h2>
+            <h2>반려동물 실종 신고</h2>
             <span className="subtxt1">
-              분실물 신고양식입니다. (*) 표시는 필수 입력 항목입니다.
+              반려동물 실종 신고양식입니다. (*) 표시는 필수 입력 항목입니다.
             </span>
           </div>
 
@@ -51,6 +122,7 @@ const PF_Upload = () => {
             method="post"
             encType="multipart/form-data"
             action="#none"
+            onSubmit={handleSubmit}
           >
             <input type="hidden" id="ORG_ID" name="ORG_ID" />
             <input type="hidden" id="COORD_X" name="COORD_X" />
@@ -61,30 +133,14 @@ const PF_Upload = () => {
             <input type="hidden" id="CHRGR_NM" name="CHRGR_NM" />
             <input type="hidden" id="ORG_ID2" name="ORG_ID2" />
 
-            {/* 분실정보 */}
-            <div className="Box" style={{ zIndex: 100 }}>
-              <div className="titls01">분실정보</div>
-              <table
-                className="lost_insert"
-                summary="분실지역, 분실장소, 분실장소 분류, 분실일자 입력"
-              >
-                <caption>분실정보 입력표</caption>
-                <colgroup>
-                  <col width="16%" />
-                  <col width="41%" />
-                  <col width="16%" />
-                  <col width="*" />
-                </colgroup>
+            <div className="Box">
+              <div className="titls01">반려동물 실종정보</div>
+              <table className="lost_insert">
                 <tbody>
                   <tr>
                     <th scope="row">
                       <em>*</em>
-                      <label htmlFor="LST_LCT_CD">
-                        분실지역
-                        <span className="blind">
-                          ※ 지도입력으로 시군구, 읍면동까지 자동 입력 됩니다.
-                        </span>
-                      </label>
+                      <label htmlFor="LST_LCT_CD">반려동물 실종지역</label>
                     </th>
                     <td colSpan="3">
                       <button
@@ -92,16 +148,17 @@ const PF_Upload = () => {
                         name="MAP"
                         type="button"
                         className="btn_map"
-                        title="지도입력 새창"
+                        onClick={() => setShowMap(!showMap)}
                       >
                         지도입력
                       </button>
+
+                      {showMap && <div id="map" className="map"></div>}
+
                       <select
                         name="LST_LCT_CD"
                         id="LST_LCT_CD"
                         className="choice"
-                        title="시도 입력"
-                        style={{ display: "inline-block" }}
                       >
                         <option value="">선택</option>
                         <option value="LCA000">서울특별시</option>
@@ -124,15 +181,11 @@ const PF_Upload = () => {
                         <option value="LCF000">해외</option>
                         <option value="LCE000">기타</option>
                       </select>
-                      <label htmlFor="LST_SIGUNGU" className="blind">
-                        상세지역입력
-                      </label>
                       <input
                         type="text"
                         id="LST_SIGUNGU"
                         name="LST_SIGUNGU"
                         className="input"
-                        title="시,군,구 입력"
                         maxLength="10"
                       />
                       <span className="f_red">
@@ -143,28 +196,28 @@ const PF_Upload = () => {
                   <tr>
                     <th scope="row">
                       <em>*</em>
-                      <label htmlFor="LST_PLACE">분실장소</label>
+                      <label htmlFor="LST_PLACE">반려동물 실종장소</label>
                     </th>
                     <td>
                       <input
                         id="LST_PLACE"
                         name="LST_PLACE"
                         type="text"
-                        size="35"
-                        className="input valign-m"
+                        className="input"
                         maxLength="50"
                       />
                     </td>
                     <th scope="row">
                       <em>*</em>
-                      <label htmlFor="LST_PLACE_SE_CD">분실장소 분류</label>
+                      <label htmlFor="LST_PLACE_SE_CD">
+                        반려동물 실종장소 분류
+                      </label>
                     </th>
                     <td>
                       <select
                         id="LST_PLACE_SE_CD"
                         name="LST_PLACE_SE_CD"
                         className="choice"
-                        style={{ display: "inline-block" }}
                       >
                         <option value="">선택</option>
                         <option value="LL1011">우체국(통)</option>
@@ -192,7 +245,7 @@ const PF_Upload = () => {
                   <tr>
                     <th scope="row">
                       <em>*</em>
-                      <label htmlFor="LST_DTE">분실일자</label>
+                      <label htmlFor="LST_DTE">반려동물 실종일자</label>
                     </th>
                     <td>
                       <input
@@ -207,17 +260,9 @@ const PF_Upload = () => {
               </table>
             </div>
 
-            {/* 추가정보 */}
             <div className="Box">
               <div className="titls01">추가정보</div>
-              <table className="lost_insert" summary="추가정보 입력">
-                <caption>추가정보 입력표</caption>
-                <colgroup>
-                  <col width="16%" />
-                  <col width="41%" />
-                  <col width="16%" />
-                  <col width="*" />
-                </colgroup>
+              <table className="lost_insert">
                 <tbody>
                   <tr>
                     <th>
@@ -229,7 +274,6 @@ const PF_Upload = () => {
                         id="LST_BREED"
                         name="LST_BREED"
                         className="input"
-                        title="종류 입력"
                       />
                     </td>
                     <th>
@@ -241,7 +285,6 @@ const PF_Upload = () => {
                         id="LST_COLOR"
                         name="LST_COLOR"
                         className="input"
-                        title="색상 입력"
                       />
                     </td>
                   </tr>
@@ -255,7 +298,6 @@ const PF_Upload = () => {
                         id="LST_FEATURE"
                         name="LST_FEATURE"
                         className="input"
-                        title="특징 입력"
                       />
                     </td>
                     <th>
@@ -267,7 +309,6 @@ const PF_Upload = () => {
                         id="LST_PHONE"
                         name="LST_PHONE"
                         className="input"
-                        title="연락처 입력"
                       />
                     </td>
                   </tr>
@@ -275,15 +316,9 @@ const PF_Upload = () => {
               </table>
             </div>
 
-            {/* 파일첨부 */}
             <div className="Box">
               <div className="titls01">파일첨부</div>
-              <table className="lost_insert" summary="파일첨부 입력">
-                <caption>파일첨부 입력표</caption>
-                <colgroup>
-                  <col width="16%" />
-                  <col width="*" />
-                </colgroup>
+              <table className="lost_insert">
                 <tbody>
                   <tr>
                     <th>
@@ -295,27 +330,27 @@ const PF_Upload = () => {
                         id="LST_FILE"
                         name="LST_FILE"
                         title="파일 첨부"
+                        accept="image/*"
+                        onChange={handleFileChange}
                       />
-                      <span className="f_red">
-                        <b>
-                          이미지 파일만 업로드 가능(파일형식: JPG, JPEG, PNG)
-                        </b>
-                      </span>
+                      {imagePreview && (
+                        <div className="image-preview">
+                          <img
+                            src={imagePreview}
+                            alt="Preview"
+                            className="preview-img"
+                          />
+                        </div>
+                      )}
                     </td>
                   </tr>
                 </tbody>
               </table>
             </div>
 
-            {/* 개인정보 동의 */}
-            <div className="Box">
+            {/* <div className="Box">
               <div className="titls01">개인정보 동의</div>
-              <table className="lost_insert" summary="개인정보 동의">
-                <caption>개인정보 동의 입력표</caption>
-                <colgroup>
-                  <col width="16%" />
-                  <col width="*" />
-                </colgroup>
+              <table className="lost_insert">
                 <tbody>
                   <tr>
                     <th>
@@ -336,9 +371,8 @@ const PF_Upload = () => {
                   </tr>
                 </tbody>
               </table>
-            </div>
+            </div> */}
 
-            {/* 제출 버튼 */}
             <div className="submit_area">
               <button type="submit" className="submit_btn">
                 제출
@@ -354,4 +388,4 @@ const PF_Upload = () => {
   );
 };
 
-export default PF_Upload;
+export default PF_Animal_Upload;

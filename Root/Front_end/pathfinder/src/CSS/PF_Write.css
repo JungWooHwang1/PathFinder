@@ -41,3 +41,16 @@
 .lost_inputbox {
   width: 400px;
 }
+.image-preview {
+  margin-top: 10px;
+}
+
+.preview-img {
+  max-width: 200px;
+  max-height: 200px;
+}
+
+.map {
+  width: 100%;
+  height: 300px; /* Adjust height as needed */
+}

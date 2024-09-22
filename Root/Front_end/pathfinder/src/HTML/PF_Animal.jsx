@@ -124,7 +124,7 @@ const PF_Animal = () => {
 
                   {/* 기간 */}
                   <fieldset className="lost_period">
-                    <legend>분실기간 입력</legend>
+                    <legend>실종기간 입력</legend>
                     <label htmlFor="startYmdInput">기간</label>
                     <div className="date-input-group">
                       <input
@@ -176,7 +176,7 @@ const PF_Animal = () => {
                       <Calendar onChange={handleDateChange} value={date} />
                     </div>
                   )}
-                  {/* 분실물명 */}
+                  {/* 실종물명 */}
                   <fieldset className="lost_inputbox">
                     <legend>반려동물명 입력</legend>
                     <label htmlFor="lstPrdtNm">반려동물명</label>
@@ -193,7 +193,7 @@ const PF_Animal = () => {
 
                 {/* 오른쪽 3개 */}
                 <div style={{ flex: 1, paddingLeft: "10px" }}>
-                  {/* 분실지역 */}
+                  {/* 실종지역 */}
                   <fieldset className="lost_inputbox">
                     <legend>실종지역 입력</legend>
                     <label htmlFor="lstLctCd">실종지역</label>
@@ -208,7 +208,7 @@ const PF_Animal = () => {
                     </select>
                   </fieldset>
 
-                  {/* 분실장소 */}
+                  {/* 실종장소 */}
                   <fieldset className="lost_inputbox">
                     <legend>실종장소 입력</legend>
                     <label htmlFor="LST_PLACE">실종장소</label>
@@ -240,7 +240,7 @@ const PF_Animal = () => {
               className="type01"
               summary="관리번호, 반려동물명, 실종장소, 실종일자"
             >
-              <caption>분실물 목록 조회 결과 테이블</caption>
+              <caption>실종 반려동물 목록 조회 결과 테이블</caption>
               <colgroup>
                 <col style={{ width: "160px" }} />
                 <col style={{ width: "auto" }} />

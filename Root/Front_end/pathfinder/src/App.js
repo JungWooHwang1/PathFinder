@@ -6,13 +6,16 @@ import PF_Lost from "./HTML/PF_Lost";
 import PF_Find from "./HTML/PF_Find";
 import PF_Animal from "./HTML/PF_Animal";
 import LoginForm from "./HTML/PF_LoginForm";
-import PF_Wanted from "./HTML/PF_ Wanted";
-import PF_Upload from "./HTML/PF_Upload";
+import PF_Wanted from "./HTML/PF_Wanted";
+import PF_Lost_Upload from "./HTML/PF_Lost_Upload";
+import PF_Animal_Upload from "./HTML/PF_Animal_Upload";
+import PF_Find_Upload from "./HTML/PF_Find_Upload";
+import PF_Wanted_Upload from "./HTML/PF_Wanted_Upload";
 
 function App() {
   return (
     <div className="App">
-      <PF_Upload />
+      <PF_Wanted />
     </div>
   );
 }
