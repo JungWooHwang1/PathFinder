@@ -30,7 +30,6 @@
     border-radius: 40px;
     font-size: 16px;
     color: #fff;
-    padding: 20px 45px 20px 20px;
 }
 
 .input-box input::placeholder {
@@ -78,5 +77,20 @@
     font-size: 16px;
     color: #333;
     font-weight: 700;
+}
+
+.wrapper .register-link {
+    font-size: 14.5px;
+    text-align: center;
+    margin-top: 2px;
+}
+
+.register-link p a {
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.register-link p a:hover {
+    text-decoration: underline;
 }
 
