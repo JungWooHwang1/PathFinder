@@ -1,46 +1,33 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import PF_Nav from "./common/PF_Nav"
+import PF_Header from "./common/PF_Header"
 import "../CSS/PF_Main.css"
 
 const PF_Container = () => {
     return (
-        <div class="body">
-            <header class="PF_header">
-                <img class="main_logo" src="" alt="main_logo" />
-                <div class="search_area">
-                    <form class="serch-box" action="" method="get">
-                        <input class="search_txt" type="search" title="검색어를 입력해 주세요." placeholder="검색어를 입력해 주세요." maxlength="255" autocomplete="off" data-atcmp-element></input>
-                    </form>
-                </div>
-            </header>
-            <div class="PF_container">
+        <div className="body">
+            <PF_Header/>
+            <div className="PF_container">
                 <div>
-                    <nav class="PF_nav">
-                        <ul>
-                            <li><Link to = "/PF_Lost">찾아주세요!(분실물)</Link></li>
-                            <li><Link to = "/PF_Find">찾아가세요(습득물)</Link></li>
-                            <li><Link to = "/PF_Animal">사라졌어요!(반려동물)</Link></li>
-                            <li><Link to = "/PF_Wanted">급해요!(현상수배)</Link></li>
-                        </ul>
-                    </nav>
-                    <div class="PF_main">
-                        <section class="PF_section1">
+                    <PF_Nav/>
+                    <div className="PF_main">
+                        <section className="PF_section1">
                             <a href="">습득물 게시판</a>
-                            <div class="img_group">
+                            <div className="img_group">
                                 <img src="" alt="unknown" />
                                 <img src="" alt="unknown" />
                                 <img src="" alt="unknown" />
                                 <img src="" alt="unknown" />
                             </div>
                         </section>
-                        <section class="PF_section2">
+                        <section className="PF_section2">
                             <a href="">분실물 게시판</a>
 
                         </section>
-                        <section class="PF_section3">
+                        <section className="PF_section3">
                             <a href="">실종되어 있는 반려동물</a>
                         </section>
-                        <section class="PF_section4">
+                        <section className="PF_section4">
                             <a href="">분실물 의뢰페이지</a>
                         </section>
                     </div>
