@@ -1,4 +1,5 @@
 import logo from "./logo.svg";
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import "./App.css";
 import PF_Main from "./HTML/PF_Main";
 import Write from "./HTML/PF_Write";
@@ -14,9 +15,15 @@ import PF_Wanted_Upload from "./HTML/PF_Wanted_Upload";
 
 function App() {
   return (
-    <div className="App">
-      <PF_Wanted />
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/" element={<PF_Main />} />
+        <Route path="/PF_Lost" element={<PF_Lost />} />
+        <Route path="/PF_Find" element={<PF_Find />} />
+        <Route path="/PF_Animal" element={<PF_Animal />} />
+        <Route path="/PF_Wanted" element={<PF_Wanted />} />
+      </Routes>
+    </Router>
   );
 }
 

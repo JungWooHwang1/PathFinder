@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import "../CSS/PF_Main.css"
 
 const PF_Container = () => {
@@ -16,10 +17,10 @@ const PF_Container = () => {
                 <div>
                     <nav class="PF_nav">
                         <ul>
-                            <li><a href="">찾아주세요!(분실물)</a></li>
-                            <li><a href="">찾아가세요(습득물)</a></li>
-                            <li><a href="">사라졌어요!(반려동물)</a></li>
-                            <li><a href="">급해요!(현상수배)</a></li>
+                            <li><Link to = "/PF_Lost">찾아주세요!(분실물)</Link></li>
+                            <li><Link to = "/PF_Find">찾아가세요(습득물)</Link></li>
+                            <li><Link to = "/PF_Animal">사라졌어요!(반려동물)</Link></li>
+                            <li><Link to = "/PF_Wanted">급해요!(현상수배)</Link></li>
                         </ul>
                     </nav>
                     <div class="PF_main">
