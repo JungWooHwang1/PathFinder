@@ -1,5 +1,5 @@
 import logo from "./logo.svg";
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import "./App.css";
 import PF_Main from "./HTML/PF_Main";
 import Write from "./HTML/PF_Write";
@@ -12,6 +12,10 @@ import PF_Lost_Upload from "./HTML/PF_Lost_Upload";
 import PF_Animal_Upload from "./HTML/PF_Animal_Upload";
 import PF_Find_Upload from "./HTML/PF_Find_Upload";
 import PF_Wanted_Upload from "./HTML/PF_Wanted_Upload";
+import PF_Basic_Board from "./HTML/PF_Basic_Board";
+import PF_Animal_Board from "./HTML/PF_Animal_Board";
+import PF_Find_Board from "./HTML/PF_Find_Board";
+import PF_Wanted_Board from "./HTML/PF_Wanted_Board";
 
 function App() {
   return (

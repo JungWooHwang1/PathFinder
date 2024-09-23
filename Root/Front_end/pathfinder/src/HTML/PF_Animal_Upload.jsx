@@ -67,8 +67,9 @@ const PF_Animal_Upload = () => {
     const lstDate = document.getElementById("LST_DTE").value;
     const lstLctCd = document.getElementById("LST_LCT_CD").value;
     const lstSigungu = document.getElementById("LST_SIGUNGU").value;
+    const lstName = document.getElementById("LST_NAME").value;
 
-    if (!lstPlace || !lstDate || !lstLctCd || !lstSigungu) {
+    if (!lstPlace || !lstDate || !lstLctCd || !lstSigungu || !lstName) {
       alert("필수 입력 항목을 모두 채워주세요.");
       return;
     }
@@ -256,6 +257,20 @@ const PF_Animal_Upload = () => {
                       />
                     </td>
                   </tr>
+                  <tr>
+                    <th scope="row">
+                      <em>*</em>
+                      <label htmlFor="LST_NAME">실종 반려동물명</label>
+                    </th>
+                    <td>
+                      <input
+                        type="text"
+                        id="LST_NAME"
+                        name="LST_NAME"
+                        className="input"
+                      />
+                    </td>
+                  </tr>
                 </tbody>
               </table>
             </div>
@@ -308,6 +323,17 @@ const PF_Animal_Upload = () => {
                         type="text"
                         id="LST_PHONE"
                         name="LST_PHONE"
+                        className="input"
+                      />
+                    </td>
+                    <th>
+                      <label htmlFor="LST_NOTE">비고</label>
+                    </th>
+                    <td>
+                      <input
+                        type="text"
+                        id="LST_NOTE"
+                        name="LST_NOTE"
                         className="input"
                       />
                     </td>
