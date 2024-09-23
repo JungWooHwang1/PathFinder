@@ -4,6 +4,7 @@
 ## npm install react-icons --save //icon 라이브러리
 ## npm 캘린더 패키지 다운로드
 ## npm install react-calendar
+## npm install react-router-dom // react router 다중페이지 구축
 
 ## "찾아드림" 로고 제작
 ## 9월 7일 18시까지 
