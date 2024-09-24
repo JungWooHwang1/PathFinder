@@ -47,7 +47,7 @@ const SignupForm = () => {
 
             const data = await response.json();
 
-            if (response.status === 201) {
+            if (response.status === 200) {
                 console.log("성공! 이메일주소: " + data.email);
                 navigate("/login"); // 로그인 성공시 홈으로 이동합니다.
             } else if (response.status === 400) {
@@ -58,9 +58,6 @@ const SignupForm = () => {
             console.error("오류 발생:", error);
         }
     }
-
-
-
     const registerLink = () => {
         setAction('active');
     };
@@ -87,21 +84,24 @@ const SignupForm = () => {
                             <FaLock className="icon" />
                         </div>
                         <div className="input-box">
-                            <label htmlFor="confirm-password">비밀번호 확인</label>
-                            <input type="password" placeholder='cofirm-password' value={confirmPassword}
+
+                            <input type="password" placeholder='confirm-password' value={confirmPassword}
                                 onChange={(e) => setConfirmPassword(e.target.value)} />
+                            {/* <label htmlFor="confirm-password">비밀번호 확인</label> */}
                         </div>
-
-
                         <div className="remember-forgot">
                             <label><input type="checkbox" />I agree to the terms & conditions</label>
                             <a href="#">Forgt password?</a>
                         </div>
 
-                        <button type="submit">Login</button>
+                        <button id="signup-button" onClick={handleSignup}>
+                            회원가입
+                        </button>
 
                         <div className="register-link">
-                            <p>Already have an account? <a href="#" onClick={registerLink}>Login</a></p>
+                            <p>
+                                <Link to="/PF_SigninForm" onClick={registerLink}> Already have an account?</Link>
+                            </p>
                         </div>
                     </form>
                 </div>

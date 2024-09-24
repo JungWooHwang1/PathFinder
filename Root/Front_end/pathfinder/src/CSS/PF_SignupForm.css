@@ -8,13 +8,12 @@
 
 
 .wrapper {
-    position: relative;
     width: 821px;
     height: 676px;
     background: #FFF5E8;
     border-radius: 20px;
     border: 1px #E4A656 solid;
-    padding: 30px 40px;
+
     display: flex;
     align-items: center;
 }
@@ -29,7 +28,7 @@
     padding: 40px;
 }
 
-.input-box input {
+.input-box {
     width: 50%;
     height: 10px;
     background: transparent;

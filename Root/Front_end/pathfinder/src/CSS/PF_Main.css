@@ -53,14 +53,6 @@ a {
     padding: 10px
 }
 
-.App {
-    width: 100%;
-    height: 100vh;
-    background-color: var(--subcolor);
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-}
 
 .PF_header {
 
@@ -70,10 +62,8 @@ a {
     display: flex;
     height: 120px;
     z-index: 2;
-    justify-content: space-between;
+
     align-items: center;
-
-
 }
 
 .header_inner {
@@ -99,15 +89,15 @@ a {
 .search_area {
     width: 506px;
     height: 40px;
-
-
     border: 1px solid var(--maincolor);
     border-radius: 33px;
+    padding-left: 20px;
     z-index: 10;
     display: flex;
-    justify-content: center;
     align-items: center;
 }
+
+
 
 .search_txt {
     position: relative;
