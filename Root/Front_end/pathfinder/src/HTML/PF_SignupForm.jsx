@@ -4,38 +4,36 @@ import '../CSS/PF_SignupForm.css';
 import { FaUser, FaLock, FaEnvelope } from "react-icons/fa";
 
 const SignupForm = () => {
-    const [email, setEmail] = useState("");
-    const [username, setUsername] = useState("");
-    const [userNickname, setUserNickname] = useState("");
-    const [phoneNumber, setPhoneNumber] = useState("");
-    const [password, setPassword] = useState("");
-    const [confirmPassword, setConfirmPassword] = useState("");
-    const [role, setRole] = useState("");
-    const [action, setAction] = useState('');
+
+    const [username, setUsername] = useState(""); // memberId에 대응
+    const [userNickname, setUserNickname] = useState(""); // memberNickName에 대응
+    const [password, setPassword] = useState(""); // memberPw에 대응
+    const [confirmPassword, setConfirmPassword] = useState(""); // 비밀번호 확인용
 
     const navigate = useNavigate();
 
-    //비밀번호 체크
+    // 비밀번호 체크
     const handleSignup = async (event) => {
         event.preventDefault();
 
-        if (password != confirmPassword) {
+        if (password !== confirmPassword) {
+            console.error("비밀번호가 일치하지 않습니다.");
             alert("비밀번호가 일치하지 않습니다.");
             return;
         }
 
+        // 사용자의 입력을 기반으로 payload를 구성
         const payload = {
-            email: email,
-            password: password,
-            nickname: userNickname,
-            name: username,
-            phone: phoneNumber,
-            role: role,
+            memberId: username,      // 아이디는 username으로 받음
+            memberPw: password,      // 비밀번호는 password로 받음
+            memberNickName: userNickname, // 닉네임은 userNickname으로 받음
         };
+
+        console.log("회원가입 요청 보냄:", payload);
 
         try {
             const response = await fetch(
-                "http://172.16.4.43:8085/",
+                "http://172.16.4.43:8085/members",
                 {
                     method: "POST",
                     headers: {
@@ -47,24 +45,25 @@ const SignupForm = () => {
 
             const data = await response.json();
 
-            if (response.status === 200) {
-                console.log("성공! 이메일주소: " + data.email);
-                navigate("/login"); // 로그인 성공시 홈으로 이동합니다.
-            } else if (response.status === 400) {
+            console.log("응답 데이터:", data);  // 서버에서 반환된 데이터를 확인
 
-                alert(`회원가입 실패: ${data.email}`);
+            if (response.status === 200) {
+                console.log("회원가입 성공! 아이디: " + data.memberId);
+                alert("회원가입에 성공했습니다! 로그인 페이지로 이동합니다.");
+                navigate("/login"); // 회원가입 성공시 로그인 페이지로 이동
+            } else {
+                console.error("회원가입 실패, 상태 코드:", response.status);
+                alert(`회원가입 실패: ${data.memberId}`);
             }
         } catch (error) {
-            console.error("오류 발생:", error);
+            console.error("오류 발생:", error);  // 네트워크 오류나 서버 오류 확인
+            alert("오류가 발생했습니다. 다시 시도해주세요.");
         }
-    }
-    const registerLink = () => {
-        setAction('active');
     };
 
     return (
         <div className="container">
-            <div className={`wrapper${action}`}>
+            <div className="wrapper">
                 <div className="form-box register">
                     <form className="signup-form" onSubmit={handleSignup}>
                         <h1>Register</h1>
@@ -74,41 +73,38 @@ const SignupForm = () => {
                             <FaUser className="icon" />
                         </div>
                         <div className="input-box">
-                            <input type="email" placeholder='Email' value={email}
-                                onChange={(e) => setEmail(e.target.value)} required />
-                            <FaEnvelope className="icon" />
+                            <input type="text" placeholder='Nickname' value={userNickname}
+                                onChange={(e) => setUserNickname(e.target.value)} required />
+                            <FaUser className="icon" />
                         </div>
                         <div className="input-box">
-                            <input type="password" placeholder='password' value={password}
+                            <input type="password" placeholder='Password' value={password}
                                 onChange={(e) => setPassword(e.target.value)} required />
                             <FaLock className="icon" />
                         </div>
                         <div className="input-box">
-
-                            <input type="password" placeholder='confirm-password' value={confirmPassword}
+                            <input type="password" placeholder='Confirm Password' value={confirmPassword}
                                 onChange={(e) => setConfirmPassword(e.target.value)} />
-                            {/* <label htmlFor="confirm-password">비밀번호 확인</label> */}
                         </div>
                         <div className="remember-forgot">
                             <label><input type="checkbox" />I agree to the terms & conditions</label>
-                            <a href="#">Forgt password?</a>
+                            <a href="#">Forgot password?</a>
                         </div>
 
-                        <button id="signup-button" onClick={handleSignup}>
+                        <button id="signup-button" type="submit">
                             회원가입
                         </button>
 
                         <div className="register-link">
                             <p>
-                                <Link to="/PF_SigninForm" onClick={registerLink}> Already have an account?</Link>
+                                <Link to="/PF_SigninForm"> Already have an account?</Link>
                             </p>
                         </div>
                     </form>
                 </div>
             </div >
         </div>
-
     );
 };
 
-export default SignupForm
+export default SignupForm;

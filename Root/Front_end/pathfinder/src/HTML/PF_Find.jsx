@@ -68,9 +68,9 @@ const PF_Lost = () => {
 
   return (
     <div className="body">
-      <PF_Header/>
+      <PF_Header />
       <div className="PF_container">
-      <PF_Nav />
+        <PF_Nav />
         <div id="contents">
           <h2>습득물 검색</h2>
           {/* 검색 폼 */}
