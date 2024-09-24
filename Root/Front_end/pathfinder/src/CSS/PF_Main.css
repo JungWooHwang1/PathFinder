@@ -5,7 +5,6 @@
 
 input {
     border-width: 0;
-
 }
 
 input:focus {
@@ -95,7 +94,6 @@ a {
 .main_logo {
 
     border: 1px solid red;
-
 }
 
 .search_area {

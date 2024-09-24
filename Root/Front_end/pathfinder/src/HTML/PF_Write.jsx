@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import "../CSS/PF_Main.css";
-import "../CSS/Write.css";
+import "../CSS/PF_Write.css";
 
 class Write extends Component {
   state = {

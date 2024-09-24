@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import Calendar from "react-calendar";
+import PF_Nav from "./common/PF_Nav"
+import PF_Header from "./common/PF_Header"
 import "react-calendar/dist/Calendar.css"; // 스타일을 import
 import "../CSS/PF_Main.css";
-import "../CSS/Write.css";
+import "../CSS/PF_Write.css";
 
 const PF_Lost = () => {
   // 상태 관리
@@ -66,37 +68,9 @@ const PF_Lost = () => {
 
   return (
     <div className="body">
-      <header className="PF_header">
-        <img className="main_logo" src="" alt="main_logo" />
-        <div className="search_area">
-          <form className="search-box">
-            <input
-              className="search_txt"
-              type="search"
-              placeholder="검색어를 입력해 주세요."
-              autoComplete="off"
-            />
-          </form>
-        </div>
-      </header>
+      <PF_Header/>
       <div className="PF_container">
-        <nav className="PF_nav">
-          <ul>
-            <li>
-              <a href="#">찾아주세요!(습득물)</a>
-            </li>
-            <li>
-              <a href="#">찾아가세요(습득물)</a>
-            </li>
-            <li>
-              <a href="#">사라졌어요!(반려동물)</a>
-            </li>
-            <li>
-              <a href="#">급해요!(현상수배)</a>
-            </li>
-          </ul>
-        </nav>
-
+      <PF_Nav />
         <div id="contents">
           <h2>습득물 검색</h2>
           {/* 검색 폼 */}
@@ -365,7 +339,15 @@ const PF_Lost = () => {
               <tbody>{/* 검색 결과를 여기에 표시 */}</tbody>
             </table>
           </div>
-
+          <nav id="sub_lnb">
+            <ul>
+              <li>
+                <a href="" class="subMenu_select">
+                  습득물 게시물 등록
+                </a>
+              </li>
+            </ul>
+          </nav>
           {/* 페이징 가로 정렬 */}
           <div
             id="paging"
