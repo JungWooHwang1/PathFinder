@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Calendar from "react-calendar";
-import PF_Nav from "./common/PF_Nav"
-import PF_Header from "./common/PF_Header"
+import PF_Nav from "./common/PF_Nav";
+import PF_Header from "./common/PF_Header";
 import "../CSS/PF_Main.css";
 import "../CSS/PF_Write.css";
 import "react-calendar/dist/Calendar.css"; // 스타일을 import
@@ -60,9 +60,9 @@ const PF_Wanted = () => {
 
   return (
     <div className="body">
-      <PF_Header/>
+      <PF_Header />
       <div className="PF_container">
-        <PF_Nav/>
+        <PF_Nav />
         <div id="contents">
           <h2>수배물 검색</h2>
           {/* 검색 폼 */}
@@ -75,30 +75,47 @@ const PF_Wanted = () => {
                 {/* 왼쪽 3개 */}
                 <div style={{ flex: 1, paddingRight: "10px" }}>
                   {/* 분류명 */}
-                  <fieldset className="Wanted_inputbox">
-                    <legend>수배물 종류 입력</legend>
-                    <label htmlFor="PRDT_CL_NM">분류명</label>
-                    <input
-                      type="text"
+                  <fieldset className="lost_inputbox">
+                    <legend>분류명 입력</legend>
+                    <label htmlFor="fdLctCd">분류명</label>
+                    <select
                       name="PRDT_CL_NM"
                       id="PRDT_CL_NM"
                       value={formData.PRDT_CL_NM}
                       readOnly
                       title="분류명 입력"
                       onChange={handleChange}
-                    />
-                    <button
-                      type="button"
-                      className="btn_02"
-                      title="분류명 선택"
-                      onClick={() =>
-                        alert("분류명 선택 레이어 새창을 여는 기능입니다.")
-                      }
+                      className="search"
+                      style={{ display: "inline-block" }}
                     >
-                      찾기
-                    </button>
+                      <option value="">선택</option>
+                      <option value="LCA000">가방</option>
+                      <option value="LCH000">귀금속</option>
+                      <option value="LCI000">도서용품</option>
+                      <option value="LCJ000">서류</option>
+                      <option value="LCK000">산업용품</option>
+                      <option value="LCQ000">소핑백</option>
+                      <option value="LCR000">스포츠용품</option>
+                      <option value="LCS000">악기</option>
+                      <option value="LCT000">유가증권</option>
+                      <option value="LCU000">의류</option>
+                      <option value="LCV000">자동차</option>
+                      <option value="LCL000">전자기기</option>
+                      <option value="LCM000">지갑</option>
+                      <option value="LCN000">증명서</option>
+                      <option value="LCO000">컴퓨터</option>
+                      <option value="LCP000">카드</option>
+                      <option value="LCW000">현금</option>
+                      <option value="LCF000">휴대폰</option>
+                      <option value="LCE000">기타</option>
+                      <option value="LCE000">유류품</option>
+                      <option value="DOG000">개</option>
+                      <option value="CAT000">고양이</option>
+                      <option value="BIRD000">새</option>
+                      <option value="REPTILE000">파충류</option>
+                      <option value="SPE000">특수동물</option>
+                    </select>
                   </fieldset>
-
                   {/* 기간 */}
                   <fieldset className="Wanted_period">
                     <legend>수배기간 입력</legend>
@@ -153,7 +170,6 @@ const PF_Wanted = () => {
                       <Calendar onChange={handleDateChange} value={date} />
                     </div>
                   )}
-
                   {/* 수배물명 */}
                   <fieldset className="Wanted_inputbox">
                     <legend>수배물명 입력</legend>
