@@ -64,7 +64,7 @@ const SignupForm = () => {
     return (
         <div className="container">
             <div className="wrapper">
-                <div className="form-box register">
+                <div className="form-box member">
                     <form className="signup-form" onSubmit={handleSignup}>
                         <h1>Register</h1>
                         <div className="input-box">
@@ -86,13 +86,12 @@ const SignupForm = () => {
                             <input type="password" placeholder='Confirm Password' value={confirmPassword}
                                 onChange={(e) => setConfirmPassword(e.target.value)} />
                         </div>
-                        <div className="remember-forgot">
-                            <label><input type="checkbox" />I agree to the terms & conditions</label>
-                            <a href="#">Forgot password?</a>
-                        </div>
+
+                        <label><input type="checkbox" />I agree to the terms & conditions</label>
+
 
                         <button id="signup-button" type="submit">
-                            회원가입
+                            create account
                         </button>
 
                         <div className="register-link">
@@ -103,7 +102,7 @@ const SignupForm = () => {
                     </form>
                 </div>
             </div >
-        </div>
+        </div >
     );
 };
 

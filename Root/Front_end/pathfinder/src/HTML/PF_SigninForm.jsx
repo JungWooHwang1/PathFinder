@@ -62,54 +62,56 @@ const LoginForm = () => {
   return (
     <div className="container">
       <div className="wrapper">
-        <form onSubmit={handleLogin}>
-          <h1>Login</h1>
-          <div className="input-box">
-            <input
-              type="text"
-              name="username"
-              placeholder="Username"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-              required
-            />
-            <FaUser className="icon" />
-          </div>
-          <div className="input-box">
-            <input
-              type="password"
-              name="password"
-              placeholder="Password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-            />
-            <FaLock className="icon" />
-            {loginCheck && (
-              <label style={{ color: "red" }}>
-                아이디 혹은 비밀번호가 틀렸습니다.
+        <div className="form-box member">
+          <form onSubmit={handleLogin}>
+            <h1>Login</h1>
+            <div className="input-box">
+              <input
+                type="text"
+                name="username"
+                placeholder="Username"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                required
+              />
+              <FaUser className="icon" />
+            </div>
+            <div className="input-box">
+              <input
+                type="password"
+                name="password"
+                placeholder="Password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+              />
+              <FaLock className="icon" />
+              {loginCheck && (
+                <label style={{ color: "red" }}>
+                  아이디 혹은 비밀번호가 틀렸습니다.
+                </label>
+              )}
+            </div>
+
+            <div className="remember-forgot">
+              <label>
+                <input type="checkbox" />
+                Remember me
               </label>
-            )}
-          </div>
+              <a href="#">Forgot password?</a>
+            </div>
 
-          <div className="remember-forgot">
-            <label>
-              <input type="checkbox" />
-              Remember me
-            </label>
-            <a href="#">Forgot password?</a>
-          </div>
+            <button type="submit" disabled={loading}>
+              {loading ? "Logging in..." : "Login"}
+            </button>
 
-          <button type="submit" disabled={loading}>
-            {loading ? "Logging in..." : "Login"}
-          </button>
-
-          <div className="register-link">
-            <p>
-              <Link to="/PF_SignupForm">아직 회원이 아니신가요?</Link>
-            </p>
-          </div>
-        </form>
+            <div className="register-link">
+              <p>
+                <Link to="/PF_SignupForm">아직 회원이 아니신가요?</Link>
+              </p>
+            </div>
+          </form>
+        </div>
       </div>
     </div>
   );

@@ -3,7 +3,8 @@ import { Link, useNavigate } from "react-router-dom";
 
 const PF_Header = () => {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
-    const [logoutMessage, setLogoutMessage] = useState(""); // 로그아웃 메시지 상태
+    const [searchTerm, setSearchTerm] = useState("");
+    // const [logoutMessage, setLogoutMessage] = useState(""); // 로그아웃 메시지 상태
     const navigate = useNavigate();
 
     // 로그아웃 핸들러
@@ -28,13 +29,23 @@ const PF_Header = () => {
         }
     }, []);
 
+    const handleSearch = (event) => {
+        event.preventDefault();
+        if (searchTerm.trim()) {
+            // 검색어가 비어 있지 않다면 검색 결과 페이지로 이동
+            navigate(`/search?query=${encodeURIComponent(searchTerm)}`);
+        } else {
+            alert("검색어를 입력해주세요.");
+        }
+    }
+
     return (
         <header className="PF_header">
             <Link to="/">
                 <img src="" alt="main logo" />
             </Link>
             <div className="search_area">
-                <form className="serch-box" action="" method="get">
+                <form className="serch-box" onSubmit={handleSearch} method="get">
                     <input
                         className="search_txt"
                         type="search"
@@ -43,14 +54,16 @@ const PF_Header = () => {
                         maxLength="255"
                         autoComplete="off"
                         data-atcmp-element
+                        onChange={(e) => setSearchTerm(e.target.value)}
                     />
                 </form>
             </div>
-            <div className="member">
+            <div className="PF_member">
                 <div>
                     {isLoggedIn ? (
                         // 로그인 상태일 때는 로그아웃 버튼을 표시
                         <button onClick={handleLogout}>로그아웃</button>
+
                     ) : (
                         // 로그인 상태가 아닐 때는 로그인 버튼을 표시
                         <Link to="/PF_SigninForm">
@@ -59,6 +72,7 @@ const PF_Header = () => {
                     )}
                 </div>
                 <Link to="/PF_SignupForm">회원가입</Link>
+                <Link to="">회원수정</Link>
             </div>
             {/* {logoutMessage && <div className="logout-message">{logoutMessage}</div>} 로그아웃 메시지 표시 */}
         </header>
