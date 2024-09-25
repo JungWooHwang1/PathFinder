@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import "../CSS/PF_Main.css";
 import "../CSS/PF_Write.css";
+import PF_Header from "./common/PF_Header";
+import PF_Nav from "./common/PF_Nav";
 
 const PF_Lost_Upload = () => {
   const [showMap, setShowMap] = useState(false);
@@ -68,8 +70,16 @@ const PF_Lost_Upload = () => {
     const lstLctCd = document.getElementById("LST_LCT_CD").value;
     const lstSigungu = document.getElementById("LST_SIGUNGU").value;
     const lstName = document.getElementById("LST_NAME").value;
+    const lstCl = document.getElementById("PRDT_CL_NM").value;
 
-    if (!lstPlace || !lstDate || !lstLctCd || !lstSigungu || !lstName) {
+    if (
+      !lstPlace ||
+      !lstDate ||
+      !lstLctCd ||
+      !lstSigungu ||
+      !lstName ||
+      !lstCl
+    ) {
       alert("필수 입력 항목을 모두 채워주세요.");
       return;
     }
@@ -79,36 +89,9 @@ const PF_Lost_Upload = () => {
 
   return (
     <div className="body">
-      <header className="PF_header">
-        <img className="main_logo" src="" alt="main_logo" />
-        <div className="search_area">
-          <form className="search-box">
-            <input
-              className="search_txt"
-              type="search"
-              placeholder="검색어를 입력해 주세요."
-              autoComplete="off"
-            />
-          </form>
-        </div>
-      </header>
+      <PF_Header />
       <div className="PF_container">
-        <nav className="PF_nav">
-          <ul>
-            <li>
-              <a href="#">찾아주세요!(분실물)</a>
-            </li>
-            <li>
-              <a href="#">찾아가세요(습득물)</a>
-            </li>
-            <li>
-              <a href="#">사라졌어요!(반려동물)</a>
-            </li>
-            <li>
-              <a href="#">급해요!(현상수배)</a>
-            </li>
-          </ul>
-        </nav>
+        <PF_Nav />
         <div id="content" tabIndex="-1">
           <div className="contents_common">
             <h2>분실물 신고</h2>
@@ -139,6 +122,39 @@ const PF_Lost_Upload = () => {
               <table className="lost_insert">
                 <tbody>
                   <tr>
+                    <th scope="row">
+                      <em>*</em>
+                      <label htmlFor="PRDT_CL_NM">분류명</label>
+                    </th>
+                    <td>
+                      <select
+                        id="PRDT_CL_NM"
+                        name="PRDT_CL_NM"
+                        className="choice"
+                      >
+                        <option value="">선택</option>
+                        <option value="LCA000">가방</option>
+                        <option value="LCH000">귀금속</option>
+                        <option value="LCI000">도서용품</option>
+                        <option value="LCJ000">서류</option>
+                        <option value="LCK000">산업용품</option>
+                        <option value="LCQ000">소핑백</option>
+                        <option value="LCR000">스포츠용품</option>
+                        <option value="LCS000">악기</option>
+                        <option value="LCT000">유가증권</option>
+                        <option value="LCU000">의류</option>
+                        <option value="LCV000">자동차</option>
+                        <option value="LCL000">전자기기</option>
+                        <option value="LCM000">지갑</option>
+                        <option value="LCN000">증명서</option>
+                        <option value="LCO000">컴퓨터</option>
+                        <option value="LCP000">카드</option>
+                        <option value="LCW000">현금</option>
+                        <option value="LCF000">휴대폰</option>
+                        <option value="LCE000">기타</option>
+                        <option value="LCE000">유류품</option>
+                      </select>
+                    </td>
                     <th scope="row">
                       <em>*</em>
                       <label htmlFor="LST_LCT_CD">분실지역</label>

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Calendar from "react-calendar";
-import PF_Nav from "./common/PF_Nav"
-import PF_Header from "./common/PF_Header"
+import PF_Nav from "./common/PF_Nav";
+import PF_Header from "./common/PF_Header";
 import "react-calendar/dist/Calendar.css"; // 스타일을 import
 import "../CSS/PF_Main.css";
 import "../CSS/PF_Write.css";
@@ -91,39 +91,40 @@ const PF_Lost = () => {
                 />
                 <div className="left-panel">
                   <fieldset className="lost_inputbox">
-                    <legend>습득물 종류 입력</legend>
-                    <label htmlFor="PRDT_CL_NM">분류명</label>
-                    <input
-                      type="text"
+                    <legend>분류명 입력</legend>
+                    <label htmlFor="fdLctCd">분류명</label>
+                    <select
                       name="PRDT_CL_NM"
                       id="PRDT_CL_NM"
                       value={formData.PRDT_CL_NM}
                       readOnly
                       title="분류명 입력"
                       onChange={handleChange}
-                    />
-                    <button
-                      type="button"
-                      className="btn_02"
-                      title="분류명 선택"
-                      onClick={() =>
-                        alert("분류명 선택 레이어 새창을 여는 기능입니다.")
-                      }
+                      className="search"
+                      style={{ display: "inline-block" }}
                     >
-                      찾기
-                    </button>
-                    <input
-                      type="hidden"
-                      name="PRDT_CL_CD01"
-                      id="prdtClCd01"
-                      value=""
-                    />
-                    <input
-                      type="hidden"
-                      name="PRDT_CL_CD02"
-                      id="prdtClCd02"
-                      value=""
-                    />
+                      <option value="">선택</option>
+                      <option value="LCA000">가방</option>
+                      <option value="LCH000">귀금속</option>
+                      <option value="LCI000">도서용품</option>
+                      <option value="LCJ000">서류</option>
+                      <option value="LCK000">산업용품</option>
+                      <option value="LCQ000">소핑백</option>
+                      <option value="LCR000">스포츠용품</option>
+                      <option value="LCS000">악기</option>
+                      <option value="LCT000">유가증권</option>
+                      <option value="LCU000">의류</option>
+                      <option value="LCV000">자동차</option>
+                      <option value="LCL000">전자기기</option>
+                      <option value="LCM000">지갑</option>
+                      <option value="LCN000">증명서</option>
+                      <option value="LCO000">컴퓨터</option>
+                      <option value="LCP000">카드</option>
+                      <option value="LCW000">현금</option>
+                      <option value="LCF000">휴대폰</option>
+                      <option value="LCE000">기타</option>
+                      <option value="LCE000">유류품</option>
+                    </select>
                   </fieldset>
 
                   <fieldset className="lost_period">
@@ -173,7 +174,6 @@ const PF_Lost = () => {
                       </button>
                     </div>
                   </fieldset>
-
                   <fieldset className="lost_inputbox">
                     <legend>습득물명 입력</legend>
                     <label htmlFor="prdtNm">습득물명</label>
@@ -186,7 +186,6 @@ const PF_Lost = () => {
                       onChange={handleChange}
                     />
                   </fieldset>
-
                   <fieldset className="lost_inputbox">
                     <legend>보관장소 입력</legend>
                     <label htmlFor="depPlace">보관장소</label>
@@ -199,7 +198,6 @@ const PF_Lost = () => {
                       onChange={handleChange}
                     />
                   </fieldset>
-
                   <fieldset className="lost_inputbox">
                     <legend>접수구분 입력</legend>
                     <label htmlFor="site">접수구분</label>
@@ -215,7 +213,6 @@ const PF_Lost = () => {
                       <option value="V">경찰이외의기관(지하철,공항등)</option>
                     </select>
                   </fieldset>
-
                   <fieldset className="lost_inputbox">
                     <legend>습득장소 입력</legend>
                     <label htmlFor="placeSeCd">습득장소</label>

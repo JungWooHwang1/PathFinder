@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Calendar from "react-calendar";
-import PF_Nav from "./common/PF_Nav"
-import PF_Header from "./common/PF_Header"
+import PF_Nav from "./common/PF_Nav";
+import PF_Header from "./common/PF_Header";
 
 import "../CSS/PF_Main.css";
 import "../CSS/PF_Write.css";
@@ -61,9 +61,8 @@ const PF_Lost = () => {
 
   return (
     <div className="body">
-      <PF_Header/>
+      <PF_Header />
       <div className="PF_container">
-        
         <PF_Nav />
 
         <div id="contents">
@@ -79,29 +78,41 @@ const PF_Lost = () => {
                 <div style={{ flex: 1, paddingRight: "10px" }}>
                   {/* 분류명 */}
                   <fieldset className="lost_inputbox">
-                    <legend>분실물 종류 입력</legend>
-                    <label htmlFor="PRDT_CL_NM">분류명</label>
-                    <input
-                      type="text"
+                    <legend>분류명 입력</legend>
+                    <label htmlFor="fdLctCd">분류명</label>
+                    <select
                       name="PRDT_CL_NM"
                       id="PRDT_CL_NM"
                       value={formData.PRDT_CL_NM}
                       readOnly
                       title="분류명 입력"
                       onChange={handleChange}
-                    />
-                    <button
-                      type="button"
-                      className="btn_02"
-                      title="분류명 선택"
-                      onClick={() =>
-                        alert("분류명 선택 레이어 새창을 여는 기능입니다.")
-                      }
+                      className="search"
+                      style={{ display: "inline-block" }}
                     >
-                      찾기
-                    </button>
+                      <option value="">선택</option>
+                      <option value="LCA000">가방</option>
+                      <option value="LCH000">귀금속</option>
+                      <option value="LCI000">도서용품</option>
+                      <option value="LCJ000">서류</option>
+                      <option value="LCK000">산업용품</option>
+                      <option value="LCQ000">소핑백</option>
+                      <option value="LCR000">스포츠용품</option>
+                      <option value="LCS000">악기</option>
+                      <option value="LCT000">유가증권</option>
+                      <option value="LCU000">의류</option>
+                      <option value="LCV000">자동차</option>
+                      <option value="LCL000">전자기기</option>
+                      <option value="LCM000">지갑</option>
+                      <option value="LCN000">증명서</option>
+                      <option value="LCO000">컴퓨터</option>
+                      <option value="LCP000">카드</option>
+                      <option value="LCW000">현금</option>
+                      <option value="LCF000">휴대폰</option>
+                      <option value="LCE000">기타</option>
+                      <option value="LCE000">유류품</option>
+                    </select>
                   </fieldset>
-
                   {/* 기간 */}
                   <fieldset className="lost_period">
                     <legend>분실기간 입력</legend>
@@ -156,7 +167,6 @@ const PF_Lost = () => {
                       <Calendar onChange={handleDateChange} value={date} />
                     </div>
                   )}
-
                   {/* 분실물명 */}
                   <fieldset className="lost_inputbox">
                     <legend>분실물명 입력</legend>
@@ -177,30 +187,72 @@ const PF_Lost = () => {
                   {/* 분실지역 */}
                   <fieldset className="lost_inputbox">
                     <legend>분실지역 입력</legend>
-                    <label htmlFor="lstLctCd">분실지역</label>
+                    <label htmlFor="fdLctCd">분실지역</label>
                     <select
-                      name="LST_LCT_CD"
-                      id="lstLctCd"
-                      value={formData.LST_LCT_CD}
+                      name="FD_LCT_CD"
+                      id="fdLctCd"
+                      className="search_text1"
+                      title="분실지역 선택"
+                      value={formData.FD_LCT_CD}
                       onChange={handleChange}
+                      style={{ display: "inline-block" }}
                     >
                       <option value="">선택</option>
-                      {/* 지역 목록을 여기에 추가 */}
+                      <option value="LCA000">서울특별시</option>
+                      <option value="LCH000">강원도</option>
+                      <option value="LCI000">경기도</option>
+                      <option value="LCJ000">경상남도</option>
+                      <option value="LCK000">경상북도</option>
+                      <option value="LCQ000">광주광역시</option>
+                      <option value="LCR000">대구광역시</option>
+                      <option value="LCS000">대전광역시</option>
+                      <option value="LCT000">부산광역시</option>
+                      <option value="LCU000">울산광역시</option>
+                      <option value="LCV000">인천광역시</option>
+                      <option value="LCL000">전라남도</option>
+                      <option value="LCM000">전라북도</option>
+                      <option value="LCN000">충청남도</option>
+                      <option value="LCO000">충청북도</option>
+                      <option value="LCP000">제주특별자치도</option>
+                      <option value="LCW000">세종특별자치시</option>
+                      <option value="LCF000">해외</option>
+                      <option value="LCE000">기타</option>
                     </select>
                   </fieldset>
 
                   {/* 분실장소 */}
                   <fieldset className="lost_inputbox">
                     <legend>분실장소 입력</legend>
-                    <label htmlFor="LST_PLACE">분실장소</label>
-                    <input
-                      type="text"
-                      id="LST_PLACE"
-                      name="LST_PLACE"
-                      className="search_text korean"
-                      value={formData.LST_PLACE}
+                    <label htmlFor="placeSeCd">분실장소</label>
+                    <select
+                      name="PLACE_SE_CD"
+                      id="placeSeCd"
+                      title="분실장소 선택"
+                      value={formData.PLACE_SE_CD}
                       onChange={handleChange}
-                    />
+                      style={{ display: "inline-block" }}
+                    >
+                      <option value="">선택</option>
+                      {/* 추가 옵션들 */}
+                      <option value="LL1011">우체국(통)</option>
+                      <option value="LL1015">노상</option>
+                      <option value="LL1005">기차</option>
+                      <option value="LL1003">지하철</option>
+                      <option value="LL1012">백화점/매장</option>
+                      <option value="LL1002">택시</option>
+                      <option value="LL1014">음식점(업소포함)</option>
+                      <option value="LL1008">공공기관</option>
+                      <option value="LL1001">버스</option>
+                      <option value="LL1016">주택</option>
+                      <option value="LL1004">공항</option>
+                      <option value="LL1013">상점</option>
+                      <option value="LL1020">영화관</option>
+                      <option value="LL1009">놀이공원</option>
+                      <option value="LL1007">스포츠시설</option>
+                      <option value="LL1006">회사</option>
+                      <option value="LL1017">기타</option>
+                      <option value="LL1018">불상</option>
+                    </select>
                   </fieldset>
                 </div>
               </div>

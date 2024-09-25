@@ -1,40 +1,15 @@
 import React from "react";
 import "../CSS/PF_Main.css";
 import "../CSS/PF_Write.css";
+import PF_Header from "../HTML/common/PF_Header";
+import PF_Nav from "../HTML/common/PF_Nav";
 
 const PF_Wanted_Board = () => {
   return (
     <div className="body">
-      <header className="PF_header">
-        <img className="main_logo" src="" alt="main_logo" />
-        <div className="search_area">
-          <form className="search-box">
-            <input
-              className="search_txt"
-              type="search"
-              placeholder="검색어를 입력해 주세요."
-              autoComplete="off"
-            />
-          </form>
-        </div>
-      </header>
+      <PF_Header />
       <div className="PF_container">
-        <nav className="PF_nav">
-          <ul>
-            <li>
-              <a href="#">찾아주세요!(분실물)</a>
-            </li>
-            <li>
-              <a href="#">찾아가세요(습득물)</a>
-            </li>
-            <li>
-              <a href="#">사라졌어요!(반려동물)</a>
-            </li>
-            <li>
-              <a href="#">급해요!(현상수배)</a>
-            </li>
-          </ul>
-        </nav>
+        <PF_Nav />
         <div className="findDetail">
           <hr className="top_line" />
 
@@ -59,6 +34,10 @@ const PF_Wanted_Board = () => {
             {/* 정보 영역 */}
             <div className="find_info">
               <ul>
+                <li>
+                  <p className="lost_cl01">분류명 :</p>
+                  <p className="lost_cl02">0</p>
+                </li>
                 <li>
                   <p className="lost_name01">물품명 :</p>
                   <p className="lost_name02">1</p>

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import PF_Nav from "./common/PF_Nav"
-import PF_Header from "./common/PF_Header"
+import PF_Nav from "./common/PF_Nav";
+import PF_Header from "./common/PF_Header";
 import Calendar from "react-calendar";
 import "../CSS/PF_Main.css";
 import "../CSS/PF_Write.css";
@@ -60,7 +60,7 @@ const PF_Animal = () => {
 
   return (
     <div className="body">
-      <PF_Header/>
+      <PF_Header />
       <div className="PF_container">
         <PF_Nav />
         <div id="contents">
@@ -74,28 +74,25 @@ const PF_Animal = () => {
                   {/* 분류명 */}
                   <fieldset className="lost_inputbox">
                     <legend>반려동물 종류 입력</legend>
-                    <label htmlFor="PRDT_CL_NM">분류명</label>
-                    <input
-                      type="text"
+                    <label htmlFor="fdLctCd">분류명</label>
+                    <select
                       name="PRDT_CL_NM"
                       id="PRDT_CL_NM"
                       value={formData.PRDT_CL_NM}
                       readOnly
                       title="분류명 입력"
                       onChange={handleChange}
-                    />
-                    <button
-                      type="button"
-                      className="btn_02"
-                      title="분류명 선택"
-                      onClick={() =>
-                        alert("분류명 선택 레이어 새창을 여는 기능입니다.")
-                      }
+                      className="search"
+                      style={{ display: "inline-block" }}
                     >
-                      찾기
-                    </button>
+                      <option value="">선택</option>
+                      <option value="DOG000">개</option>
+                      <option value="CAT000">고양이</option>
+                      <option value="BIRD000">새</option>
+                      <option value="REPTILE000">파충류</option>
+                      <option value="SPE000">특수동물</option>
+                    </select>
                   </fieldset>
-
                   {/* 기간 */}
                   <fieldset className="lost_period">
                     <legend>실종기간 입력</legend>
