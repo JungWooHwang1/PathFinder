@@ -274,7 +274,7 @@ const PF_Wanted = () => {
           <nav id="sub_lnb">
             <ul>
               <li>
-                <a href="" class="subMenu_select">
+                <a href="PF_Wanted_Upload" class="subMenu_select">
                   현상수배 게시물 등록
                 </a>
               </li>

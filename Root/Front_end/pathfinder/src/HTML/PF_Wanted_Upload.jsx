@@ -159,6 +159,9 @@ const PF_Wanted_Upload = () => {
                         <option value="SPE000">특수동물</option>
                       </select>
                     </td>
+                    <div className="App">
+                      <div id="map" className="map" />
+                    </div>
                     <th scope="row">
                       <em>*</em>
                       <label htmlFor="LST_LCT_CD">수배지역</label>
@@ -172,10 +175,7 @@ const PF_Wanted_Upload = () => {
                       >
                         지도입력
                       </button> */}
-                      <div className="App">
-                        <div id="map" className="map" />
-                      </div>
-                      ;
+
                       <select
                         name="LST_LCT_CD"
                         id="LST_LCT_CD"
@@ -209,9 +209,6 @@ const PF_Wanted_Upload = () => {
                         className="input"
                         maxLength="10"
                       />
-                      <span className="f_red">
-                        <b>시군구 ex) 서대문구, 상주시, 철원군</b>
-                      </span>
                     </td>
                   </tr>
                   <tr>
@@ -322,29 +319,7 @@ const PF_Wanted_Upload = () => {
                 <tbody>
                   <tr>
                     <th>
-                      <label htmlFor="LST_NAME">이름</label>
-                    </th>
-                    <td>
-                      <input
-                        type="text"
-                        id="LST_NAME"
-                        name="LST_NAME"
-                        className="input"
-                      />
-                    </td>
-                    <th>
-                      <label htmlFor="LST_BREED">종류</label>
-                    </th>
-                    <td>
-                      <input
-                        type="text"
-                        id="LST_BREED"
-                        name="LST_BREED"
-                        className="input"
-                      />
-                    </td>
-                    <th>
-                      <label htmlFor="LST_COLOR">색상</label>
+                      <label htmlFor="LST_COLOR">물품 색상</label>
                     </th>
                     <td>
                       <input
@@ -357,7 +332,7 @@ const PF_Wanted_Upload = () => {
                   </tr>
                   <tr>
                     <th>
-                      <label htmlFor="LST_FEATURE">특징</label>
+                      <label htmlFor="LST_FEATURE">물품 특징</label>
                     </th>
                     <td>
                       <input
@@ -368,7 +343,7 @@ const PF_Wanted_Upload = () => {
                       />
                     </td>
                     <th>
-                      <label htmlFor="LST_PHONE">연락처</label>
+                      <label htmlFor="LST_PHONE">신고자 연락처</label>
                     </th>
                     <td>
                       <input

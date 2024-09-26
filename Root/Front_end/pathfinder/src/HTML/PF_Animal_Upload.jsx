@@ -281,7 +281,7 @@ const PF_Animal_Upload = () => {
                 <tbody>
                   <tr>
                     <th>
-                      <label htmlFor="LST_BREED">종류</label>
+                      <label htmlFor="LST_BREED">반려동물명</label>
                     </th>
                     <td>
                       <input
@@ -292,7 +292,7 @@ const PF_Animal_Upload = () => {
                       />
                     </td>
                     <th>
-                      <label htmlFor="LST_COLOR">색상</label>
+                      <label htmlFor="LST_COLOR">반려동물 색상</label>
                     </th>
                     <td>
                       <input
@@ -305,7 +305,7 @@ const PF_Animal_Upload = () => {
                   </tr>
                   <tr>
                     <th>
-                      <label htmlFor="LST_FEATURE">특징</label>
+                      <label htmlFor="LST_FEATURE">반려동물 특징</label>
                     </th>
                     <td>
                       <input
@@ -316,7 +316,7 @@ const PF_Animal_Upload = () => {
                       />
                     </td>
                     <th>
-                      <label htmlFor="LST_PHONE">연락처</label>
+                      <label htmlFor="LST_PHONE">신고자 연락처</label>
                     </th>
                     <td>
                       <input

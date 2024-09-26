@@ -339,7 +339,7 @@ const PF_Lost = () => {
           <nav id="sub_lnb">
             <ul>
               <li>
-                <a href="" class="subMenu_select">
+                <a href="PF_Find_Upload" class="subMenu_select">
                   습득물 게시물 등록
                 </a>
               </li>

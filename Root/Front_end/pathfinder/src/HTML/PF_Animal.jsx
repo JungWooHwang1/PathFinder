@@ -234,7 +234,7 @@ const PF_Animal = () => {
           <nav id="sub_lnb">
             <ul>
               <li>
-                <a href="" class="subMenu_select">
+                <a href="PF_Animal_Upload" class="subMenu_select">
                   실종 반려동물 게시물 등록
                 </a>
               </li>

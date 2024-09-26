@@ -293,7 +293,7 @@ const PF_Lost = () => {
           <nav id="sub_lnb">
             <ul>
               <li>
-                <a href="" class="subMenu_select">
+                <a href="/PF_Lost_Upload" class="subMenu_select">
                   분실물 게시물 등록
                 </a>
               </li>

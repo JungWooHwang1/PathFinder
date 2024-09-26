@@ -5,54 +5,52 @@ import PF_Header from "./common/PF_Header";
 import PF_Nav from "./common/PF_Nav";
 
 const PF_Lost_Upload = () => {
-  const [showMap, setShowMap] = useState(false);
   const [imagePreview, setImagePreview] = useState(null);
 
-  useEffect(() => {
-    const loadKakaoMap = () => {
+  //스크립트 파일 읽어오기
+  const new_script = (src) => {
+    return new Promise((resolve, reject) => {
       const script = document.createElement("script");
-      script.src = `//dapi.kakao.com/v2/maps/sdk.js?appkey=c4a41bf411d48221a36238c0e2fab540`;
-      script.async = true;
-      script.onload = () => {
-        if (window.kakao && window.kakao.maps) {
-          window.kakao.maps.load(() => {
-            const container = document.getElementById("map");
-            const options = {
-              center: new window.kakao.maps.LatLng(33.450701, 126.570667),
-              level: 3,
-            };
-            new window.kakao.maps.Map(container, options);
-          });
-        } else {
-          console.error("Kakao Maps API가 로드되지 않았습니다.");
-        }
-      };
-
+      script.src = src;
+      script.addEventListener("load", () => {
+        resolve();
+      });
+      script.addEventListener("error", (e) => {
+        reject(e);
+      });
       document.head.appendChild(script);
-    };
+    });
+  };
 
-    if (showMap) {
-      if (!window.kakao) {
-        loadKakaoMap();
-      } else {
-        const container = document.getElementById("map");
+  useEffect(() => {
+    //카카오맵 스크립트 읽어오기
+    const my_script = new_script(
+      "https://dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=c4a41bf411d48221a36238c0e2fab540"
+    );
+
+    //스크립트 읽기 완료 후 카카오맵 설정
+    my_script.then(() => {
+      console.log("script loaded!!!");
+      const kakao = window["kakao"];
+      kakao.maps.load(() => {
+        const mapContainer = document.getElementById("map");
         const options = {
-          center: new window.kakao.maps.LatLng(33.450701, 126.570667),
+          center: new kakao.maps.LatLng(37.56000302825312, 126.97540593203321), //좌표설정
           level: 3,
         };
-        new window.kakao.maps.Map(container, options);
-      }
-    }
-
-    return () => {
-      const existingScript = document.querySelector(
-        `script[src*="dapi.kakao.com"]`
-      );
-      if (existingScript) {
-        document.head.removeChild(existingScript);
-      }
-    };
-  }, [showMap]);
+        const map = new kakao.maps.Map(mapContainer, options); //맵생성
+        //마커설정
+        const markerPosition = new kakao.maps.LatLng(
+          37.56000302825312,
+          126.97540593203321
+        );
+        const marker = new kakao.maps.Marker({
+          position: markerPosition,
+        });
+        marker.setMap(map);
+      });
+    });
+  }, []);
 
   const handleFileChange = (event) => {
     const file = event.target.files[0];
@@ -155,23 +153,15 @@ const PF_Lost_Upload = () => {
                         <option value="LCE000">유류품</option>
                       </select>
                     </td>
+                    <div className="App">
+                      <div id="map" className="map" />
+                    </div>
+                    ;
                     <th scope="row">
                       <em>*</em>
                       <label htmlFor="LST_LCT_CD">분실지역</label>
                     </th>
                     <td colSpan="3">
-                      <button
-                        id="MAP"
-                        name="MAP"
-                        type="button"
-                        className="btn_map"
-                        onClick={() => setShowMap(!showMap)}
-                      >
-                        지도입력
-                      </button>
-
-                      {showMap && <div id="map" className="map"></div>}
-
                       <select
                         name="LST_LCT_CD"
                         id="LST_LCT_CD"
@@ -205,9 +195,6 @@ const PF_Lost_Upload = () => {
                         className="input"
                         maxLength="10"
                       />
-                      <span className="f_red">
-                        <b>시군구 ex) 서대문구, 상주시, 철원군</b>
-                      </span>
                     </td>
                   </tr>
                   <tr>
@@ -295,18 +282,7 @@ const PF_Lost_Upload = () => {
                 <tbody>
                   <tr>
                     <th>
-                      <label htmlFor="LST_BREED">종류</label>
-                    </th>
-                    <td>
-                      <input
-                        type="text"
-                        id="LST_BREED"
-                        name="LST_BREED"
-                        className="input"
-                      />
-                    </td>
-                    <th>
-                      <label htmlFor="LST_COLOR">색상</label>
+                      <label htmlFor="LST_COLOR">물품 색상</label>
                     </th>
                     <td>
                       <input
@@ -319,7 +295,7 @@ const PF_Lost_Upload = () => {
                   </tr>
                   <tr>
                     <th>
-                      <label htmlFor="LST_FEATURE">특징</label>
+                      <label htmlFor="LST_FEATURE">물품 특징</label>
                     </th>
                     <td>
                       <input
@@ -330,7 +306,7 @@ const PF_Lost_Upload = () => {
                       />
                     </td>
                     <th>
-                      <label htmlFor="LST_PHONE">연락처</label>
+                      <label htmlFor="LST_PHONE">신고자 연락처</label>
                     </th>
                     <td>
                       <input
