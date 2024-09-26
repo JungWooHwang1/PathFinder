@@ -2,6 +2,7 @@
   "name": "pathfinder",
   "version": "0.1.0",
   "private": true,
+  "proxy": "https://c1ed-14-35-63-77.ngrok-free.app", 
   "dependencies": {
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
