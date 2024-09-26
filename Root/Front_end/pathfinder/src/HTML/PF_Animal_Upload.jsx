@@ -5,7 +5,6 @@ import PF_Header from "./common/PF_Header";
 import PF_Nav from "./common/PF_Nav";
 
 const PF_Animal_Upload = () => {
-  const [showMap, setShowMap] = useState(false);
   const [imagePreview, setImagePreview] = useState(null);
 
   //스크립트 파일 읽어오기
@@ -143,7 +142,7 @@ const PF_Animal_Upload = () => {
                       <label htmlFor="LST_LCT_CD">반려동물 실종지역</label>
                     </th>
                     <td colSpan="3">
-                      <button
+                      {/* <button
                         id="MAP"
                         name="MAP"
                         type="button"
@@ -151,7 +150,7 @@ const PF_Animal_Upload = () => {
                         onClick={() => setShowMap(!showMap)}
                       >
                         지도입력
-                      </button>
+                      </button> */}
 
                       <div className="App">
                         <div id="map" className="map" />

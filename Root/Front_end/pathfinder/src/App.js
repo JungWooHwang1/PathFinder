@@ -16,23 +16,18 @@ import PF_Find_Board from "./HTML/PF_Find_Board";
 import PF_Animal_Board from "./HTML/PF_Animal_Board";
 import PF_Wanted_Board from "./HTML/PF_Wanted_Board";
 import PF_Basic_Board from "./HTML/PF_Basic_Board";
-import SearchResults from "./HTML/SearchResults";
-
-
 
 function App() {
   return (
     <Router>
       <Routes>
         <Route path="/" element={<PF_Main />} />
-        <Route path="/SearchResults" element={<SearchResults />} />
         <Route path="/PF_SigninForm" element={<PF_SigninForm />} />
         <Route path="/PF_SignupForm" element={<PF_SignupForm />} />
         <Route path="/PF_Lost" element={<PF_Lost />} />
         <Route path="/PF_Find" element={<PF_Find />} />
         <Route path="/PF_Animal" element={<PF_Animal />} />
         <Route path="/PF_Wanted" element={<PF_Wanted />} />
-
       </Routes>
     </Router>
   );
