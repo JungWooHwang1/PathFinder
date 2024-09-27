@@ -69,6 +69,7 @@ const PF_Wanted_Upload = () => {
     const lstMoney = document.getElementById("LST_MONEY").value;
     const lstName = document.getElementById("LST_NAME").value;
     const lstCl = document.getElementById("PRDT_CL_NM").value;
+    const lstTi = document.getElementById("LST_Title").value;
 
     if (
       !lstPlace ||
@@ -77,7 +78,8 @@ const PF_Wanted_Upload = () => {
       !lstSigungu ||
       !lstMoney ||
       !lstName ||
-      !lstCl
+      !lstCl ||
+      !lstTi
     ) {
       alert("필수 입력 항목을 모두 채워주세요.");
       return;
@@ -162,20 +164,12 @@ const PF_Wanted_Upload = () => {
                     <div className="App">
                       <div id="map" className="map" />
                     </div>
+
                     <th scope="row">
                       <em>*</em>
                       <label htmlFor="LST_LCT_CD">수배지역</label>
                     </th>
                     <td colSpan="3">
-                      {/* <button
-                        id="MAP"
-                        name="MAP"
-                        type="button"
-                        className="btn_map"
-                      >
-                        지도입력
-                      </button> */}
-
                       <select
                         name="LST_LCT_CD"
                         id="LST_LCT_CD"
@@ -212,6 +206,18 @@ const PF_Wanted_Upload = () => {
                     </td>
                   </tr>
                   <tr>
+                    <th scope="row">
+                      <em>*</em>
+                      <label htmlFor="LST_Title">게시글 제목 입력</label>
+                    </th>
+                    <td>
+                      <input
+                        type="text"
+                        id="LST_Title"
+                        name="LST_Title"
+                        className="input"
+                      />
+                    </td>
                     <th scope="row">
                       <em>*</em>
                       <label htmlFor="LST_PLACE">수배장소</label>
@@ -400,31 +406,6 @@ const PF_Wanted_Upload = () => {
                 </tbody>
               </table>
             </div>
-
-            {/* <div className="Box">
-              <div className="titls01">개인정보 동의</div>
-              <table className="lost_insert">
-                <tbody>
-                  <tr>
-                    <th>
-                      <label>
-                        <input
-                          type="checkbox"
-                          id="PERSONAL_INFO"
-                          name="PERSONAL_INFO"
-                        />
-                        <b>개인정보 수집 및 이용에 동의합니다.</b>
-                      </label>
-                    </th>
-                    <td>
-                      <a href="#" target="_blank">
-                        개인정보 수집 및 이용에 관한 안내
-                      </a>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div> */}
 
             <div className="submit_area">
               <button type="submit" className="submit_btn">

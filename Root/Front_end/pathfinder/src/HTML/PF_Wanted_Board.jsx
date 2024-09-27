@@ -56,6 +56,7 @@ const PF_Wanted_Board = () => {
       <div className="PF_container">
         <PF_Nav />
         <div className="findDetail">
+          <p className="LST_Title">게시글 제목</p>
           <hr className="top_line" />
 
           <div className="findDetail_wrap">
@@ -115,6 +116,10 @@ const PF_Wanted_Board = () => {
                   <p className="lost_note01">비고 :</p>
                   <p className="lost_note02">9</p>
                 </li>
+                <li>
+                  <p className="lost_money01">수배 비용 :</p>
+                  <p className="lost_money02">10</p>
+                </li>
               </ul>
               <button className="find_order">찾기</button>
             </div>
@@ -130,15 +135,16 @@ const PF_Wanted_Board = () => {
           <div className="find_info_txt"></div>
 
           <div className="find_info_btn2">
-            <button
+            <a
+              href="/PF_Wanted"
               type="button"
               id="lostlist"
               name="lostlist"
-              className="btn_01"
+              className="lostlist"
               title="수배물 목록"
             >
               목록
-            </button>
+            </a>
           </div>
         </div>
       </div>

@@ -5,6 +5,9 @@ import PF_Header from "./common/PF_Header";
 import "../CSS/PF_Main.css";
 import "../CSS/PF_Write.css";
 import "react-calendar/dist/Calendar.css"; // 스타일을 import
+import PF_LCT_CD_option from "./common/PF_LCT_CD_option";
+import PF_placeSeCd_option from "./common/PF_placeSeCd_option";
+import PF_Paging from "./common/PF_Paging";
 
 const PF_Wanted = () => {
   // 상태 관리
@@ -86,7 +89,6 @@ const PF_Wanted = () => {
                       title="분류명 입력"
                       onChange={handleChange}
                       className="search"
-                      style={{ display: "inline-block" }}
                     >
                       <option value="">선택</option>
                       <option value="LCA000">가방</option>
@@ -188,43 +190,19 @@ const PF_Wanted = () => {
                 {/* 오른쪽 3개 */}
                 <div style={{ flex: 1, paddingLeft: "10px" }}>
                   {/* 수배지역 */}
-                  <fieldset className="Wanted_inputbox">
-                    <legend>수배지역 입력</legend>
-                    <label htmlFor="lstLctCd">수배지역</label>
-                    <select
-                      name="LST_LCT_CD"
-                      id="lstLctCd"
-                      value={formData.LST_LCT_CD}
-                      onChange={handleChange}
-                    >
-                      <option value="">선택</option>
-                      {/* 지역 목록을 여기에 추가 */}
-                    </select>
-                  </fieldset>
+                  <PF_LCT_CD_option />
 
                   {/* 수배장소 */}
-                  <fieldset className="Wanted_inputbox">
-                    <legend>수배장소 입력</legend>
-                    <label htmlFor="LST_PLACE">수배장소</label>
-                    <input
-                      type="text"
-                      id="LST_PLACE"
-                      name="LST_PLACE"
-                      className="search_text korean"
-                      value={formData.LST_PLACE}
-                      onChange={handleChange}
-                    />
-                  </fieldset>
+                  <PF_placeSeCd_option />
                   <fieldset className="retainer">
                     <legend>의뢰 비용 선택</legend>
-                    <label htmlFor="placeSeCd">의뢰비용</label>
+                    <label htmlFor="placeSeMo">의뢰비용</label>
                     <select
-                      name="PLACE_SE_CD"
-                      id="placeSeCd"
+                      name="PLACE_SE_MO"
+                      id="PLACE_SE_MO"
                       title="의뢰비용 선택"
                       value={formData.PLACE_SE_CD}
                       onChange={handleChange}
-                      style={{ display: "inline-block" }}
                     >
                       <option value="">선택</option>
                       {/* 추가 옵션들 */}
@@ -271,6 +249,9 @@ const PF_Wanted = () => {
               <tbody>{/* 검색 결과를 여기에 표시 */}</tbody>
             </table>
           </div>
+          <a href="PF_Wanted_Board" className="board">
+            게시글
+          </a>
           <nav id="sub_lnb">
             <ul>
               <li>
@@ -280,29 +261,7 @@ const PF_Wanted = () => {
               </li>
             </ul>
           </nav>
-          {/* 페이징 가로 정렬 */}
-          <div
-            id="paging"
-            className="paging"
-            style={{ display: "flex", justifyContent: "center", gap: "10px" }}
-          >
-            {/* 페이징 영역 */}
-            <a href="#none" className="first">
-              처음
-            </a>
-            <a href="#none" className="prev">
-              이전
-            </a>
-            <a href="#none" className="on">
-              <strong>1</strong>
-            </a>
-            <a href="#none" className="next">
-              다음
-            </a>
-            <a href="#none" className="last">
-              마지막
-            </a>
-          </div>
+          <PF_Paging />
         </div>
       </div>
     </div>

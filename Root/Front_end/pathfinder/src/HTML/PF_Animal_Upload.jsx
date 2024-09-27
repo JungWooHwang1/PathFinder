@@ -68,6 +68,7 @@ const PF_Animal_Upload = () => {
     const lstSigungu = document.getElementById("LST_SIGUNGU").value;
     const lstName = document.getElementById("LST_NAME").value;
     const lstCl = document.getElementById("PRDT_CL_NM").value;
+    const lstTi = document.getElementById("LST_Title").value;
 
     if (
       !lstPlace ||
@@ -75,7 +76,8 @@ const PF_Animal_Upload = () => {
       !lstLctCd ||
       !lstSigungu ||
       !lstName ||
-      !lstCl
+      !lstCl ||
+      !lstTi
     ) {
       alert("필수 입력 항목을 모두 채워주세요.");
       return;
@@ -137,25 +139,14 @@ const PF_Animal_Upload = () => {
                         <option value="SPE000">특수동물</option>
                       </select>
                     </td>
+                    <div className="App">
+                      <div id="map" className="map" />
+                    </div>
                     <th scope="row">
                       <em>*</em>
                       <label htmlFor="LST_LCT_CD">반려동물 실종지역</label>
                     </th>
                     <td colSpan="3">
-                      {/* <button
-                        id="MAP"
-                        name="MAP"
-                        type="button"
-                        className="btn_map"
-                        onClick={() => setShowMap(!showMap)}
-                      >
-                        지도입력
-                      </button> */}
-
-                      <div className="App">
-                        <div id="map" className="map" />
-                      </div>
-
                       <select
                         name="LST_LCT_CD"
                         id="LST_LCT_CD"
@@ -189,11 +180,20 @@ const PF_Animal_Upload = () => {
                         className="input"
                         maxLength="10"
                       />
-                      <span className="f_red">
-                        <b>시군구 ex) 서대문구, 상주시, 철원군</b>
-                      </span>
                     </td>
                   </tr>
+                  <th scope="row">
+                    <em>*</em>
+                    <label htmlFor="LST_Title">게시글 제목 입력</label>
+                  </th>
+                  <td>
+                    <input
+                      type="text"
+                      id="LST_Title"
+                      name="LST_Title"
+                      className="input"
+                    />
+                  </td>
                   <tr>
                     <th scope="row">
                       <em>*</em>

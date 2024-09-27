@@ -56,6 +56,7 @@ const PF_Animal_Board = () => {
       <div className="PF_container">
         <PF_Nav />
         <div className="findDetail">
+          <p className="LST_Title">게시글 제목</p>
           <hr className="top_line" />
 
           <div className="findDetail_wrap">
@@ -129,15 +130,16 @@ const PF_Animal_Board = () => {
           <div className="find_info_txt"></div>
 
           <div className="find_info_btn2">
-            <button
+            <a
+              href="/PF_Animal"
               type="button"
               id="lostlist"
               name="lostlist"
-              className="btn_01"
+              className="lostlist"
               title="실종 반려동물 목록"
             >
               목록
-            </button>
+            </a>
           </div>
         </div>
       </div>
