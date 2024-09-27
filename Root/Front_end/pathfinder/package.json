@@ -2,7 +2,7 @@
   "name": "pathfinder",
   "version": "0.1.0",
   "private": true,
-  "proxy": "https://c1ed-14-35-63-77.ngrok-free.app", 
+  "proxy": "https://c1ed-14-35-63-77.ngrok-free.app",
   "dependencies": {
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
@@ -17,11 +17,11 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "set PORT=3001 && react-scripts start",
+    "start": "cross-env HOST=0.0.0.0 PORT=3001 react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
-  },
+},
   "eslintConfig": {
     "extends": [
       "react-app",
