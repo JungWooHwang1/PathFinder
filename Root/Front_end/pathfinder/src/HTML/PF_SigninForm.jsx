@@ -24,7 +24,7 @@ const LoginForm = () => {
 
     try {
       const response = await fetch(
-        "https://c1ed-14-35-63-77.ngrok-free.app/members/login",
+        "http://43.203.203.157:8085/members/login",
         {
           method: "POST",
           headers: {
