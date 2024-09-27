@@ -69,6 +69,7 @@ const PF_Lost_Upload = () => {
     const lstSigungu = document.getElementById("LST_SIGUNGU").value;
     const lstName = document.getElementById("LST_NAME").value;
     const lstCl = document.getElementById("PRDT_CL_NM").value;
+    const lstTi = document.getElementById("LST_Title").value;
 
     if (
       !lstPlace ||
@@ -76,7 +77,8 @@ const PF_Lost_Upload = () => {
       !lstLctCd ||
       !lstSigungu ||
       !lstName ||
-      !lstCl
+      !lstCl ||
+      !lstTi
     ) {
       alert("필수 입력 항목을 모두 채워주세요.");
       return;
@@ -156,7 +158,7 @@ const PF_Lost_Upload = () => {
                     <div className="App">
                       <div id="map" className="map" />
                     </div>
-                    ;
+
                     <th scope="row">
                       <em>*</em>
                       <label htmlFor="LST_LCT_CD">분실지역</label>
@@ -198,6 +200,18 @@ const PF_Lost_Upload = () => {
                     </td>
                   </tr>
                   <tr>
+                    <th scope="row">
+                      <em>*</em>
+                      <label htmlFor="LST_Title">게시글 제목 입력</label>
+                    </th>
+                    <td>
+                      <input
+                        type="text"
+                        id="LST_Title"
+                        name="LST_Title"
+                        className="input"
+                      />
+                    </td>
                     <th scope="row">
                       <em>*</em>
                       <label htmlFor="LST_PLACE">분실장소</label>

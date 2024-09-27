@@ -66,6 +66,7 @@ const PF_Find_Upload = () => {
     const lstSigungu = document.getElementById("LST_SIGUNGU").value;
     const lstName = document.getElementById("LST_NAME").value;
     const lstCl = document.getElementById("PRDT_CL_NM").value;
+    const lstTi = document.getElementById("LST_Title").value;
 
     if (
       !lstPlace ||
@@ -73,7 +74,8 @@ const PF_Find_Upload = () => {
       !lstLctCd ||
       !lstSigungu ||
       !lstName ||
-      !lstCl
+      !lstCl ||
+      !lstTi
     ) {
       alert("필수 입력 항목을 모두 채워주세요.");
       return;
@@ -150,14 +152,14 @@ const PF_Find_Upload = () => {
                         <option value="LCE000">유류품</option>
                       </select>
                     </td>
+                    <div className="App">
+                      <div id="map" className="map" />
+                    </div>
                     <th scope="row">
                       <em>*</em>
                       <label htmlFor="LST_LCT_CD">습득지역</label>
                     </th>
                     <td colSpan="3">
-                      <div className="App">
-                        <div id="map" className="map" />
-                      </div>
                       <select
                         name="LST_LCT_CD"
                         id="LST_LCT_CD"
@@ -193,7 +195,20 @@ const PF_Find_Upload = () => {
                       />
                     </td>
                   </tr>
+
                   <tr>
+                    <th scope="row">
+                      <em>*</em>
+                      <label htmlFor="LST_Title">게시글 제목 입력</label>
+                    </th>
+                    <td>
+                      <input
+                        type="text"
+                        id="LST_Title"
+                        name="LST_Title"
+                        className="input"
+                      />
+                    </td>
                     <th scope="row">
                       <em>*</em>
                       <label htmlFor="LST_PLACE">습득장소</label>

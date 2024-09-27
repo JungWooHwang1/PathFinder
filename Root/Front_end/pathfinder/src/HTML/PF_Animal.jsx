@@ -5,6 +5,9 @@ import Calendar from "react-calendar";
 import "../CSS/PF_Main.css";
 import "../CSS/PF_Write.css";
 import "react-calendar/dist/Calendar.css"; // 스타일을 import
+import PF_LCT_CD_option from "./common/PF_LCT_CD_option";
+import PF_placeSeCd_option from "./common/PF_placeSeCd_option";
+import PF_Paging from "./common/PF_Paging";
 
 const PF_Animal = () => {
   // 상태 관리
@@ -83,7 +86,6 @@ const PF_Animal = () => {
                       title="분류명 입력"
                       onChange={handleChange}
                       className="search"
-                      style={{ display: "inline-block" }}
                     >
                       <option value="">선택</option>
                       <option value="DOG000">개</option>
@@ -165,33 +167,10 @@ const PF_Animal = () => {
                 {/* 오른쪽 3개 */}
                 <div style={{ flex: 1, paddingLeft: "10px" }}>
                   {/* 실종지역 */}
-                  <fieldset className="lost_inputbox">
-                    <legend>실종지역 입력</legend>
-                    <label htmlFor="lstLctCd">실종지역</label>
-                    <select
-                      name="LST_LCT_CD"
-                      id="lstLctCd"
-                      value={formData.LST_LCT_CD}
-                      onChange={handleChange}
-                    >
-                      <option value="">선택</option>
-                      {/* 지역 목록을 여기에 추가 */}
-                    </select>
-                  </fieldset>
+                  <PF_LCT_CD_option />
 
                   {/* 실종장소 */}
-                  <fieldset className="lost_inputbox">
-                    <legend>실종장소 입력</legend>
-                    <label htmlFor="LST_PLACE">실종장소</label>
-                    <input
-                      type="text"
-                      id="LST_PLACE"
-                      name="LST_PLACE"
-                      className="search_text korean"
-                      value={formData.LST_PLACE}
-                      onChange={handleChange}
-                    />
-                  </fieldset>
+                  <PF_placeSeCd_option />
                 </div>
               </div>
 
@@ -230,6 +209,9 @@ const PF_Animal = () => {
               </thead>
               <tbody>{/* 검색 결과를 여기에 표시 */}</tbody>
             </table>
+            <a href="PF_Animal_Board" class="board">
+              실종 반려동물 게시물
+            </a>
           </div>
           <nav id="sub_lnb">
             <ul>
@@ -240,29 +222,7 @@ const PF_Animal = () => {
               </li>
             </ul>
           </nav>
-          {/* 페이징 가로 정렬 */}
-          <div
-            id="paging"
-            className="paging"
-            style={{ display: "flex", justifyContent: "center", gap: "10px" }}
-          >
-            {/* 페이징 영역 */}
-            <a href="#none" className="first">
-              처음
-            </a>
-            <a href="#none" className="prev">
-              이전
-            </a>
-            <a href="#none" className="on">
-              <strong>1</strong>
-            </a>
-            <a href="#none" className="next">
-              다음
-            </a>
-            <a href="#none" className="last">
-              마지막
-            </a>
-          </div>
+          <PF_Paging />
         </div>
       </div>
     </div>
