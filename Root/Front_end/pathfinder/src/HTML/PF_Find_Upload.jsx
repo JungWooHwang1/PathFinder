@@ -6,7 +6,6 @@ import PF_Nav from "./common/PF_Nav";
 
 const PF_Find_Upload = () => {
   const [imagePreview, setImagePreview] = useState(null);
-  //스크립트 파일 읽어오기
   const new_script = (src) => {
     return new Promise((resolve, reject) => {
       const script = document.createElement("script");
@@ -22,31 +21,37 @@ const PF_Find_Upload = () => {
   };
 
   useEffect(() => {
-    //카카오맵 스크립트 읽어오기
+    // 카카오맵 스크립트 읽어오기
     const my_script = new_script(
       "https://dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=c4a41bf411d48221a36238c0e2fab540"
     );
 
-    //스크립트 읽기 완료 후 카카오맵 설정
+    // 스크립트 읽기 완료 후 카카오맵 설정
     my_script.then(() => {
       console.log("script loaded!!!");
       const kakao = window["kakao"];
       kakao.maps.load(() => {
         const mapContainer = document.getElementById("map");
         const options = {
-          center: new kakao.maps.LatLng(37.56000302825312, 126.97540593203321), //좌표설정
+          center: new kakao.maps.LatLng(37.40410395971753, 126.93064874219576), // 좌표 설정
           level: 3,
         };
-        const map = new kakao.maps.Map(mapContainer, options); //맵생성
-        //마커설정
-        const markerPosition = new kakao.maps.LatLng(
-          37.56000302825312,
-          126.97540593203321
-        );
+        const map = new kakao.maps.Map(mapContainer, options); // 지도 생성
+
+        // 마커 생성
         const marker = new kakao.maps.Marker({
-          position: markerPosition,
+          position: map.getCenter(), // 지도 중심 좌표에 마커 생성
         });
         marker.setMap(map);
+
+        // 클릭 이벤트 등록
+        kakao.maps.event.addListener(map, "click", function (mouseEvent) {
+          // 클릭한 위도, 경도 정보를 가져옴
+          const latlng = mouseEvent.latLng;
+
+          // 마커 위치를 클릭한 위치로 옮김
+          marker.setPosition(latlng);
+        });
       });
     });
   }, []);
@@ -57,9 +62,11 @@ const PF_Find_Upload = () => {
       setImagePreview(previewUrl);
     }
   };
+  // 폼 제출 시 API 호출을 수행하는 함수
   const handleSubmit = (event) => {
     event.preventDefault();
 
+    //입력 항목 수집
     const lstPlace = document.getElementById("LST_PLACE").value;
     const lstDate = document.getElementById("LST_DTE").value;
     const lstLctCd = document.getElementById("LST_LCT_CD").value;
@@ -68,6 +75,7 @@ const PF_Find_Upload = () => {
     const lstCl = document.getElementById("PRDT_CL_NM").value;
     const lstTi = document.getElementById("LST_Title").value;
 
+    // 필수 입력 항목 체크
     if (
       !lstPlace ||
       !lstDate ||
@@ -81,7 +89,40 @@ const PF_Find_Upload = () => {
       return;
     }
 
-    console.log("폼 제출 성공!");
+    // 서버에 보낼 데이터를 객체로 생성
+    const postData = {
+      member: {
+        memberNickName: "testNickName", // 사용자 닉네임 설정 (하드코딩된 값)
+      },
+      boardTitle: lstTi, // 게시글 제목
+      boardContent: `${lstPlace}에서 ${lstDate}에 발견된 ${lstName}`, // 게시글 내용
+      boardImage: imagePreview, // 이미지 데이터 또는 경로
+      classifiName: lstCl, // 분류명
+      lostPropertyName: lstName, // 분실물 이름
+      lostArea: lstLctCd, // 분실 지역
+      lostPlace: lstSigungu, // 분실 장소
+    };
+
+    // 서버에 POST 요청 보내기
+    fetch(`/boards/lost-and-found`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json", // JSON 형식으로 보냄
+      },
+      body: JSON.stringify(postData), // 데이터 객체를 JSON 형식으로 변환
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.statusCode === 200) {
+          alert("분실물 게시글 작성 성공");
+        } else {
+          alert(`오류 발생: ${data.responseMessage}`);
+        }
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+        alert("분실물 게시글 작성 중 오류가 발생했습니다.");
+      });
   };
 
   return (
@@ -345,7 +386,7 @@ const PF_Find_Upload = () => {
 
             <div className="Box">
               <div className="titls01">파일첨부</div>
-              <table className="lost_insert">
+              <table className="lost_insert" summary="파일첨부 입력">
                 <tbody>
                   <tr>
                     <th>
@@ -358,14 +399,23 @@ const PF_Find_Upload = () => {
                         name="LST_FILE"
                         title="파일 첨부"
                         accept="image/*"
-                        onChange={handleFileChange}
+                        onChange={handleFileChange} // 파일 선택 시 호출되는 함수
                       />
+                      <span className="f_red">
+                        <b>
+                          이미지 파일만 업로드 가능(파일형식: JPG, JPEG, PNG)
+                        </b>
+                      </span>
                       {imagePreview && (
-                        <div className="image-preview">
+                        <div style={{ marginTop: "10px" }}>
                           <img
                             src={imagePreview}
                             alt="Preview"
-                            className="preview-img"
+                            style={{
+                              width: "200px",
+                              height: "auto",
+                              border: "1px solid #ccc",
+                            }}
                           />
                         </div>
                       )}
@@ -374,31 +424,6 @@ const PF_Find_Upload = () => {
                 </tbody>
               </table>
             </div>
-
-            {/* <div className="Box">
-              <div className="titls01">개인정보 동의</div>
-              <table className="lost_insert">
-                <tbody>
-                  <tr>
-                    <th>
-                      <label>
-                        <input
-                          type="checkbox"
-                          id="PERSONAL_INFO"
-                          name="PERSONAL_INFO"
-                        />
-                        <b>개인정보 수집 및 이용에 동의합니다.</b>
-                      </label>
-                    </th>
-                    <td>
-                      <a href="#" target="_blank">
-                        개인정보 수집 및 이용에 관한 안내
-                      </a>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div> */}
 
             <div className="submit_area">
               <button type="submit" className="submit_btn">
