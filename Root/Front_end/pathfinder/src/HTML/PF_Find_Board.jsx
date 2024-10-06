@@ -96,10 +96,7 @@ const PF_Find_Board = () => {
                   <p className="lost_place01">습득장소 :</p>
                   <p className="lost_place02">4</p>
                 </li>
-                <li>
-                  <p className="lost_class01">물품종류 :</p>
-                  <p className="lost_class02">5</p>
-                </li>
+
                 <li>
                   <p className="lost_color01">물품색상 :</p>
                   <p className="lost_color02">6</p>

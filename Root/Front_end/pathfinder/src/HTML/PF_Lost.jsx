@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Calendar from "react-calendar";
 import PF_Nav from "./common/PF_Nav";
 import PF_Header from "./common/PF_Header";
@@ -25,6 +25,26 @@ const PF_Lost = () => {
   const [showCalendar, setShowCalendar] = useState(false); // 달력 표시 여부
   const [calendarType, setCalendarType] = useState(""); // 달력 타입 (시작일/종료일)
   const [date, setDate] = useState(new Date()); // 선택된 날짜
+  const [posts, setPosts] = useState([]); // 게시물 상태
+
+  // 임시 데이터 (실제로는 API 호출을 통해 데이터를 가져와야 함)
+  useEffect(() => {
+    const tempPosts = [
+      {
+        id: 1,
+        boardTitle: "지갑을 잃어버렸어요",
+        lostPlace: "서울특별시 강남구",
+        createDate: "2024-09-20",
+      },
+      {
+        id: 2,
+        boardTitle: "휴대폰을 분실했습니다",
+        lostPlace: "부산광역시 해운대구",
+        createDate: "2024-09-18",
+      },
+    ];
+    setPosts(tempPosts);
+  }, []);
 
   // 핸들러 함수
   const handleChange = (e) => {
@@ -169,6 +189,7 @@ const PF_Lost = () => {
             </div>
           </form>
 
+          {/* 게시물 목록 */}
           <div className="find_listBox">
             <table
               className="type01"
@@ -191,16 +212,26 @@ const PF_Lost = () => {
                   <th scope="col">분실일자</th>
                 </tr>
               </thead>
-              <tbody>{/* 검색 결과를 여기에 표시 */}</tbody>
+              <tbody>
+                {posts.map((post) => (
+                  <tr key={post.id}>
+                    <td>{post.id}</td>
+                    <td>{post.boardTitle}</td>
+                    <td>{post.lostPlace}</td>
+                    <td>{post.createDate}</td>
+                  </tr>
+                ))}
+              </tbody>
             </table>
-            <a href="/PF_Lost_Board" class="board">
-              분실물 게시물
-            </a>
           </div>
+
+          <a href="/PF_Lost_Board" className="board">
+            분실물 게시물
+          </a>
           <nav id="sub_lnb">
             <ul>
               <li>
-                <a href="/PF_Lost_Upload" class="subMenu_select">
+                <a href="/PF_Lost_Upload" className="subMenu_select">
                   분실물 게시물 등록
                 </a>
               </li>
