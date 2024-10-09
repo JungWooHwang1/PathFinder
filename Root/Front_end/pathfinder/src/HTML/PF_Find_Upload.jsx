@@ -6,6 +6,7 @@ import PF_Nav from "./common/PF_Nav";
 
 const PF_Find_Upload = () => {
   const [imagePreview, setImagePreview] = useState(null);
+
   const new_script = (src) => {
     return new Promise((resolve, reject) => {
       const script = document.createElement("script");
@@ -21,40 +22,33 @@ const PF_Find_Upload = () => {
   };
 
   useEffect(() => {
-    // 카카오맵 스크립트 읽어오기
     const my_script = new_script(
       "https://dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=c4a41bf411d48221a36238c0e2fab540"
     );
 
-    // 스크립트 읽기 완료 후 카카오맵 설정
     my_script.then(() => {
-      console.log("script loaded!!!");
       const kakao = window["kakao"];
       kakao.maps.load(() => {
         const mapContainer = document.getElementById("map");
         const options = {
-          center: new kakao.maps.LatLng(37.40410395971753, 126.93064874219576), // 좌표 설정
+          center: new kakao.maps.LatLng(37.40410395971753, 126.93064874219576),
           level: 3,
         };
-        const map = new kakao.maps.Map(mapContainer, options); // 지도 생성
+        const map = new kakao.maps.Map(mapContainer, options);
 
-        // 마커 생성
         const marker = new kakao.maps.Marker({
-          position: map.getCenter(), // 지도 중심 좌표에 마커 생성
+          position: map.getCenter(),
         });
         marker.setMap(map);
 
-        // 클릭 이벤트 등록
         kakao.maps.event.addListener(map, "click", function (mouseEvent) {
-          // 클릭한 위도, 경도 정보를 가져옴
           const latlng = mouseEvent.latLng;
-
-          // 마커 위치를 클릭한 위치로 옮김
           marker.setPosition(latlng);
         });
       });
     });
   }, []);
+
   const handleFileChange = (event) => {
     const file = event.target.files[0];
     if (file) {
@@ -62,11 +56,11 @@ const PF_Find_Upload = () => {
       setImagePreview(previewUrl);
     }
   };
-  // 폼 제출 시 API 호출을 수행하는 함수
+
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    //입력 항목 수집
+    // 입력 항목 수집
     const lstPlace = document.getElementById("LST_PLACE").value;
     const lstDate = document.getElementById("LST_DTE").value;
     const lstLctCd = document.getElementById("LST_LCT_CD").value;
@@ -74,8 +68,12 @@ const PF_Find_Upload = () => {
     const lstName = document.getElementById("LST_NAME").value;
     const lstCl = document.getElementById("PRDT_CL_NM").value;
     const lstTi = document.getElementById("LST_Title").value;
+    const lstPcfi = document.getElementById("LST_PLACE_SE_CD").value;
+    const lstCol = document.getElementById("LST_COLOR").value;
+    const lstFe = document.getElementById("LST_FEATURE").value;
+    const lstPho = document.getElementById("LST_PHONE").value;
+    const lstNote = document.getElementById("LST_NOTE").value;
 
-    // 필수 입력 항목 체크
     if (
       !lstPlace ||
       !lstDate ||
@@ -92,24 +90,32 @@ const PF_Find_Upload = () => {
     // 서버에 보낼 데이터를 객체로 생성
     const postData = {
       member: {
-        memberNickName: "testNickName", // 사용자 닉네임 설정 (하드코딩된 값)
+        memberNickName: "testNickName",
       },
-      boardTitle: lstTi, // 게시글 제목
-      boardContent: `${lstPlace}에서 ${lstDate}에 발견된 ${lstName}`, // 게시글 내용
-      boardImage: imagePreview, // 이미지 데이터 또는 경로
-      classifiName: lstCl, // 분류명
-      lostPropertyName: lstName, // 분실물 이름
-      lostArea: lstLctCd, // 분실 지역
-      lostPlace: lstSigungu, // 분실 장소
+      boardTitle: lstTi,
+      boardContent: `${lstPlace}에서 ${lstDate}에 발견된 ${lstName}`,
+      boardImage: imagePreview,
+      createDate: "2024-09-20",
+      classfiName: lstCl,
+      lostPropertyName: lstName,
+      lostArea: lstLctCd,
+      lostPlace: lstSigungu,
+      lostPlace_classifi: lstPcfi,
+      lostDate: lstDate,
+      propertyColor: lstCol,
+      propertyType: lstFe,
+      reporterPhone: lstPho,
+      etc: lstNote,
+      lostPlace_adress: null,
     };
 
     // 서버에 POST 요청 보내기
     fetch(`/boards/lost-and-found`, {
       method: "POST",
       headers: {
-        "Content-Type": "application/json", // JSON 형식으로 보냄
+        "Content-Type": "application/json",
       },
-      body: JSON.stringify(postData), // 데이터 객체를 JSON 형식으로 변환
+      body: JSON.stringify(postData),
     })
       .then((response) => response.json())
       .then((data) => {
@@ -224,7 +230,6 @@ const PF_Find_Upload = () => {
                         <option value="LCO000">충청북도</option>
                         <option value="LCP000">제주특별자치도</option>
                         <option value="LCW000">세종특별자치시</option>
-                        <option value="LCF000">해외</option>
                         <option value="LCE000">기타</option>
                       </select>
                       <input
@@ -292,7 +297,7 @@ const PF_Find_Upload = () => {
                         <option value="LL1007">학교</option>
                         <option value="LL1006">회사</option>
                         <option value="LL1017">기타</option>
-                        <option value="LL1018">불상</option>
+                        <option value="LL1018">알 수 없음</option>
                       </select>
                     </td>
                   </tr>

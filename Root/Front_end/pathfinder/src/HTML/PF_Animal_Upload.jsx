@@ -176,7 +176,6 @@ const PF_Animal_Upload = () => {
                         <option value="LCO000">충청북도</option>
                         <option value="LCP000">제주특별자치도</option>
                         <option value="LCW000">세종특별자치시</option>
-                        <option value="LCF000">해외</option>
                         <option value="LCE000">기타</option>
                       </select>
                       <input
@@ -245,7 +244,7 @@ const PF_Animal_Upload = () => {
                         <option value="LL1007">학교</option>
                         <option value="LL1006">회사</option>
                         <option value="LL1017">기타</option>
-                        <option value="LL1018">불상</option>
+                        <option value="LL1018">알 수 없음</option>
                       </select>
                     </td>
                   </tr>
