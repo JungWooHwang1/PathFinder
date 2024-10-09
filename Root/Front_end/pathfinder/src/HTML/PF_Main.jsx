@@ -6,30 +6,28 @@ import "../CSS/PF_Main.css"
 const PF_Container = () => {
 
     return (
-
-
         <div className="body">
             <PF_Header />
-            <div class="PF_container">
+            <div className="PF_container">
                 <PF_Nav />
-                <div class="PF_main">
-                    <section class="PF_section1">
+                <div className="PF_main">
+                    <section className="PF_section1">
                         <a href="">습득물 게시판</a>
-                        <div class="img_group">
+                        <div className="img_group">
                             <img src="" alt="unknown" />
                             <img src="" alt="unknown" />
                             <img src="" alt="unknown" />
                             <img src="" alt="unknown" />
                         </div>
                     </section>
-                    <section class="PF_section2">
+                    <section className="PF_section2">
                         <a href="">분실물 게시판</a>
 
                     </section>
-                    <section class="PF_section3">
+                    <section className="PF_section3">
                         <a href="">실종되어 있는 반려동물</a>
                     </section>
-                    <section class="PF_section4">
+                    <section className="PF_section4">
                         <a href="">분실물 의뢰페이지</a>
                     </section>
                 </div>
