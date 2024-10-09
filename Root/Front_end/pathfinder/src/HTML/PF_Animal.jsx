@@ -41,7 +41,7 @@ const PF_Animal = () => {
 
   const handleCalendarToggle = (type) => {
     setCalendarType(type);
-    setShowCalendar(true);
+    setShowCalendar((prev) => !prev); // 토글을 위해 prev로 설정
   };
 
   const handleDateChange = (newDate) => {
@@ -58,7 +58,7 @@ const PF_Animal = () => {
       }));
     }
     setDate(newDate);
-    setShowCalendar(false);
+    setShowCalendar(false); // 달력 선택 후 닫기
   };
 
   return (
@@ -71,7 +71,10 @@ const PF_Animal = () => {
           {/* 검색 폼 */}
           <form onSubmit={handleSearchSubmit}>
             <div className="findList">
-              <div className="lost_qfind2" style={{ display: "flex" }}>
+              <div
+                className="lost_qfind2"
+                style={{ display: "flex", position: "relative" }}
+              >
                 {/* 왼쪽 3개 */}
                 <div style={{ flex: 1, paddingRight: "10px" }}>
                   {/* 분류명 */}

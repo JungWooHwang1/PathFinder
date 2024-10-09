@@ -42,7 +42,7 @@ const PF_Lost = () => {
 
   const handleCalendarToggle = (type) => {
     setCalendarType(type);
-    setShowCalendar(true);
+    setShowCalendar((prev) => !prev); // 토글을 위해 prev로 설정
   };
 
   const handleDateChange = (newDate) => {
@@ -59,7 +59,7 @@ const PF_Lost = () => {
       }));
     }
     setDate(newDate);
-    setShowCalendar(false);
+    setShowCalendar(false); // 달력 선택 후 닫기
   };
 
   return (
@@ -71,21 +71,19 @@ const PF_Lost = () => {
           <h2>습득물 검색</h2>
           {/* 검색 폼 */}
           <div className="findList">
-            <div className="lost_qfind2">
-              <form
-                name="commandMap"
-                id="commandMap"
-                method="post"
-                action="#none"
-                onSubmit={handleSearchSubmit}
+            <form
+              name="commandMap"
+              id="commandMap"
+              method="post"
+              action="#none"
+              onSubmit={handleSearchSubmit}
+            >
+              <input type="hidden" name="pageIndex" id="pageIndex" value="1" />
+              <div
+                className="lost_qfind2"
+                style={{ display: "flex", position: "relative" }}
               >
-                <input
-                  type="hidden"
-                  name="pageIndex"
-                  id="pageIndex"
-                  value="1"
-                />
-                <div className="left-panel">
+                <div style={{ flex: 1, paddingRight: "10px" }}>
                   <PF_PRDT_CL_NM_option />
 
                   <fieldset className="lost_period">
@@ -135,6 +133,12 @@ const PF_Lost = () => {
                       </button>
                     </div>
                   </fieldset>
+                  {/* 달력 렌더링 */}
+                  {showCalendar && (
+                    <div className="calendar-popup">
+                      <Calendar onChange={handleDateChange} value={date} />
+                    </div>
+                  )}
                   <fieldset className="lost_inputbox">
                     <legend>습득물명 입력</legend>
                     <label htmlFor="prdtNm">습득물명</label>
@@ -147,38 +151,20 @@ const PF_Lost = () => {
                       onChange={handleChange}
                     />
                   </fieldset>
+                </div>
+
+                <div style={{ flex: 1, paddingLeft: "10px" }}>
+                  <PF_placeSeCd_option />
 
                   <PF_LCT_CD_option />
                 </div>
-
-                <div className="right-panel">
-                  <PF_placeSeCd_option />
-
-                  <fieldset
-                    id="Sigungu_Div"
-                    className="lost_inputbox"
-                    style={{ display: "none" }}
-                  >
-                    <legend>습득지역 입력</legend>
-                    <label htmlFor="fdSigungu">습득지역상세</label>
-                    <input
-                      type="text"
-                      id="fdSigungu"
-                      name="FD_SIGUNGU"
-                      className="input w_40"
-                      placeholder="예)강남구,청양군"
-                      value={formData.FD_SIGUNGU}
-                      onChange={handleChange}
-                    />
-                  </fieldset>
-                </div>
-                <p style={{ textAlign: "center" }}>
-                  <button type="submit" className="btn_01" title="습득물 검색">
-                    검색
-                  </button>
-                </p>
-              </form>
-            </div>
+              </div>
+              <p style={{ textAlign: "center" }}>
+                <button type="submit" className="btn_01" title="습득물 검색">
+                  검색
+                </button>
+              </p>
+            </form>
           </div>
 
           <div className="find_listBox">
@@ -221,11 +207,6 @@ const PF_Lost = () => {
           <PF_Paging />
         </div>
       </div>
-      {showCalendar && (
-        <div className="calendar-popup">
-          <Calendar onChange={handleDateChange} value={date} locale="ko-KR" />
-        </div>
-      )}
     </div>
   );
 };

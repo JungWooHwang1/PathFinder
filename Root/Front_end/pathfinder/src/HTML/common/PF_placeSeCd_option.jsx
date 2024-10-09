@@ -20,12 +20,12 @@ const PF_placeSeCd_option = () => {
   };
   return (
     <fieldset className="lost_inputbox">
-      <legend>분실장소 입력</legend>
-      <label htmlFor="placeSeCd">분실장소</label>
+      <legend>장소 입력</legend>
+      <label htmlFor="placeSeCd">장소</label>
       <select
         name="PLACE_SE_CD"
         id="placeSeCd"
-        title="분실장소 선택"
+        title="장소 선택"
         value={formData.PLACE_SE_CD}
         onChange={handleChange}
         style={{ display: "inline-block" }}
@@ -49,7 +49,6 @@ const PF_placeSeCd_option = () => {
         <option value="LL1007">스포츠시설</option>
         <option value="LL1006">회사</option>
         <option value="LL1017">기타</option>
-        <option value="LL1018">불상</option>
       </select>
     </fieldset>
   );

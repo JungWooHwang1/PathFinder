@@ -171,7 +171,7 @@ const PF_Lost = () => {
                   </fieldset>
                 </div>
 
-                {/* 오른쪽 3개 */}
+                {/* 오른쪽  */}
                 <div style={{ flex: 1, paddingLeft: "10px" }}>
                   {/* 분실지역 */}
                   <PF_LCT_CD_option />
