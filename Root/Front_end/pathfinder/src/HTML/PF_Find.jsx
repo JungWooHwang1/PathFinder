@@ -160,7 +160,7 @@ const PF_Lost = () => {
                 </div>
               </div>
               <p style={{ textAlign: "center" }}>
-                <button type="submit" className="btn_01" title="습득물 검색">
+                <button type="submit" className="btn_01" title="검색">
                   검색
                 </button>
               </p>

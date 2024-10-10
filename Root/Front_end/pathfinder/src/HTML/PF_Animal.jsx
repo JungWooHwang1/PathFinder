@@ -178,11 +178,7 @@ const PF_Animal = () => {
               </div>
 
               <p style={{ textAlign: "center" }}>
-                <button
-                  type="submit"
-                  className="btn_01"
-                  title="실종 반려동물 검색"
-                >
+                <button type="submit" className="btn_01" title="검색">
                   검색
                 </button>
               </p>

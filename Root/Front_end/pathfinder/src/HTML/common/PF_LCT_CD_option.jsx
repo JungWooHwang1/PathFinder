@@ -51,6 +51,13 @@ const PF_LCT_CD_option = () => {
         <option value="LCW000">세종특별자치시</option>
         <option value="LCE000">기타</option>
       </select>
+      <input
+        type="text"
+        id="LST_SIGUNGU"
+        name="LST_SIGUNGU"
+        className="input"
+        maxLength="10"
+      />
     </fieldset>
   );
 };
