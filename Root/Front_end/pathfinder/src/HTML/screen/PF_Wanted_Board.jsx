@@ -1,11 +1,11 @@
 import React from "react";
 import { useEffect } from "react";
-import "../CSS/PF_Main.css";
-import "../CSS/PF_Write.css";
-import PF_Header from "./common/PF_Header";
-import PF_Nav from "./common/PF_Nav";
+import "../../CSS/PF_Main.css";
+import "../../CSS/PF_Write.css";
+import PF_Header from "../common/PF_Header";
+import PF_Nav from "../common/PF_Nav";
 
-const PF_Animal_Board = () => {
+const PF_Wanted_Board = () => {
   //스크립트 파일 읽어오기
   const new_script = (src) => {
     return new Promise((resolve, reject) => {
@@ -81,27 +81,24 @@ const PF_Animal_Board = () => {
                   <p className="lost_cl02">0</p>
                 </li>
                 <li>
-                  <p className="lost_name01">반려동물명 :</p>
+                  <p className="lost_name01">물품명 :</p>
                   <p className="lost_name02">1</p>
                 </li>
                 <li>
-                  <p className="lost_lct_cd01">실종지역 :</p>
+                  <p className="lost_lct_cd01">수배지역 :</p>
                   <p className="lost_lct_cd02">2</p>
                 </li>
                 <li>
-                  <p className="lost_date01">실종일 :</p>
+                  <p className="lost_date01">수배일 :</p>
                   <p className="lost_date02">3</p>
                 </li>
                 <li>
-                  <p className="lost_place01">실종장소 :</p>
+                  <p className="lost_place01">수배장소 :</p>
                   <p className="lost_place02">4</p>
                 </li>
+
                 <li>
-                  <p className="lost_class01">반려동물 종류 :</p>
-                  <p className="lost_class02">5</p>
-                </li>
-                <li>
-                  <p className="lost_color01">반려동물 색상 :</p>
+                  <p className="lost_color01">물품 색상 :</p>
                   <p className="lost_color02">6</p>
                 </li>
                 <li>
@@ -116,7 +113,12 @@ const PF_Animal_Board = () => {
                   <p className="lost_note01">비고 :</p>
                   <p className="lost_note02">9</p>
                 </li>
+                <li>
+                  <p className="lost_money01">수배 비용 :</p>
+                  <p className="lost_money02">10</p>
+                </li>
               </ul>
+              <button className="find_order">찾기</button>
             </div>
           </div>
 
@@ -131,12 +133,12 @@ const PF_Animal_Board = () => {
 
           <div className="find_info_btn2">
             <a
-              href="/PF_Animal"
+              href="/PF_Wanted"
               type="button"
               id="lostlist"
               name="lostlist"
               className="lostlist"
-              title="실종 반려동물 목록"
+              title="수배물 목록"
             >
               목록
             </a>
@@ -147,4 +149,4 @@ const PF_Animal_Board = () => {
   );
 };
 
-export default PF_Animal_Board;
+export default PF_Wanted_Board;

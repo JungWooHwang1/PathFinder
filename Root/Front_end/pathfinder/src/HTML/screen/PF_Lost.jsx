@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from "react";
 import Calendar from "react-calendar";
-import PF_Nav from "./common/PF_Nav";
-import PF_Header from "./common/PF_Header";
+import PF_Nav from "../common/PF_Nav";
+import PF_Header from "../common/PF_Header";
 
-import "../CSS/PF_Main.css";
-import "../CSS/PF_Write.css";
+import "../../CSS/PF_Main.css";
+import "../../CSS/PF_Write.css";
 import "react-calendar/dist/Calendar.css"; // 스타일을 import
-import PF_LCT_CD_option from "./common/PF_LCT_CD_option";
-import PF_PRDT_CL_NM_option from "./common/PF_PRDT_CL_NM_option";
-import PF_placeSeCd_option from "./common/PF_placeSeCd_option";
-import PF_Paging from "./common/PF_Paging";
+import PF_LCT_CD_option from "../common/PF_local_option";
+import PF_PRDT_CL_NM_option from "../common/PF_product_option";
+import PF_placeSeCd_option from "../common/PF_place_option ";
+import PF_Paging from "../common/PF_Paging";
 
 const PF_Lost = () => {
   // 상태 관리

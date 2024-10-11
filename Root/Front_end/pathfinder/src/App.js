@@ -1,21 +1,21 @@
-import logo from "./logo.svg";
+
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import "./App.css";
 import PF_Main from "./HTML/PF_Main";
 import PF_SigninForm from "./HTML/PF_SigninForm";
 import PF_SignupForm from "./HTML/PF_SignupForm";
-import PF_Lost from "./HTML/PF_Lost";
-import PF_Find from "./HTML/PF_Find";
-import PF_Wanted from "./HTML/PF_Wanted";
-import PF_Animal from "./HTML/PF_Animal";
-import PF_Lost_Upload from "./HTML/PF_Lost_Upload";
-import PF_Find_Upload from "./HTML/PF_Find_Upload";
-import PF_Animal_Upload from "./HTML/PF_Animal_Upload";
-import PF_Wanted_Upload from "./HTML/PF_Wanted_Upload";
-import PF_Find_Board from "./HTML/PF_Find_Board";
-import PF_Animal_Board from "./HTML/PF_Animal_Board";
-import PF_Wanted_Board from "./HTML/PF_Wanted_Board";
-import PF_Lost_Board from "./HTML/PF_Lost_Board";
+import PF_Lost from "./HTML/screen/PF_Lost";
+import PF_Find from "./HTML/screen/PF_Find";
+import PF_Wanted from "./HTML/screen/PF_Wanted";
+import PF_Animal from "./HTML/screen/PF_Animal";
+import PF_Lost_Upload from "./HTML/screen/PF_Lost_Upload";
+import PF_Find_Upload from "./HTML/screen/PF_Find_Upload";
+import PF_Animal_Upload from "./HTML/screen/PF_Animal_Upload";
+import PF_Wanted_Upload from "./HTML/screen/PF_Wanted_Upload";
+import PF_Find_Board from "./HTML/screen/PF_Find_Board";
+import PF_Animal_Board from "./HTML/screen/PF_Animal_Board";
+import PF_Wanted_Board from "./HTML/screen/PF_Wanted_Board";
+import PF_Lost_Board from "./HTML/screen/PF_Lost_Board";
 import SearchResults from "./HTML/SearchResults";
 
 function App() {

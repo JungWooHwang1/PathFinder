@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from "react";
-import "../CSS/PF_Main.css";
-import "../CSS/PF_Write.css";
-import PF_Header from "./common/PF_Header";
-import PF_Nav from "./common/PF_Nav";
+import "../../CSS/PF_Main.css";
+import "../../CSS/PF_Write.css";
+import PF_Header from "../common/PF_Header";
+import PF_Nav from "../common/PF_Nav";
 
-const PF_Animal_Upload = () => {
+const PF_Wanted_Upload = () => {
   const [imagePreview, setImagePreview] = useState(null);
 
-  // 스크립트 파일 읽어오기
   const new_script = (src) => {
     return new Promise((resolve, reject) => {
       const script = document.createElement("script");
@@ -72,6 +71,7 @@ const PF_Animal_Upload = () => {
     const lstDate = document.getElementById("LST_DTE").value;
     const lstLctCd = document.getElementById("LST_LCT_CD").value;
     const lstSigungu = document.getElementById("LST_SIGUNGU").value;
+    const lstMoney = document.getElementById("LST_MONEY").value;
     const lstName = document.getElementById("LST_NAME").value;
     const lstCl = document.getElementById("PRDT_CL_NM").value;
     const lstTi = document.getElementById("LST_Title").value;
@@ -81,6 +81,7 @@ const PF_Animal_Upload = () => {
       !lstDate ||
       !lstLctCd ||
       !lstSigungu ||
+      !lstMoney ||
       !lstName ||
       !lstCl ||
       !lstTi
@@ -99,9 +100,9 @@ const PF_Animal_Upload = () => {
         <PF_Nav />
         <div id="content" tabIndex="-1">
           <div className="contents_common">
-            <h2>반려동물 실종 신고</h2>
+            <h2>현상수배 등록</h2>
             <span className="subtxt1">
-              반려동물 실종 신고양식입니다. (*) 표시는 필수 입력 항목입니다.
+              현상수배 등록 양식입니다. (*) 표시는 필수 입력 항목입니다.
             </span>
           </div>
 
@@ -123,7 +124,7 @@ const PF_Animal_Upload = () => {
             <input type="hidden" id="ORG_ID2" name="ORG_ID2" />
 
             <div className="Box">
-              <div className="titls01">반려동물 실종정보</div>
+              <div className="titls01">수배정보</div>
               <table className="lost_insert">
                 <tbody>
                   <tr>
@@ -138,6 +139,26 @@ const PF_Animal_Upload = () => {
                         className="choice"
                       >
                         <option value="">선택</option>
+                        <option value="LCA000">가방</option>
+                        <option value="LCH000">귀금속</option>
+                        <option value="LCI000">도서용품</option>
+                        <option value="LCJ000">서류</option>
+                        <option value="LCK000">산업용품</option>
+                        <option value="LCQ000">소핑백</option>
+                        <option value="LCR000">스포츠용품</option>
+                        <option value="LCS000">악기</option>
+                        <option value="LCT000">유가증권</option>
+                        <option value="LCU000">의류</option>
+                        <option value="LCV000">자동차</option>
+                        <option value="LCL000">전자기기</option>
+                        <option value="LCM000">지갑</option>
+                        <option value="LCN000">증명서</option>
+                        <option value="LCO000">컴퓨터</option>
+                        <option value="LCP000">카드</option>
+                        <option value="LCW000">현금</option>
+                        <option value="LCF000">휴대폰</option>
+                        <option value="LCE000">기타</option>
+                        <option value="LCE000">유류품</option>
                         <option value="DOG000">개</option>
                         <option value="CAT000">고양이</option>
                         <option value="BIRD000">새</option>
@@ -148,9 +169,10 @@ const PF_Animal_Upload = () => {
                     <div className="App">
                       <div id="map" className="map" />
                     </div>
+
                     <th scope="row">
                       <em>*</em>
-                      <label htmlFor="LST_LCT_CD">반려동물 실종지역</label>
+                      <label htmlFor="LST_LCT_CD">수배지역</label>
                     </th>
                     <td colSpan="3">
                       <select
@@ -187,22 +209,22 @@ const PF_Animal_Upload = () => {
                       />
                     </td>
                   </tr>
-                  <th scope="row">
-                    <em>*</em>
-                    <label htmlFor="LST_Title">게시글 제목 입력</label>
-                  </th>
-                  <td>
-                    <input
-                      type="text"
-                      id="LST_Title"
-                      name="LST_Title"
-                      className="input"
-                    />
-                  </td>
                   <tr>
                     <th scope="row">
                       <em>*</em>
-                      <label htmlFor="LST_PLACE">반려동물 실종장소</label>
+                      <label htmlFor="LST_Title">게시글 제목 입력</label>
+                    </th>
+                    <td>
+                      <input
+                        type="text"
+                        id="LST_Title"
+                        name="LST_Title"
+                        className="input"
+                      />
+                    </td>
+                    <th scope="row">
+                      <em>*</em>
+                      <label htmlFor="LST_PLACE">수배장소</label>
                     </th>
                     <td>
                       <input
@@ -215,9 +237,7 @@ const PF_Animal_Upload = () => {
                     </td>
                     <th scope="row">
                       <em>*</em>
-                      <label htmlFor="LST_PLACE_SE_CD">
-                        반려동물 실종장소 분류
-                      </label>
+                      <label htmlFor="LST_PLACE_SE_CD">수배장소 분류</label>
                     </th>
                     <td>
                       <select
@@ -251,8 +271,17 @@ const PF_Animal_Upload = () => {
                   <tr>
                     <th scope="row">
                       <em>*</em>
-                      <label htmlFor="LST_DTE">반려동물 실종일자</label>
+                      <label htmlFor="LST_DTE">수배일자</label>
                     </th>
+                    <td>
+                      <input
+                        type="date"
+                        id="LST_DTE"
+                        name="LST_DTE"
+                        className="input"
+                      />
+                    </td>
+                    <span>~</span>
                     <td>
                       <input
                         type="date"
@@ -265,7 +294,21 @@ const PF_Animal_Upload = () => {
                   <tr>
                     <th scope="row">
                       <em>*</em>
-                      <label htmlFor="LST_NAME">실종 반려동물명</label>
+                      <label htmlFor="LST_MONEY">의뢰비용</label>
+                    </th>
+                    <td>
+                      <input
+                        type="text"
+                        id="LST_MONEY"
+                        name="LST_MONEY"
+                        className="input"
+                      />
+                    </td>
+                  </tr>
+                  <tr>
+                    <th scope="row">
+                      <em>*</em>
+                      <label htmlFor="LST_NAME">수배물 명</label>
                     </th>
                     <td>
                       <input
@@ -286,18 +329,7 @@ const PF_Animal_Upload = () => {
                 <tbody>
                   <tr>
                     <th>
-                      <label htmlFor="LST_BREED">반려동물명</label>
-                    </th>
-                    <td>
-                      <input
-                        type="text"
-                        id="LST_BREED"
-                        name="LST_BREED"
-                        className="input"
-                      />
-                    </td>
-                    <th>
-                      <label htmlFor="LST_COLOR">반려동물 색상</label>
+                      <label htmlFor="LST_COLOR">물품 색상</label>
                     </th>
                     <td>
                       <input
@@ -310,7 +342,7 @@ const PF_Animal_Upload = () => {
                   </tr>
                   <tr>
                     <th>
-                      <label htmlFor="LST_FEATURE">반려동물 특징</label>
+                      <label htmlFor="LST_FEATURE">물품 특징</label>
                     </th>
                     <td>
                       <input
@@ -379,31 +411,6 @@ const PF_Animal_Upload = () => {
               </table>
             </div>
 
-            {/* <div className="Box">
-              <div className="titls01">개인정보 동의</div>
-              <table className="lost_insert">
-                <tbody>
-                  <tr>
-                    <th>
-                      <label>
-                        <input
-                          type="checkbox"
-                          id="PERSONAL_INFO"
-                          name="PERSONAL_INFO"
-                        />
-                        <b>개인정보 수집 및 이용에 동의합니다.</b>
-                      </label>
-                    </th>
-                    <td>
-                      <a href="#" target="_blank">
-                        개인정보 수집 및 이용에 관한 안내
-                      </a>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div> */}
-
             <div className="submit_area">
               <button type="submit" className="submit_btn">
                 제출
@@ -419,4 +426,4 @@ const PF_Animal_Upload = () => {
   );
 };
 
-export default PF_Animal_Upload;
+export default PF_Wanted_Upload;
