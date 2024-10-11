@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-import "../CSS/PF_Main.css";
-import "../CSS/PF_Write.css";
-import PF_Header from "./common/PF_Header";
-import PF_Nav from "./common/PF_Nav";
+import "../../CSS/PF_Main.css";
+import "../../CSS/PF_Write.css";
+import PF_Header from "../common/PF_Header";
+import PF_Nav from "../common/PF_Nav";
 
 const PF_Find_Upload = () => {
   const [imagePreview, setImagePreview] = useState(null);

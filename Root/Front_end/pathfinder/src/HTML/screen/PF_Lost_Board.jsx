@@ -1,9 +1,9 @@
 import React from "react";
 import { useEffect } from "react";
-import "../CSS/PF_Main.css";
-import "../CSS/PF_Write.css";
-import PF_Header from "./common/PF_Header";
-import PF_Nav from "./common/PF_Nav";
+import "../../CSS/PF_Main.css";
+import "../../CSS/PF_Write.css";
+import PF_Header from "../common/PF_Header";
+import PF_Nav from "../common/PF_Nav";
 
 const PF_Lost_Board = () => {
   //스크립트 파일 읽어오기

@@ -1,11 +1,11 @@
 import React from "react";
 import { useEffect } from "react";
-import "../CSS/PF_Main.css";
-import "../CSS/PF_Write.css";
-import PF_Header from "../HTML/common/PF_Header";
-import PF_Nav from "../HTML/common/PF_Nav";
+import "../../CSS/PF_Main.css";
+import "../../CSS/PF_Write.css";
+import PF_Header from "../common/PF_Header";
+import PF_Nav from "../common/PF_Nav";
 
-const PF_Wanted_Board = () => {
+const PF_Find_Board = () => {
   //스크립트 파일 읽어오기
   const new_script = (src) => {
     return new Promise((resolve, reject) => {
@@ -85,20 +85,20 @@ const PF_Wanted_Board = () => {
                   <p className="lost_name02">1</p>
                 </li>
                 <li>
-                  <p className="lost_lct_cd01">수배지역 :</p>
+                  <p className="lost_lct_cd01">습득지역 :</p>
                   <p className="lost_lct_cd02">2</p>
                 </li>
                 <li>
-                  <p className="lost_date01">수배일 :</p>
+                  <p className="lost_date01">습득일 :</p>
                   <p className="lost_date02">3</p>
                 </li>
                 <li>
-                  <p className="lost_place01">수배장소 :</p>
+                  <p className="lost_place01">습득장소 :</p>
                   <p className="lost_place02">4</p>
                 </li>
 
                 <li>
-                  <p className="lost_color01">물품 색상 :</p>
+                  <p className="lost_color01">물품색상 :</p>
                   <p className="lost_color02">6</p>
                 </li>
                 <li>
@@ -113,12 +113,7 @@ const PF_Wanted_Board = () => {
                   <p className="lost_note01">비고 :</p>
                   <p className="lost_note02">9</p>
                 </li>
-                <li>
-                  <p className="lost_money01">수배 비용 :</p>
-                  <p className="lost_money02">10</p>
-                </li>
               </ul>
-              <button className="find_order">찾기</button>
             </div>
           </div>
 
@@ -133,12 +128,12 @@ const PF_Wanted_Board = () => {
 
           <div className="find_info_btn2">
             <a
-              href="/PF_Wanted"
+              href="/PF_Find"
               type="button"
               id="lostlist"
               name="lostlist"
               className="lostlist"
-              title="수배물 목록"
+              title="습득물 목록"
             >
               목록
             </a>
@@ -149,4 +144,4 @@ const PF_Wanted_Board = () => {
   );
 };
 
-export default PF_Wanted_Board;
+export default PF_Find_Board;

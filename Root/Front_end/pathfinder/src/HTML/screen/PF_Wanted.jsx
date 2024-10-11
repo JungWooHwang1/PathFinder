@@ -1,17 +1,15 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Calendar from "react-calendar";
-import PF_Nav from "./common/PF_Nav";
-import PF_Header from "./common/PF_Header";
-
-import "../CSS/PF_Main.css";
-import "../CSS/PF_Write.css";
+import PF_Nav from "../common/PF_Nav";
+import PF_Header from "../common/PF_Header";
+import "../../CSS/PF_Main.css";
+import "../../CSS/PF_Write.css";
 import "react-calendar/dist/Calendar.css"; // 스타일을 import
-import PF_LCT_CD_option from "./common/PF_LCT_CD_option";
-import PF_PRDT_CL_NM_option from "./common/PF_PRDT_CL_NM_option";
-import PF_placeSeCd_option from "./common/PF_placeSeCd_option";
-import PF_Paging from "./common/PF_Paging";
+import PF_LCT_CD_option from "../common/PF_local_option";
+import PF_placeSeCd_option from "../common/PF_place_option ";
+import PF_Paging from "../common/PF_Paging";
 
-const PF_Lost = () => {
+const PF_Wanted = () => {
   // 상태 관리
   const [formData, setFormData] = useState({
     PRDT_CL_NM: "",
@@ -25,26 +23,6 @@ const PF_Lost = () => {
   const [showCalendar, setShowCalendar] = useState(false); // 달력 표시 여부
   const [calendarType, setCalendarType] = useState(""); // 달력 타입 (시작일/종료일)
   const [date, setDate] = useState(new Date()); // 선택된 날짜
-  const [posts, setPosts] = useState([]); // 게시물 상태
-
-  // 임시 데이터 (실제로는 API 호출을 통해 데이터를 가져와야 함)
-  useEffect(() => {
-    const tempPosts = [
-      {
-        id: 1,
-        boardTitle: "지갑을 잃어버렸어요",
-        lostPlace: "서울특별시 강남구",
-        createDate: "2024-09-20",
-      },
-      {
-        id: 2,
-        boardTitle: "휴대폰을 분실했습니다",
-        lostPlace: "부산광역시 해운대구",
-        createDate: "2024-09-18",
-      },
-    ];
-    setPosts(tempPosts);
-  }, []);
 
   // 핸들러 함수
   const handleChange = (e) => {
@@ -88,23 +66,61 @@ const PF_Lost = () => {
       <PF_Header />
       <div className="PF_container">
         <PF_Nav />
-
         <div id="contents">
-          <h2>분실물 검색</h2>
+          <h2>수배물 검색</h2>
           {/* 검색 폼 */}
           <form onSubmit={handleSearchSubmit}>
             <div className="findList">
               <div
-                className="lost_qfind2"
+                className="Wanted_qfind2"
                 style={{ display: "flex", position: "relative" }}
               >
                 {/* 왼쪽 3개 */}
                 <div style={{ flex: 1, paddingRight: "10px" }}>
                   {/* 분류명 */}
-                  <PF_PRDT_CL_NM_option />
+                  <fieldset className="lost_inputbox">
+                    <legend>분류명 입력</legend>
+                    <label htmlFor="fdLctCd">분류명</label>
+                    <select
+                      name="PRDT_CL_NM"
+                      id="PRDT_CL_NM"
+                      value={formData.PRDT_CL_NM}
+                      readOnly
+                      title="분류명 입력"
+                      onChange={handleChange}
+                      className="search"
+                    >
+                      <option value="">선택</option>
+                      <option value="LCA000">가방</option>
+                      <option value="LCH000">귀금속</option>
+                      <option value="LCI000">도서용품</option>
+                      <option value="LCJ000">서류</option>
+                      <option value="LCK000">산업용품</option>
+                      <option value="LCQ000">소핑백</option>
+                      <option value="LCR000">스포츠용품</option>
+                      <option value="LCS000">악기</option>
+                      <option value="LCT000">유가증권</option>
+                      <option value="LCU000">의류</option>
+                      <option value="LCV000">자동차</option>
+                      <option value="LCL000">전자기기</option>
+                      <option value="LCM000">지갑</option>
+                      <option value="LCN000">증명서</option>
+                      <option value="LCO000">컴퓨터</option>
+                      <option value="LCP000">카드</option>
+                      <option value="LCW000">현금</option>
+                      <option value="LCF000">휴대폰</option>
+                      <option value="LCE000">기타</option>
+                      <option value="LCE000">유류품</option>
+                      <option value="DOG000">개</option>
+                      <option value="CAT000">고양이</option>
+                      <option value="BIRD000">새</option>
+                      <option value="REPTILE000">파충류</option>
+                      <option value="SPE000">특수동물</option>
+                    </select>
+                  </fieldset>
                   {/* 기간 */}
-                  <fieldset className="lost_period">
-                    <legend>분실기간 입력</legend>
+                  <fieldset className="Wanted_period">
+                    <legend>수배기간 입력</legend>
                     <label htmlFor="startYmdInput">기간</label>
                     <div className="date-input-group">
                       <input
@@ -156,10 +172,10 @@ const PF_Lost = () => {
                       <Calendar onChange={handleDateChange} value={date} />
                     </div>
                   )}
-                  {/* 분실물명 */}
-                  <fieldset className="lost_inputbox">
-                    <legend>분실물명 입력</legend>
-                    <label htmlFor="lstPrdtNm">분실물명</label>
+                  {/* 수배물명 */}
+                  <fieldset className="Wanted_inputbox">
+                    <legend>수배물명 입력</legend>
+                    <label htmlFor="lstPrdtNm">수배물명</label>
                     <input
                       type="text"
                       id="lstPrdtNm"
@@ -171,31 +187,48 @@ const PF_Lost = () => {
                   </fieldset>
                 </div>
 
-                {/* 오른쪽  */}
+                {/* 오른쪽 3개 */}
                 <div style={{ flex: 1, paddingLeft: "10px" }}>
-                  {/* 분실지역 */}
+                  {/* 수배지역 */}
                   <PF_LCT_CD_option />
 
-                  {/* 분실장소 */}
+                  {/* 수배장소 */}
                   <PF_placeSeCd_option />
+                  <fieldset className="retainer">
+                    <legend>의뢰 비용 선택</legend>
+                    <label htmlFor="placeSeMo">의뢰비용</label>
+                    <select
+                      name="PLACE_SE_MO"
+                      id="PLACE_SE_MO"
+                      title="의뢰비용 선택"
+                      value={formData.PLACE_SE_CD}
+                      onChange={handleChange}
+                    >
+                      <option value="">선택</option>
+                      {/* 추가 옵션들 */}
+                      <option value="LL1011">1~5000</option>
+                      <option value="LL1015">5000~10000</option>
+                      <option value="LL1005">10000~50000</option>
+                      <option value="LL1003">50000이상</option>
+                    </select>
+                  </fieldset>
                 </div>
               </div>
 
               <p style={{ textAlign: "center" }}>
-                <button type="submit" className="btn_01" title="분실물 검색">
+                <button type="submit" className="btn_01" title="수배물 검색">
                   검색
                 </button>
               </p>
             </div>
           </form>
 
-          {/* 게시물 목록 */}
           <div className="find_listBox">
             <table
               className="type01"
-              summary="관리번호, 분실물명, 분실장소, 분실일자"
+              summary="관리번호, 수배물명, 수배장소, 수배일자"
             >
-              <caption>분실물 목록 조회 결과 테이블</caption>
+              <caption>수배물 목록 조회 결과 테이블</caption>
               <colgroup>
                 <col style={{ width: "160px" }} />
                 <col style={{ width: "auto" }} />
@@ -207,32 +240,23 @@ const PF_Lost = () => {
                   <th scope="col" className="first">
                     관리번호
                   </th>
-                  <th scope="col">분실물명</th>
-                  <th scope="col">분실장소</th>
-                  <th scope="col">분실일자</th>
+                  <th scope="col">수배물명</th>
+                  <th scope="col">수배장소</th>
+                  <th scope="col">수배일자</th>
+                  <th scope="col">의뢰비용</th>
                 </tr>
               </thead>
-              <tbody>
-                {posts.map((post) => (
-                  <tr key={post.id}>
-                    <td>{post.id}</td>
-                    <td>{post.boardTitle}</td>
-                    <td>{post.lostPlace}</td>
-                    <td>{post.createDate}</td>
-                  </tr>
-                ))}
-              </tbody>
+              <tbody>{/* 검색 결과를 여기에 표시 */}</tbody>
             </table>
           </div>
-
-          <a href="/PF_Lost_Board" className="board">
-            분실물 게시물
+          <a href="PF_Wanted_Board" className="board">
+            게시글
           </a>
           <nav id="sub_lnb">
             <ul>
               <li>
-                <a href="/PF_Lost_Upload" className="subMenu_select">
-                  분실물 게시물 등록
+                <a href="PF_Wanted_Upload" class="subMenu_select">
+                  현상수배 게시물 등록
                 </a>
               </li>
             </ul>
@@ -244,4 +268,4 @@ const PF_Lost = () => {
   );
 };
 
-export default PF_Lost;
+export default PF_Wanted;
