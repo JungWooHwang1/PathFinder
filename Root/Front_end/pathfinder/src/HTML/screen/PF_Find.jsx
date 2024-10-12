@@ -5,9 +5,9 @@ import PF_Header from "../common/PF_Header";
 import "react-calendar/dist/Calendar.css"; // 스타일을 import
 import "../../CSS/PF_Main.css";
 import "../../CSS/PF_Write.css";
-import PF_PRDT_CL_NM_option from "../common/PF_product_option";
-import PF_LCT_CD_option from "../common/PF_local_option";
-import PF_placeSeCd_option from "../common/PF_place_option ";
+import PF_product_option from "../common/PF_product_option";
+import PF_local_option from "../common/PF_local_option";
+import PF_place_option from "../common/PF_place_option ";
 import PF_Paging from "../common/PF_Paging";
 
 const PF_Lost = () => {
@@ -84,7 +84,7 @@ const PF_Lost = () => {
                 style={{ display: "flex", position: "relative" }}
               >
                 <div style={{ flex: 1, paddingRight: "10px" }}>
-                  <PF_PRDT_CL_NM_option />
+                  <PF_product_option />
 
                   <fieldset className="lost_period">
                     <legend>습득기간 입력</legend>
@@ -154,9 +154,9 @@ const PF_Lost = () => {
                 </div>
 
                 <div style={{ flex: 1, paddingLeft: "10px" }}>
-                  <PF_placeSeCd_option />
+                  <PF_place_option />
 
-                  <PF_LCT_CD_option />
+                  <PF_local_option />
                 </div>
               </div>
               <p style={{ textAlign: "center" }}>

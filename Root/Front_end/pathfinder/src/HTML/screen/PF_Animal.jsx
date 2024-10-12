@@ -5,8 +5,8 @@ import Calendar from "react-calendar";
 import "../../CSS/PF_Main.css";
 import "../../CSS/PF_Write.css";
 import "react-calendar/dist/Calendar.css"; // 스타일을 import
-import PF_LCT_CD_option from "../common/PF_local_option";
-import PF_placeSeCd_option from "../common/PF_place_option ";
+import PF_local_option from "../common/PF_local_option";
+import PF_place_option from "../common/PF_place_option ";
 import PF_Paging from "../common/PF_Paging";
 
 const PF_Animal = () => {
@@ -170,10 +170,10 @@ const PF_Animal = () => {
                 {/* 오른쪽 3개 */}
                 <div style={{ flex: 1, paddingLeft: "10px" }}>
                   {/* 실종지역 */}
-                  <PF_LCT_CD_option />
+                  <PF_local_option />
 
                   {/* 실종장소 */}
-                  <PF_placeSeCd_option />
+                  <PF_place_option />
                 </div>
               </div>
 
