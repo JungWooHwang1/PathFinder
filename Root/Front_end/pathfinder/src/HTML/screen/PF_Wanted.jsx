@@ -224,11 +224,11 @@ const PF_Wanted = () => {
           </form>
 
           <div className="find_listBox">
+            <h2>수배물 게시판</h2>
             <table
               className="type01"
               summary="관리번호, 수배물명, 수배장소, 수배일자"
             >
-              <caption>수배물 목록 조회 결과 테이블</caption>
               <colgroup>
                 <col style={{ width: "160px" }} />
                 <col style={{ width: "auto" }} />

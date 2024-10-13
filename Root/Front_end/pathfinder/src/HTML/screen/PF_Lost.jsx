@@ -2,17 +2,16 @@ import React, { useState, useEffect } from "react";
 import Calendar from "react-calendar";
 import PF_Nav from "../common/PF_Nav";
 import PF_Header from "../common/PF_Header";
-
 import "../../CSS/PF_Main.css";
 import "../../CSS/PF_Write.css";
-import "react-calendar/dist/Calendar.css"; // 스타일을 import
+import "react-calendar/dist/Calendar.css"; 
 import PF_local_option from "../common/PF_local_option";
 import PF_product_option from "../common/PF_product_option";
 import PF_place_option from "../common/PF_place_option ";
 import PF_Paging from "../common/PF_Paging";
+import "../../CSS/PF_Lost.css"; 
 
 const PF_Lost = () => {
-  // 상태 관리
   const [formData, setFormData] = useState({
     PRDT_CL_NM: "",
     START_YMD: "20240721",
@@ -22,12 +21,11 @@ const PF_Lost = () => {
     LST_PLACE: "",
     P_ATC_ID: "",
   });
-  const [showCalendar, setShowCalendar] = useState(false); // 달력 표시 여부
-  const [calendarType, setCalendarType] = useState(""); // 달력 타입 (시작일/종료일)
-  const [date, setDate] = useState(new Date()); // 선택된 날짜
-  const [posts, setPosts] = useState([]); // 게시물 상태
+  const [showCalendar, setShowCalendar] = useState(false);
+  const [calendarType, setCalendarType] = useState("");
+  const [date, setDate] = useState(new Date());
+  const [posts, setPosts] = useState([]);
 
-  // 임시 데이터 (실제로는 API 호출을 통해 데이터를 가져와야 함)
   useEffect(() => {
     const tempPosts = [
       {
@@ -46,7 +44,6 @@ const PF_Lost = () => {
     setPosts(tempPosts);
   }, []);
 
-  // 핸들러 함수
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
@@ -57,13 +54,12 @@ const PF_Lost = () => {
 
   const handleSearchSubmit = (e) => {
     e.preventDefault();
-    // 검색 요청 처리
     console.log("검색 폼 제출:", formData);
   };
 
   const handleCalendarToggle = (type) => {
     setCalendarType(type);
-    setShowCalendar((prev) => !prev); // 토글을 위해 prev로 설정
+    setShowCalendar((prev) => !prev);
   };
 
   const handleDateChange = (newDate) => {
@@ -80,7 +76,7 @@ const PF_Lost = () => {
       }));
     }
     setDate(newDate);
-    setShowCalendar(false); // 달력 선택 후 닫기
+    setShowCalendar(false);
   };
 
   return (
@@ -88,21 +84,13 @@ const PF_Lost = () => {
       <PF_Header />
       <div className="PF_container">
         <PF_Nav />
-
         <div id="contents">
           <h2>분실물 검색</h2>
-          {/* 검색 폼 */}
           <form onSubmit={handleSearchSubmit}>
             <div className="findList">
-              <div
-                className="lost_qfind2"
-                style={{ display: "flex", position: "relative" }}
-              >
-                {/* 왼쪽 3개 */}
-                <div style={{ flex: 1, paddingRight: "10px" }}>
-                  {/* 분류명 */}
+              <div className="lost_qfind2">
+                <div className="left-section">
                   <PF_product_option />
-                  {/* 기간 */}
                   <fieldset className="lost_period">
                     <legend>분실기간 입력</legend>
                     <label htmlFor="startYmdInput">기간</label>
@@ -150,16 +138,14 @@ const PF_Lost = () => {
                       </button>
                     </div>
                   </fieldset>
-                  {/* 달력 렌더링 */}
                   {showCalendar && (
                     <div className="calendar-popup">
                       <Calendar onChange={handleDateChange} value={date} />
                     </div>
                   )}
-                  {/* 분실물명 */}
                   <fieldset className="lost_inputbox">
                     <legend>분실물명 입력</legend>
-                    <label htmlFor="lstPrdtNm">분실물명</label>
+                    <label htmlFor="lstPrdtNm">제목</label>
                     <input
                       type="text"
                       id="lstPrdtNm"
@@ -171,17 +157,13 @@ const PF_Lost = () => {
                   </fieldset>
                 </div>
 
-                {/* 오른쪽  */}
-                <div style={{ flex: 1, paddingLeft: "10px" }}>
-                  {/* 분실지역 */}
+                <div className="right-section">
                   <PF_local_option />
-
-                  {/* 분실장소 */}
                   <PF_place_option />
                 </div>
               </div>
 
-              <p style={{ textAlign: "center" }}>
+              <p className="search-button">
                 <button type="submit" className="btn_01" title="분실물 검색">
                   검색
                 </button>
@@ -189,13 +171,9 @@ const PF_Lost = () => {
             </div>
           </form>
 
-          {/* 게시물 목록 */}
           <div className="find_listBox">
-            <table
-              className="type01"
-              summary="관리번호, 분실물명, 분실장소, 분실일자"
-            >
-              <caption>분실물 목록 조회 결과 테이블</caption>
+          <h2>분실물 게시판</h2>
+            <table className="type01" summary="관리번호, 분실물명, 분실장소, 분실일자">        
               <colgroup>
                 <col style={{ width: "160px" }} />
                 <col style={{ width: "auto" }} />
@@ -204,10 +182,8 @@ const PF_Lost = () => {
               </colgroup>
               <thead>
                 <tr>
-                  <th scope="col" className="first">
-                    관리번호
-                  </th>
-                  <th scope="col">분실물명</th>
+                  <th scope="col" className="first">관리번호</th>
+                  <th scope="col">제목</th>
                   <th scope="col">분실장소</th>
                   <th scope="col">분실일자</th>
                 </tr>
@@ -225,15 +201,11 @@ const PF_Lost = () => {
             </table>
           </div>
 
-          <a href="/PF_Lost_Board" className="board">
-            분실물 게시물
-          </a>
+          <a href="/PF_Lost_Board" className="board">분실물 게시물</a>
           <nav id="sub_lnb">
             <ul>
               <li>
-                <a href="/PF_Lost_Upload" className="subMenu_select">
-                  분실물 게시물 등록
-                </a>
+                <a href="/PF_Lost_Upload" className="subMenu_select">분실물 게시물 등록</a>
               </li>
             </ul>
           </nav>

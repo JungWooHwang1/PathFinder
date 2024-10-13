@@ -1,0 +1,136 @@
+:root {
+    --maincolor: #E4A656;
+    --subcolor: #FFF5E8;
+    --bordercolor: rgba(0, 0, 0, 0.1);
+    --textcolor: #333;
+    --hovercolor: #D18A36;
+}
+
+body {
+    background-color: var(--subcolor);
+    color: var(--textcolor);
+}
+
+.PF_container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 2px 5px var(--bordercolor);
+    max-width: 1280px;
+    margin: 20px auto;
+}
+
+#contents {
+    
+    flex: 1;
+    width: 100%;
+    
+    padding: 20px;
+}
+
+.findList {
+    margin-bottom: 20px;
+}
+
+.lost_qfind2 {
+    display: flex;
+    gap: 20px;
+}
+
+.left-section,
+.right-section {
+    flex: 1;
+}
+
+.date-input-group {
+    display: flex;
+    align-items: center;
+}
+
+.cal_btn {
+    background-color: var(--maincolor);
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    margin-left: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.cal_btn:hover {
+    background-color: var(--hovercolor);
+}
+
+.search-button {
+    text-align: center;
+}
+
+.find_listBox {
+    margin-top: 20px;
+    width: 100%;
+}
+
+.find_listBox table {
+    width: 100%;
+    border-collapse: collapse;
+    box-shadow: 0 2px 5px var(--bordercolor);
+}
+
+.find_listBox th, .find_listBox td {
+    padding: 12px 16px;
+    text-align: left;
+    border-bottom: 1px solid var(--bordercolor);
+}
+
+.find_listBox th {
+    background-color: var(--maincolor);
+    color: white;
+    text-transform: uppercase;
+}
+
+.find_listBox tbody tr:hover {
+    background-color: rgba(228, 166, 86, 0.1);
+}
+
+.board {
+    display: block;
+    margin-top: 20px;
+    background-color: var(--maincolor);
+    color: white;
+    text-align: center;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.board:hover {
+    background-color: var(--hovercolor);
+}
+
+#sub_lnb ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+#sub_lnb ul li {
+    margin: 10px 0;
+}
+
+#sub_lnb ul li a {
+    display: block;
+    background-color: var(--maincolor);
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    border-radius: 8px;
+    transition: background-color 0.3s ease;
+}
+
+#sub_lnb ul li a:hover {
+    background-color: var(--hovercolor);
+}

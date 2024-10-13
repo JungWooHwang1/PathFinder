@@ -185,11 +185,12 @@ const PF_Animal = () => {
             </div>
           </form>
           <div className="find_listBox">
+          <h2>실종 반려동물 게시판</h2>
             <table
               className="type01"
               summary="관리번호, 반려동물명, 실종장소, 실종일자"
             >
-              <caption>실종 반려동물 목록 조회 결과 테이블</caption>
+              
               <colgroup>
                 <col style={{ width: "160px" }} />
                 <col style={{ width: "auto" }} />

@@ -2,9 +2,8 @@ import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 const PF_Header = () => {
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [isLoggedIn, setIsLoggedIn] = useState(true);
     const [searchTerm, setSearchTerm] = useState("");
-    // const [logoutMessage, setLogoutMessage] = useState(""); // 로그아웃 메시지 상태
     const navigate = useNavigate();
 
     // 로그아웃 핸들러
@@ -14,11 +13,6 @@ const PF_Header = () => {
         sessionStorage.removeItem("role");
         setIsLoggedIn(false);
         navigate("/");
-        // setLogoutMessage("로그아웃 되었습니다."); // 로그아웃 메시지 설정
-        // // setTimeout(() => {
-        // //     setLogoutMessage(""); // 일정 시간 후 메시지 제거
-        // //     navigate("/"); // 메인 페이지로 리다이렉션
-        // // }, 1000); // 2초 후에 메인 페이지로 이동
     };
 
     // 컴포넌트가 마운트될 때 로그인 상태를 확인
@@ -37,7 +31,7 @@ const PF_Header = () => {
         } else {
             alert("검색어를 입력해주세요.");
         }
-    }
+    };
 
     return (
         <header className="PF_header">
@@ -45,7 +39,7 @@ const PF_Header = () => {
                 <img src="" alt="main logo" />
             </Link>
             <div className="search_area">
-                <form className="serch-box" onSubmit={handleSearch} method="get">
+                <form className="search-box" onSubmit={handleSearch} method="get">
                     <input
                         className="search_txt"
                         type="search"
@@ -59,22 +53,27 @@ const PF_Header = () => {
                 </form>
             </div>
             <div className="PF_member">
-                <div>
+                <div className="PF_member_ch">
                     {isLoggedIn ? (
-                        // 로그인 상태일 때는 로그아웃 버튼을 표시
-                        <button onClick={handleLogout}>로그아웃</button>
-
+                        <>
+                            {/* 로그인 상태일 때는 로그아웃 버튼과 회원 수정 링크를 표시 */}
+                            <Link onClick={handleLogout}>로그아웃</Link>
+                            <Link to="/member/edit">회원수정</Link>
+                        </>
                     ) : (
-                        // 로그인 상태가 아닐 때는 로그인 버튼을 표시
+                        <>
+                       
                         <Link to="/PF_SigninForm">
-                           <p>로그인</p>
+                            로그인
                         </Link>
+                        </>
                     )}
                 </div>
+                <>
+                {/* 회원가입 링크는 항상 보이도록 수정 */}
                 <Link to="/PF_SignupForm">회원가입</Link>
-                <Link to="">회원수정</Link>
+                </>
             </div>
-            {/* {logoutMessage && <div className="logout-message">{logoutMessage}</div>} 로그아웃 메시지 표시 */}
         </header>
     );
 };

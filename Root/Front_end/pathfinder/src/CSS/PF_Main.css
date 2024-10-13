@@ -7,9 +7,11 @@
 }
 
 body {
+    width: 100%;
+    height: 100%;
     font-family: 'Helvetica Neue', Arial, sans-serif; 
     background-color: var(--subcolor);
-    margin: 0;
+    margin: 0 auto  ;
     padding: 0;
     box-sizing: border-box;
 }
@@ -62,6 +64,7 @@ a:hover {
 /* header css start */
 .PF_header {
     width: 100%;
+    height: 78px;
     max-width: 1280px;
     margin: 0 auto;
     display: flex;
@@ -82,12 +85,14 @@ a:hover {
 
 .PF_member {
     display: flex;
-    gap: 12px; /* 간격 조정 */
+}
+.PF_member_ch {
+    display: flex;
 }
 
 .search_area {
-    width: 30%; /* 크기 조정 */
-    height: 40px; /* 높이 증가 */
+    width: 40%; 
+    height: 42px; 
     border: 1px solid var(--maincolor);
     border-radius: 20px;
     padding: 0 10px;
@@ -98,16 +103,16 @@ a:hover {
 .search_txt {
     width: 100%;
     background: none;
-    font-size: 1rem; /* 기본 폰트 크기 증가 */
+    font-size: 1rem; 
     color: var(--textcolor);
-    padding: 0 12px; /* 패딩 증가 */
+    padding: 0 12px; 
 }
 
 /* header css end */
 
 .PF_container {
     width: 100%;
-    height: 80vh;
+    
     max-width: 1280px;
     margin: 20px auto;
     display: flex;
@@ -117,15 +122,18 @@ a:hover {
     background-color: #fff;
     border-radius: 12px; 
     box-shadow: 0 2px 5px var(--bordercolor);
+    
 }
 
 .PF_nav {
     width: 100%;
+    height: 60px;
     padding: 10px 0;
     background-color: var(--maincolor);
     box-shadow: 0px 2px 8px var(--bordercolor);
     display: flex;
     justify-content: center;
+    align-items: center;
     border-radius: 8px; 
 }
 
@@ -141,7 +149,7 @@ ul {
 ul > li {
     font-size: 1rem;
     font-weight: 500;
-    padding: 12px 16px; 
+   
     transition: background-color 0.3s ease;
 }
 
@@ -180,7 +188,7 @@ ul > li:hover {
     width: 100%;
     display: flex;
     justify-content: space-between;
-    gap: 12px; /* 이미지 간격 조정 */
+    gap: 12px; 
     padding: 8px; 
     border: 1px solid var(--bordercolor);
     background-color: #f9f9f9;

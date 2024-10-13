@@ -167,11 +167,12 @@ const PF_Find = () => {
           </div>
 
           <div className="find_listBox">
+          <h2>습득물 게시판</h2>
             <table
               className="type01"
               summary="관리번호, 습득물명, 습득장소, 습득일자"
             >
-              <caption>습득물 목록 조회 결과 테이블</caption>
+              
               <colgroup>
                 <col style={{ width: "160px" }} />
                 <col style={{ width: "auto" }} />
