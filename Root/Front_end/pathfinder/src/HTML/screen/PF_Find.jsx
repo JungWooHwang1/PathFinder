@@ -10,7 +10,7 @@ import PF_local_option from "../common/PF_local_option";
 import PF_place_option from "../common/PF_place_option ";
 import PF_Paging from "../common/PF_Paging";
 
-const PF_Lost = () => {
+const PF_Find = () => {
   // 상태 관리
   const [formData, setFormData] = useState({
     PRDT_CL_NM: "",
@@ -155,7 +155,6 @@ const PF_Lost = () => {
 
                 <div style={{ flex: 1, paddingLeft: "10px" }}>
                   <PF_place_option />
-
                   <PF_local_option />
                 </div>
               </div>
@@ -211,4 +210,4 @@ const PF_Lost = () => {
   );
 };
 
-export default PF_Lost;
+export default PF_Find;

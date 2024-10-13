@@ -1,180 +1,195 @@
 :root {
-    --maincolor: rgba(228, 166, 86, 0.75);
-    --subcolor: rgba(255, 245, 232, 0.75);
+    --maincolor: #E4A656;
+    --subcolor: #FFF5E8;
+    --bordercolor: rgba(0, 0, 0, 0.1); /* 더 부드러운 경계선 색상으로 변경 */
+    --textcolor: #333;
+    --hovercolor: #D18A36;
+}
+
+body {
+    font-family: 'Helvetica Neue', Arial, sans-serif; 
+    background-color: var(--subcolor);
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+input, button, a {
+    outline: none;
+    border: none;
+    text-decoration: none;
 }
 
 input {
-    border-width: 0;
-}
-
-input:focus {
-    outline: 2px solid #d50000;
-}
-
-/* outline 테두리 속성 수정 */
-input:focus {
+    border: none;
     outline: none;
 }
 
-/* outline 테두리 없애기 */
-
-.form-list li input[type=search]:focus::placeholder {
-    color: transparent;
+input[type="search"]::-webkit-search-cancel-button {
+    -webkit-appearance: none; 
+    -moz-appearance: none; 
+    appearance: none; 
 }
 
-.form-list li input[type=search]:focus:-ms-input-placeholder {
-    color: transparent;
+input:focus {
+    outline: none; 
+    border: 1px solid var(--maincolor); 
+    transition: border 0.3s ease;
 }
 
-.form-list li input[type=search]:focus::-ms-input-placeholder {
-    color: transparent;
-}
-
-/* 버튼 css 초기화 */
 button {
-    background: inherit;
-    border: none;
-    box-shadow: none;
-    border-radius: 0;
+    background: none;
     padding: 0;
-    overflow: visible;
     cursor: pointer;
 }
 
-
 a {
-    text-decoration: none;
-    outline: none;
-    color: black;
+    color: var(--textcolor);
+    padding: 12px 16px; 
     display: flex;
     align-items: center;
-    padding: 10px
+    font-size: 1rem;
+    font-weight: 600; 
+    transition: color 0.3s ease, background-color 0.3s ease;
+    border-radius: 8px;
 }
 
+a:hover {
+    color: #fff;
+    background-color: var(--hovercolor); 
+}
 
+/* header css start */
 .PF_header {
-
-    position: relative;
-    width: 1280px;
+    width: 100%;
+    max-width: 1280px;
     margin: 0 auto;
     display: flex;
-    height: 120px;
-    z-index: 2;
-
     align-items: center;
+    justify-content: space-between;
+    background-color: #fff;
+    padding: 10px 20px; /* 더 여유 있는 패딩 */
+    border-radius: 12px; /* 모서리를 둥글게 */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* 그림자 효과 개선 */
 }
 
 .header_inner {
     width: 100%;
     display: flex;
-    justify-content: center;
-    padding: 38px 0 8px 0;
+    justify-content: space-between;
+    padding: 8px 0; 
 }
 
 .PF_member {
     display: flex;
-    position: absolute;
-    top: 0;
-    right: 0;
+    gap: 12px; /* 간격 조정 */
 }
 
 .search_area {
-    width: 40%;
-    height: 40px;
+    width: 30%; /* 크기 조정 */
+    height: 40px; /* 높이 증가 */
     border: 1px solid var(--maincolor);
-    border-radius: 33px;
-    padding-left: 20px;
-    margin: 0px 0px 0px 10px;
-    z-index: 10;
+    border-radius: 20px;
+    padding: 0 10px;
     display: flex;
     align-items: center;
 }
-
-
 
 .search_txt {
-    position: relative;
     width: 100%;
-    height: 58px;
-    padding: 17px 0;
-    color: #000;
-    z-index: 10;
-    background-color: rgba(0, 0, 0, 0);
-    box-sizing: border-box;
-    font-size: 1rem;
-    line-height: 24px;
-    font-weight: bold;
-    outline: 0;
-
+    background: none;
+    font-size: 1rem; /* 기본 폰트 크기 증가 */
+    color: var(--textcolor);
+    padding: 0 12px; /* 패딩 증가 */
 }
 
-.PF_container {
-    position: relative;
-    width: 100%;
-    max-width: 1280px;
+/* header css end */
 
-    margin: 0 auto;
-    height: 100%;
+.PF_container {
+    width: 100%;
+    height: 80vh;
+    max-width: 1280px;
+    margin: 20px auto;
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
-
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 12px; 
+    box-shadow: 0 2px 5px var(--bordercolor);
 }
 
 .PF_nav {
     width: 100%;
-    height: 100%;
-    top: 0;
+    padding: 10px 0;
+    background-color: var(--maincolor);
+    box-shadow: 0px 2px 8px var(--bordercolor);
     display: flex;
     justify-content: center;
-    align-items: center;
-    background-color: var(--maincolor);
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px; 
 }
 
 ul {
-    width: 100%;
-    padding: 0 140px 0 140px;
     display: flex;
-    list-style: none;
     justify-content: space-between;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    width: 80%; 
 }
 
-ul>li {
-    font-size: 15px;
+ul > li {
+    font-size: 1rem;
+    font-weight: 500;
+    padding: 12px 16px; 
+    transition: background-color 0.3s ease;
+}
+
+ul > li:hover {
+    
+    border-radius: 5px;
 }
 
 .PF_main {
     width: 100%;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    padding: 16px;
+    gap: 16px;
 }
 
-.PF_main>section {
-    width: 100%;
-    height: 180px;
+.PF_main > section {
+    background-color: #fff;
+    border: 1px solid var(--bordercolor);
+    border-radius: 12px;
+    padding: 16px;
     display: flex;
     flex-direction: column;
-    box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.1);
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0px 2px 5px var(--bordercolor);
+    transition: transform 0.2s ease, background-color 0.3s ease; 
 }
 
-.PF_main>section>a {
-    margin-left: 0;
-
-
+.PF_main > section:hover {
+    background-color: rgba(255, 245, 232, 0.9);
+    transform: translateY(-5px); 
 }
-
 
 .img_group {
-    height: 100%;
+    width: 100%;
     display: flex;
-    align-items: center;
     justify-content: space-between;
-    border: 1px solid gray;
+    gap: 12px; /* 이미지 간격 조정 */
+    padding: 8px; 
+    border: 1px solid var(--bordercolor);
+    background-color: #f9f9f9;
+    border-radius: 8px;
 }
 
-.img_group>img {
-    height: 100%;
+.img_group > img {
+    height: 90px;
+    width: 90px;
+    object-fit: cover;
+    border-radius: 8px; 
 }
