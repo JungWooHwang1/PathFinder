@@ -1,14 +1,7 @@
-:root {
-  --maincolor: #E4A656;
-  --subcolor: #FFF5E8;
-  --bordercolor: rgba(0, 0, 0, 0.1);
-  --textcolor: #333;
-  --hovercolor: #D18A36;
-}
+
 
 body {
-  background-color: var(--subcolor);
-  color: var(--textcolor);
+  
   font-family: 'Helvetica Neue', Arial, sans-serif;
   margin: 0;
   padding: 0;

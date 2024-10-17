@@ -15,41 +15,44 @@ const SignupForm = () => {
 
   const handleSignup = async (event) => {
     event.preventDefault();
-
+  
     if (password !== confirmPassword) {
       alert("비밀번호가 일치하지 않습니다.");
       return;
     }
-
+  
     const payload = {
       memberId: username,
       memberPw: password,
       memberNickName: userNickname,
     };
-
+  
+    console.log("전송할 데이터:", payload); // 전송할 데이터 확인
+  
     try {
       const response = await axios.post("http://43.203.203.157:8085/members", payload);
-
       console.log("회원가입 성공! 아이디: " + response.data.memberId);
       alert("회원가입에 성공했습니다! 로그인 페이지로 이동합니다.");
       navigate("/");
     } catch (error) {
       if (error.response) {
-        // 서버가 응답을 반환했지만 오류가 있는 경우
         alert(`회원가입 실패: ${error.response.data.message || "서버 오류"}`);
       } else if (error.request) {
-        // 요청이 전송되었지만 응답을 받지 못한 경우
-        console.error("네트워크 또는 서버 오류 발생:", error.request);
-        alert("오류가 발생했습니다. 다시 시도해주세요.");
+        console.error("요청 전송 후 응답 없음:", error.request);
+        alert("응답을 받지 못했습니다. 네트워크를 확인해 주세요.");
       } else {
-        // 요청을 설정하는 중 오류가 발생한 경우
         console.error("오류 발생:", error.message);
-        alert("오류가 발생했습니다. 다시 시도해주세요.");
+        alert("오류 발생: " + error.message);
       }
     }
+    
+    
   };
+  
 
   return (
+    
+
     <div className="container">
       <div className="wrapper">
         <div className="form-box register">
