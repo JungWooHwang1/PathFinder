@@ -2,12 +2,11 @@
   "name": "pathfinder",
   "version": "0.1.0",
   "private": true,
-  "proxy": "https://c1ed-14-35-63-77.ngrok-free.app",
+  "proxy": "http://43.203.203.157:8085",
   "dependencies": {
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
-    "axios": "^1.7.7",
     "react": "^18.3.1",
     "react-calendar": "^5.0.0",
     "react-dom": "^18.3.1",
@@ -18,11 +17,12 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
+    
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
-  },
+},
   "eslintConfig": {
     "extends": [
       "react-app",

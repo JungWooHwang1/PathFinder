@@ -1,7 +1,7 @@
 :root {
     --maincolor: #E4A656;
     --subcolor: #FFF5E8;
-    --bordercolor: rgba(0, 0, 0, 0.1); /* 더 부드러운 경계선 색상으로 변경 */
+    --bordercolor: rgba(0, 0, 0, 0.1); 
     --textcolor: #333;
     --hovercolor: #D18A36;
 }
@@ -10,7 +10,6 @@ body {
     width: 100%;
     height: 100%;
     font-family: 'Helvetica Neue', Arial, sans-serif; 
-    background-color: var(--subcolor);
     margin: 0 auto  ;
     padding: 0;
     box-sizing: border-box;
@@ -35,7 +34,7 @@ input[type="search"]::-webkit-search-cancel-button {
 
 input:focus {
     outline: none; 
-    border: 1px solid var(--maincolor); 
+    
     transition: border 0.3s ease;
 }
 
