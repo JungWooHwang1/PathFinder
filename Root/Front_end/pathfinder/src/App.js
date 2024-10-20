@@ -1,4 +1,4 @@
-
+import React, { useEffect } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import "./App.css";
 import PF_Main from "./HTML/PF_Main";
@@ -18,7 +18,18 @@ import PF_Wanted_Board from "./HTML/screen/PF_Wanted_Board";
 import PF_Lost_Board from "./HTML/screen/PF_Lost_Board";
 import SearchResults from "./HTML/SearchResults";
 
+const initializeKakao = () => {
+  if (window.Kakao && !window.Kakao.isInitialized()) {
+    window.Kakao.init('c4a41bf411d48221a36238c0e2fab540'); // 여기에 Kakao JavaScript 키를 넣으세요
+    console.log("Kakao SDK initialized:", window.Kakao.isInitialized());
+  }
+};
+
 function App() {
+  useEffect(() => {
+    initializeKakao();
+  }, []);
+
   return (
     <Router>
       <Routes>

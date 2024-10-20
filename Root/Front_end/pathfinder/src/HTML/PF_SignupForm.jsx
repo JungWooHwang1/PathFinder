@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "../CSS/PF_SignupForm.css";
 import { FaUser, FaLock } from "react-icons/fa";
-import axios from "axios";  // Axios 불러오기
 
 const SignupForm = () => {
   const [email, setEmail] = useState("");
@@ -30,29 +29,33 @@ const SignupForm = () => {
     console.log("전송할 데이터:", payload); // 전송할 데이터 확인
   
     try {
-      const response = await axios.post("http://43.203.203.157:8085/members", payload);
-      console.log("회원가입 성공! 아이디: " + response.data.memberId);
-      alert("회원가입에 성공했습니다! 로그인 페이지로 이동합니다.");
-      navigate("/");
-    } catch (error) {
-      if (error.response) {
-        alert(`회원가입 실패: ${error.response.data.message || "서버 오류"}`);
-      } else if (error.request) {
-        console.error("요청 전송 후 응답 없음:", error.request);
-        alert("응답을 받지 못했습니다. 네트워크를 확인해 주세요.");
+      // URL 수정: fetch 요청 시 프로토콜이 포함된 절대 경로로 수정
+      const response = await fetch("http://ec2-43-203-203-157.ap-northeast-2.compute.amazonaws.com/PF_SignupForm/members", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      });
+    
+      const responseBody = await response.text(); // 응답을 텍스트로 가져옴
+    
+      if (response.ok) {
+        const data = JSON.parse(responseBody); // JSON으로 변환
+        console.log("회원가입 성공! 아이디: " + data.memberId);
+        alert("회원가입에 성공했습니다! 로그인 페이지로 이동합니다.");
+        navigate("/");
       } else {
-        console.error("오류 발생:", error.message);
-        alert("오류 발생: " + error.message);
+        console.error("회원가입 실패:", responseBody);
+        alert("회원가입 실패: 서버 오류가 발생했습니다.");
       }
+    } catch (error) {
+      console.error("요청 전송 후 응답 없음:", error);
+      alert("응답을 받지 못했습니다. 네트워크를 확인해 주세요.");
     }
-    
-    
   };
   
-
   return (
-    
-
     <div className="container">
       <div className="wrapper">
         <div className="form-box register">
@@ -61,9 +64,9 @@ const SignupForm = () => {
             <div className="input-box">
               <input
                 type="text"
-                placeholder="Username"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
+                placeholder="Nickname"
+                value={userNickname}
+                onChange={(e) => setUserNickname(e.target.value)}
                 required
               />
               <FaUser className="icon" />
@@ -71,9 +74,9 @@ const SignupForm = () => {
             <div className="input-box">
               <input
                 type="text"
-                placeholder="Nickname"
-                value={userNickname}
-                onChange={(e) => setUserNickname(e.target.value)}
+                placeholder="Username"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
                 required
               />
               <FaUser className="icon" />
@@ -120,4 +123,3 @@ const SignupForm = () => {
 };
 
 export default SignupForm;
-
