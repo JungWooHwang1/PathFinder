@@ -4,12 +4,12 @@ import PF_Nav from "../common/PF_Nav";
 import PF_Header from "../common/PF_Header";
 import "../../CSS/PF_Main.css";
 import "../../CSS/PF_Write.css";
-import "react-calendar/dist/Calendar.css"; 
+import "react-calendar/dist/Calendar.css";
 import PF_local_option from "../common/PF_local_option";
 import PF_product_option from "../common/PF_product_option";
 import PF_place_option from "../common/PF_place_option ";
 import PF_Paging from "../common/PF_Paging";
-import "../../CSS/PF_Lost.css"; 
+import "../../CSS/PF_Lost.css";
 
 const PF_Lost = () => {
   const [formData, setFormData] = useState({
@@ -91,58 +91,7 @@ const PF_Lost = () => {
               <div className="lost_qfind2">
                 <div className="left-section">
                   <PF_product_option />
-                  <fieldset className="lost_period">
-                    <legend>분실기간 입력</legend>
-                    <label htmlFor="startYmdInput">기간</label>
-                    <div className="date-input-group">
-                      <input
-                        type="text"
-                        title="검색시작일"
-                        name="START_YMD"
-                        id="startYmdInput"
-                        className="search_text isNumber"
-                        size="10"
-                        value={formData.START_YMD}
-                        readOnly
-                        onChange={handleChange}
-                      />
-                      <button
-                        type="button"
-                        className="cal_btn"
-                        onClick={() => handleCalendarToggle("START_YMD")}
-                        title="검색 시작일 달력 레이어 새창"
-                      >
-                        달력 열기
-                      </button>
-                    </div>
-                    <span>~</span>
-                    <div className="date-input-group">
-                      <input
-                        type="text"
-                        title="검색종료일"
-                        name="END_YMD"
-                        id="endYmdInput"
-                        className="search_text isNumber"
-                        size="10"
-                        value={formData.END_YMD}
-                        readOnly
-                        onChange={handleChange}
-                      />
-                      <button
-                        type="button"
-                        className="cal_btn"
-                        onClick={() => handleCalendarToggle("END_YMD")}
-                        title="검색 종료일 달력 레이어 새창"
-                      >
-                        달력 열기
-                      </button>
-                    </div>
-                  </fieldset>
-                  {showCalendar && (
-                    <div className="calendar-popup">
-                      <Calendar onChange={handleDateChange} value={date} />
-                    </div>
-                  )}
+
                   <fieldset className="lost_inputbox">
                     <legend>분실물명 입력</legend>
                     <label htmlFor="lstPrdtNm">제목</label>
@@ -150,7 +99,7 @@ const PF_Lost = () => {
                       type="text"
                       id="lstPrdtNm"
                       name="LST_PRDT_NM"
-                      className="search_text korean"
+                      className="input"
                       value={formData.LST_PRDT_NM}
                       onChange={handleChange}
                     />
@@ -162,7 +111,60 @@ const PF_Lost = () => {
                   <PF_place_option />
                 </div>
               </div>
-
+              <div className="date-section">
+                <fieldset className="lost_period">
+                  <legend>분실기간 입력</legend>
+                  <label htmlFor="startYmdInput">기간</label>
+                  <div className="date-input-group">
+                    <input
+                      type="text"
+                      title="검색시작일"
+                      name="START_YMD"
+                      id="startYmdInput"
+                      className="search_text_isNumber"
+                      size="20"
+                      value={formData.START_YMD}
+                      readOnly
+                      onChange={handleChange}
+                    />
+                    <button
+                      type="button"
+                      className="cal_btn"
+                      onClick={() => handleCalendarToggle("START_YMD")}
+                      title="검색 시작일 달력 레이어 새창"
+                    >
+                      달력 열기
+                    </button>
+                  </div>
+                  <span className="datecom"> ~ </span>
+                  <div className="date-input-group">
+                    <input
+                      type="text"
+                      title="검색종료일"
+                      name="END_YMD"
+                      id="endYmdInput"
+                      className="search_text_isNumber"
+                      size="20"
+                      value={formData.END_YMD}
+                      readOnly
+                      onChange={handleChange}
+                    />
+                    <button
+                      type="button"
+                      className="cal_btn"
+                      onClick={() => handleCalendarToggle("END_YMD")}
+                      title="검색 종료일 달력 레이어 새창"
+                    >
+                      달력 열기
+                    </button>
+                  </div>
+                </fieldset>
+                {showCalendar && (
+                  <div className="calendar-popup">
+                    <Calendar onChange={handleDateChange} value={date} />
+                  </div>
+                )}
+              </div>
               <p className="search-button">
                 <button type="submit" className="btn_01" title="분실물 검색">
                   검색
@@ -172,8 +174,11 @@ const PF_Lost = () => {
           </form>
 
           <div className="find_listBox">
-          <h2>분실물 게시판</h2>
-            <table className="type01" summary="관리번호, 분실물명, 분실장소, 분실일자">        
+            <h2>분실물 게시판</h2>
+            <table
+              className="type01"
+              summary="관리번호, 분실물명, 분실장소, 분실일자"
+            >
               <colgroup>
                 <col style={{ width: "160px" }} />
                 <col style={{ width: "auto" }} />
@@ -182,7 +187,9 @@ const PF_Lost = () => {
               </colgroup>
               <thead>
                 <tr>
-                  <th scope="col" className="first">관리번호</th>
+                  <th scope="col" className="first">
+                    관리번호
+                  </th>
                   <th scope="col">제목</th>
                   <th scope="col">분실장소</th>
                   <th scope="col">분실일자</th>
@@ -201,11 +208,15 @@ const PF_Lost = () => {
             </table>
           </div>
 
-          <a href="/PF_Lost_Board" className="board">분실물 게시물</a>
+          <a href="/PF_Lost_Board" className="board">
+            분실물 게시물
+          </a>
           <nav id="sub_lnb">
             <ul>
               <li>
-                <a href="/PF_Lost_Upload" className="subMenu_select">분실물 게시물 등록</a>
+                <a href="/PF_Lost_Upload" className="subMenu_select">
+                  분실물 게시물 등록
+                </a>
               </li>
             </ul>
           </nav>

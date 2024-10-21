@@ -1,8 +1,5 @@
-
-
 body {
-  
-  font-family: 'Helvetica Neue', Arial, sans-serif;
+  font-family: "Helvetica Neue", Arial, sans-serif;
   margin: 0;
   padding: 0;
 }
@@ -30,6 +27,7 @@ body {
 }
 
 .cal_btn {
+  width: 100px;
   margin-left: 8px;
   background-color: var(--maincolor);
   color: white;
@@ -42,23 +40,46 @@ body {
 .cal_btn:hover {
   background-color: var(--hovercolor);
 }
+.wanted-date {
+  align-items: center;
 
+  display: flex;
+}
 /* Calendar Popup */
 .calendar-popup {
   position: absolute;
-  top: 150px; 
+  top: 150px;
   z-index: 10;
   background: white;
   border: 1px solid #ddd;
   border-radius: 8px;
   padding: 10px;
 }
-
+.date-section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 /* Lost Period */
-.lost_period,
+.lost_period {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 850px;
+  height: 50px;
+  gap: 20px;
+}
 .lost_inputbox {
-  margin-bottom: 20px;
   width: 400px;
+}
+.search_text_isNumber {
+  width: 200px;
+}
+.wanted-left-section {
+  top: 0px;
+}
+.input {
+  border: 1px solid #000000;
 }
 
 /* Image Preview */
@@ -131,13 +152,15 @@ body {
 
 .find_info li {
   display: flex;
-  flex-direction: column;
+  font-size: 15px;
   align-items: center;
-  padding: 10px;
-  min-width: 150px;
+
+  width: 200px;
+  height: 40px;
   border: 1px solid #ddd;
   border-radius: 8px;
-  text-align: center;
+  text-align: left;
+  padding: 1px;
 }
 
 /* Comment Section */
@@ -154,7 +177,7 @@ body {
 }
 
 /* Buttons */
-.find_info_btn2,
+
 .btn_01,
 .lostlist,
 .find_order {
@@ -195,4 +218,6 @@ body {
 .PRDT_CL_NM,
 .PLACE_SE_MO {
   display: inline-block;
+}
+.show-board {
 }

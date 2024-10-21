@@ -21,42 +21,14 @@ const PF_LCT_CD_option = () => {
   return (
     <fieldset className="lost_inputbox">
       <legend>지역 입력</legend>
-      <label htmlFor="fdLctCd">지역</label>
-      <select
-        name="FD_LCT_CD"
-        id="fdLctCd"
-        className="search_text1"
-        title="지역 선택"
-        value={formData.FD_LCT_CD}
-        onChange={handleChange}
-        style={{ display: "inline-block" }}
-      >
-        <option value="">선택</option>
-        <option value="LCA000">서울특별시</option>
-        <option value="LCH000">강원도</option>
-        <option value="LCI000">경기도</option>
-        <option value="LCJ000">경상남도</option>
-        <option value="LCK000">경상북도</option>
-        <option value="LCQ000">광주광역시</option>
-        <option value="LCR000">대구광역시</option>
-        <option value="LCS000">대전광역시</option>
-        <option value="LCT000">부산광역시</option>
-        <option value="LCU000">울산광역시</option>
-        <option value="LCV000">인천광역시</option>
-        <option value="LCL000">전라남도</option>
-        <option value="LCM000">전라북도</option>
-        <option value="LCN000">충청남도</option>
-        <option value="LCO000">충청북도</option>
-        <option value="LCP000">제주특별자치도</option>
-        <option value="LCW000">세종특별자치시</option>
-        <option value="LCE000">기타</option>
-      </select>
+      <label>지역</label>
+
       <input
         type="text"
         id="LST_SIGUNGU"
         name="LST_SIGUNGU"
         className="input"
-        maxLength="10"
+        maxLength="100"
       />
     </fieldset>
   );

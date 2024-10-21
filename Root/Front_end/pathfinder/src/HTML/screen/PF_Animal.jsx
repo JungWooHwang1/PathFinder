@@ -71,12 +71,9 @@ const PF_Animal = () => {
           {/* 검색 폼 */}
           <form onSubmit={handleSearchSubmit}>
             <div className="findList">
-              <div
-                className="lost_qfind2"
-                style={{ display: "flex", position: "relative" }}
-              >
+              <div className="lost_qfind2">
                 {/* 왼쪽 3개 */}
-                <div style={{ flex: 1, paddingRight: "10px" }}>
+                <div className="left-section">
                   {/* 분류명 */}
                   <fieldset className="lost_inputbox">
                     <legend>반려동물 종류 입력</legend>
@@ -98,60 +95,7 @@ const PF_Animal = () => {
                       <option value="SPE000">특수동물</option>
                     </select>
                   </fieldset>
-                  {/* 기간 */}
-                  <fieldset className="lost_period">
-                    <legend>실종기간 입력</legend>
-                    <label htmlFor="startYmdInput">기간</label>
-                    <div className="date-input-group">
-                      <input
-                        type="text"
-                        title="검색시작일"
-                        name="START_YMD"
-                        id="startYmdInput"
-                        className="search_text isNumber"
-                        size="10"
-                        value={formData.START_YMD}
-                        readOnly
-                        onChange={handleChange}
-                      />
-                      <button
-                        type="button"
-                        className="cal_btn"
-                        onClick={() => handleCalendarToggle("START_YMD")}
-                        title="검색 시작일 달력 레이어 새창"
-                      >
-                        달력 열기
-                      </button>
-                    </div>
-                    <span>~</span>
-                    <div className="date-input-group">
-                      <input
-                        type="text"
-                        title="검색종료일"
-                        name="END_YMD"
-                        id="endYmdInput"
-                        className="search_text isNumber"
-                        size="10"
-                        value={formData.END_YMD}
-                        readOnly
-                        onChange={handleChange}
-                      />
-                      <button
-                        type="button"
-                        className="cal_btn"
-                        onClick={() => handleCalendarToggle("END_YMD")}
-                        title="검색 종료일 달력 레이어 새창"
-                      >
-                        달력 열기
-                      </button>
-                    </div>
-                  </fieldset>
-                  {/* 달력 렌더링 */}
-                  {showCalendar && (
-                    <div className="calendar-popup">
-                      <Calendar onChange={handleDateChange} value={date} />
-                    </div>
-                  )}
+
                   {/* 실종물명 */}
                   <fieldset className="lost_inputbox">
                     <legend>반려동물명 입력</legend>
@@ -160,15 +104,15 @@ const PF_Animal = () => {
                       type="text"
                       id="lstPrdtNm"
                       name="LST_PRDT_NM"
-                      className="search_text korean"
+                      className="input"
                       value={formData.LST_PRDT_NM}
                       onChange={handleChange}
                     />
                   </fieldset>
                 </div>
 
-                {/* 오른쪽 3개 */}
-                <div style={{ flex: 1, paddingLeft: "10px" }}>
+                {/* 오른쪽 2개 */}
+                <div className="right-section">
                   {/* 실종지역 */}
                   <PF_local_option />
 
@@ -176,7 +120,62 @@ const PF_Animal = () => {
                   <PF_place_option />
                 </div>
               </div>
-
+              {/* 기간 */}
+              <div className="date-section">
+                <fieldset className="lost_period">
+                  <legend>실종기간 입력</legend>
+                  <label htmlFor="startYmdInput">기간</label>
+                  <div className="date-input-group">
+                    <input
+                      type="text"
+                      title="검색시작일"
+                      name="START_YMD"
+                      id="startYmdInput"
+                      className="search_text_isNumber"
+                      size="10"
+                      value={formData.START_YMD}
+                      readOnly
+                      onChange={handleChange}
+                    />
+                    <button
+                      type="button"
+                      className="cal_btn"
+                      onClick={() => handleCalendarToggle("START_YMD")}
+                      title="검색 시작일 달력 레이어 새창"
+                    >
+                      달력 열기
+                    </button>
+                  </div>
+                  <span>~</span>
+                  <div className="date-input-group">
+                    <input
+                      type="text"
+                      title="검색종료일"
+                      name="END_YMD"
+                      id="endYmdInput"
+                      className="search_text_isNumber"
+                      size="10"
+                      value={formData.END_YMD}
+                      readOnly
+                      onChange={handleChange}
+                    />
+                    <button
+                      type="button"
+                      className="cal_btn"
+                      onClick={() => handleCalendarToggle("END_YMD")}
+                      title="검색 종료일 달력 레이어 새창"
+                    >
+                      달력 열기
+                    </button>
+                  </div>
+                </fieldset>
+                {/* 달력 렌더링 */}
+                {showCalendar && (
+                  <div className="calendar-popup">
+                    <Calendar onChange={handleDateChange} value={date} />
+                  </div>
+                )}
+              </div>
               <p style={{ textAlign: "center" }}>
                 <button type="submit" className="btn_01" title="검색">
                   검색
@@ -185,12 +184,11 @@ const PF_Animal = () => {
             </div>
           </form>
           <div className="find_listBox">
-          <h2>실종 반려동물 게시판</h2>
+            <h2>실종 반려동물 게시판</h2>
             <table
               className="type01"
               summary="관리번호, 반려동물명, 실종장소, 실종일자"
             >
-              
               <colgroup>
                 <col style={{ width: "160px" }} />
                 <col style={{ width: "auto" }} />

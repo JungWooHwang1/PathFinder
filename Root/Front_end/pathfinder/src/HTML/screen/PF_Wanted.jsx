@@ -72,11 +72,11 @@ const PF_Wanted = () => {
           <form onSubmit={handleSearchSubmit}>
             <div className="findList">
               <div
-                className="Wanted_qfind2"
+                className="lost_qfind2"
                 style={{ display: "flex", position: "relative" }}
               >
                 {/* 왼쪽 3개 */}
-                <div style={{ flex: 1, paddingRight: "10px" }}>
+                <div className="wanted-left-section">
                   {/* 분류명 */}
                   <fieldset className="lost_inputbox">
                     <legend>분류명 입력</legend>
@@ -118,69 +118,16 @@ const PF_Wanted = () => {
                       <option value="SPE000">특수동물</option>
                     </select>
                   </fieldset>
-                  {/* 기간 */}
-                  <fieldset className="Wanted_period">
-                    <legend>수배기간 입력</legend>
-                    <label htmlFor="startYmdInput">기간</label>
-                    <div className="date-input-group">
-                      <input
-                        type="text"
-                        title="검색시작일"
-                        name="START_YMD"
-                        id="startYmdInput"
-                        className="search_text isNumber"
-                        size="10"
-                        value={formData.START_YMD}
-                        readOnly
-                        onChange={handleChange}
-                      />
-                      <button
-                        type="button"
-                        className="cal_btn"
-                        onClick={() => handleCalendarToggle("START_YMD")}
-                        title="검색 시작일 달력 레이어 새창"
-                      >
-                        달력 열기
-                      </button>
-                    </div>
-                    <span>~</span>
-                    <div className="date-input-group">
-                      <input
-                        type="text"
-                        title="검색종료일"
-                        name="END_YMD"
-                        id="endYmdInput"
-                        className="search_text isNumber"
-                        size="10"
-                        value={formData.END_YMD}
-                        readOnly
-                        onChange={handleChange}
-                      />
-                      <button
-                        type="button"
-                        className="cal_btn"
-                        onClick={() => handleCalendarToggle("END_YMD")}
-                        title="검색 종료일 달력 레이어 새창"
-                      >
-                        달력 열기
-                      </button>
-                    </div>
-                  </fieldset>
-                  {/* 달력 렌더링 */}
-                  {showCalendar && (
-                    <div className="calendar-popup">
-                      <Calendar onChange={handleDateChange} value={date} />
-                    </div>
-                  )}
+
                   {/* 수배물명 */}
-                  <fieldset className="Wanted_inputbox">
+                  <fieldset className="lost_inputbox">
                     <legend>수배물명 입력</legend>
                     <label htmlFor="lstPrdtNm">수배물명</label>
                     <input
                       type="text"
                       id="lstPrdtNm"
                       name="LST_PRDT_NM"
-                      className="search_text korean"
+                      className="input"
                       value={formData.LST_PRDT_NM}
                       onChange={handleChange}
                     />
@@ -188,13 +135,13 @@ const PF_Wanted = () => {
                 </div>
 
                 {/* 오른쪽 3개 */}
-                <div style={{ flex: 1, paddingLeft: "10px" }}>
+                <div className="right-section">
                   {/* 수배지역 */}
                   <PF_local_option />
 
                   {/* 수배장소 */}
                   <PF_place_option />
-                  <fieldset className="retainer">
+                  <fieldset className="lost_inputbox">
                     <legend>의뢰 비용 선택</legend>
                     <label htmlFor="placeSeMo">의뢰비용</label>
                     <select
@@ -214,7 +161,62 @@ const PF_Wanted = () => {
                   </fieldset>
                 </div>
               </div>
-
+              {/* 기간 */}
+              <div className="date-section">
+                <fieldset className="lost_period">
+                  <legend>수배기간 입력</legend>
+                  <label htmlFor="startYmdInput">기간</label>
+                  <div className="date-input-group">
+                    <input
+                      type="text"
+                      title="검색시작일"
+                      name="START_YMD"
+                      id="startYmdInput"
+                      className="search_text_isNumber"
+                      size="10"
+                      value={formData.START_YMD}
+                      readOnly
+                      onChange={handleChange}
+                    />
+                    <button
+                      type="button"
+                      className="cal_btn"
+                      onClick={() => handleCalendarToggle("START_YMD")}
+                      title="검색 시작일 달력 레이어 새창"
+                    >
+                      달력 열기
+                    </button>
+                  </div>
+                  <span>~</span>
+                  <div className="date-input-group">
+                    <input
+                      type="text"
+                      title="검색종료일"
+                      name="END_YMD"
+                      id="endYmdInput"
+                      className="search_text_isNumber"
+                      size="10"
+                      value={formData.END_YMD}
+                      readOnly
+                      onChange={handleChange}
+                    />
+                    <button
+                      type="button"
+                      className="cal_btn"
+                      onClick={() => handleCalendarToggle("END_YMD")}
+                      title="검색 종료일 달력 레이어 새창"
+                    >
+                      달력 열기
+                    </button>
+                  </div>
+                </fieldset>
+                {/* 달력 렌더링 */}
+                {showCalendar && (
+                  <div className="calendar-popup">
+                    <Calendar onChange={handleDateChange} value={date} />
+                  </div>
+                )}
+              </div>
               <p style={{ textAlign: "center" }}>
                 <button type="submit" className="btn_01" title="수배물 검색">
                   검색

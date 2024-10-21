@@ -77,44 +77,84 @@ const PF_Animal_Board = () => {
             <div className="find_info">
               <ul>
                 <li>
-                  <p className="lost_cl01">분류명 :</p>
-                  <p className="lost_cl02">0</p>
+                  <p id="lost_cl01" className="show-board">
+                    분류명 :
+                  </p>
+                  <p id="lost_cl02" className="show-board">
+                    0
+                  </p>
                 </li>
                 <li>
-                  <p className="lost_name01">반려동물명 :</p>
-                  <p className="lost_name02">1</p>
+                  <p id="lost_name01" className="show-board">
+                    반려동물명 :
+                  </p>
+                  <p id="lost_name02" className="show-board">
+                    1
+                  </p>
                 </li>
                 <li>
-                  <p className="lost_lct_cd01">실종지역 :</p>
-                  <p className="lost_lct_cd02">2</p>
+                  <p id="lost_lct_cd01" className="show-board">
+                    실종지역 :
+                  </p>
+                  <p id="lost_lct_cd02" className="show-board">
+                    2
+                  </p>
                 </li>
                 <li>
-                  <p className="lost_date01">실종일 :</p>
-                  <p className="lost_date02">3</p>
+                  <p id="lost_date01" className="show-board">
+                    실종일 :
+                  </p>
+                  <p id="lost_date02" className="show-board">
+                    3
+                  </p>
                 </li>
                 <li>
-                  <p className="lost_place01">실종장소 :</p>
-                  <p className="lost_place02">4</p>
+                  <p id="lost_place01" className="show-board">
+                    실종장소 :
+                  </p>
+                  <p id="lost_place02" className="show-board">
+                    4
+                  </p>
                 </li>
                 <li>
-                  <p className="lost_class01">반려동물 종류 :</p>
-                  <p className="lost_class02">5</p>
+                  <p id="lost_class01" className="show-board">
+                    반려동물 종류 :
+                  </p>
+                  <p id="lost_class02" className="show-board">
+                    5
+                  </p>
                 </li>
                 <li>
-                  <p className="lost_color01">반려동물 색상 :</p>
-                  <p className="lost_color02">6</p>
+                  <p id="lost_color01" className="show-board">
+                    반려동물 색상 :
+                  </p>
+                  <p id="lost_color02" className="show-board">
+                    6
+                  </p>
                 </li>
                 <li>
-                  <p className="lost_ch01">특징 :</p>
-                  <p className="lost_ch02">7</p>
+                  <p id="lost_ch01" className="show-board">
+                    특징 :
+                  </p>
+                  <p id="lost_ch02" className="show-board">
+                    7
+                  </p>
                 </li>
                 <li>
-                  <p className="call01">연락처 :</p>
-                  <p className="call02">8</p>
+                  <p id="call01" className="show-board">
+                    연락처 :
+                  </p>
+                  <p id="call02" className="show-board">
+                    8
+                  </p>
                 </li>
                 <li>
-                  <p className="lost_note01">비고 :</p>
-                  <p className="lost_note02">9</p>
+                  <p id="lost_note01" className="show-board">
+                    비고 :
+                  </p>
+                  <p id="lost_note02" className="show-board">
+                    9
+                  </p>
                 </li>
               </ul>
             </div>

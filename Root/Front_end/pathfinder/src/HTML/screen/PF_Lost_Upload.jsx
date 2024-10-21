@@ -162,45 +162,6 @@ const PF_Lost_Upload = () => {
                     <div className="App">
                       <div id="map" className="map" />
                     </div>
-
-                    <th scope="row">
-                      <em>*</em>
-                      <label htmlFor="LST_LCT_CD">분실지역</label>
-                    </th>
-                    <td colSpan="3">
-                      <select
-                        name="LST_LCT_CD"
-                        id="LST_LCT_CD"
-                        className="choice"
-                      >
-                        <option value="">선택</option>
-                        <option value="LCA000">서울특별시</option>
-                        <option value="LCH000">강원도</option>
-                        <option value="LCI000">경기도</option>
-                        <option value="LCJ000">경상남도</option>
-                        <option value="LCK000">경상북도</option>
-                        <option value="LCQ000">광주광역시</option>
-                        <option value="LCR000">대구광역시</option>
-                        <option value="LCS000">대전광역시</option>
-                        <option value="LCT000">부산광역시</option>
-                        <option value="LCU000">울산광역시</option>
-                        <option value="LCV000">인천광역시</option>
-                        <option value="LCL000">전라남도</option>
-                        <option value="LCM000">전라북도</option>
-                        <option value="LCN000">충청남도</option>
-                        <option value="LCO000">충청북도</option>
-                        <option value="LCP000">제주특별자치도</option>
-                        <option value="LCW000">세종특별자치시</option>
-                        <option value="LCE000">기타</option>
-                      </select>
-                      <input
-                        type="text"
-                        id="LST_SIGUNGU"
-                        name="LST_SIGUNGU"
-                        className="input"
-                        maxLength="10"
-                      />
-                    </td>
                   </tr>
                   <tr>
                     <th scope="row">
@@ -217,6 +178,23 @@ const PF_Lost_Upload = () => {
                     </td>
                     <th scope="row">
                       <em>*</em>
+                      <label htmlFor="LST_LCT_CD">
+                        분실지역 ex)경기도 안양시
+                      </label>
+                    </th>
+                    <td colSpan="3">
+                      <input
+                        type="text"
+                        id="LST_SIGUNGU"
+                        name="LST_SIGUNGU"
+                        className="input"
+                        maxLength="100"
+                      />
+                    </td>
+                  </tr>
+                  <tr>
+                    <th scope="row">
+                      <em>*</em>
                       <label htmlFor="LST_PLACE">분실장소</label>
                     </th>
                     <td>
@@ -230,35 +208,15 @@ const PF_Lost_Upload = () => {
                     </td>
                     <th scope="row">
                       <em>*</em>
-                      <label htmlFor="LST_PLACE_SE_CD">분실장소 분류</label>
+                      <label htmlFor="LST_NAME">분실물명</label>
                     </th>
                     <td>
-                      <select
-                        id="LST_PLACE_SE_CD"
-                        name="LST_PLACE_SE_CD"
-                        className="choice"
-                      >
-                        <option value="">선택</option>
-                        <option value="LL1011">우체국(통)</option>
-                        <option value="LL1015">노상</option>
-                        <option value="LL1005">기차</option>
-                        <option value="LL1003">지하철</option>
-                        <option value="LL1012">백화점/매장</option>
-                        <option value="LL1002">택시</option>
-                        <option value="LL1014">음식점(업소포함)</option>
-                        <option value="LL1008">공공기관</option>
-                        <option value="LL1001">버스</option>
-                        <option value="LL1016">주택</option>
-                        <option value="LL1004">공항</option>
-                        <option value="LL1013">상점</option>
-                        <option value="LL1020">영화관</option>
-                        <option value="LL1009">놀이공원</option>
-                        <option value="LL1010">유원지</option>
-                        <option value="LL1007">학교</option>
-                        <option value="LL1006">회사</option>
-                        <option value="LL1017">기타</option>
-                        <option value="LL1018">알 수 없음</option>
-                      </select>
+                      <input
+                        type="text"
+                        id="LST_NAME"
+                        name="LST_NAME"
+                        className="input"
+                      />
                     </td>
                   </tr>
                   <tr>
@@ -271,20 +229,6 @@ const PF_Lost_Upload = () => {
                         type="date"
                         id="LST_DTE"
                         name="LST_DTE"
-                        className="input"
-                      />
-                    </td>
-                  </tr>
-                  <tr>
-                    <th scope="row">
-                      <em>*</em>
-                      <label htmlFor="LST_NAME">분실물명</label>
-                    </th>
-                    <td>
-                      <input
-                        type="text"
-                        id="LST_NAME"
-                        name="LST_NAME"
                         className="input"
                       />
                     </td>
@@ -309,6 +253,17 @@ const PF_Lost_Upload = () => {
                         className="input"
                       />
                     </td>
+                    <th>
+                      <label htmlFor="LST_PHONE">신고자 연락처</label>
+                    </th>
+                    <td>
+                      <input
+                        type="text"
+                        id="LST_PHONE"
+                        name="LST_PHONE"
+                        className="input"
+                      />
+                    </td>
                   </tr>
                   <tr>
                     <th>
@@ -322,17 +277,7 @@ const PF_Lost_Upload = () => {
                         className="input"
                       />
                     </td>
-                    <th>
-                      <label htmlFor="LST_PHONE">신고자 연락처</label>
-                    </th>
-                    <td>
-                      <input
-                        type="text"
-                        id="LST_PHONE"
-                        name="LST_PHONE"
-                        className="input"
-                      />
-                    </td>
+
                     <th>
                       <label htmlFor="LST_NOTE">비고</label>
                     </th>
@@ -342,6 +287,7 @@ const PF_Lost_Upload = () => {
                         id="LST_NOTE"
                         name="LST_NOTE"
                         className="input"
+                        maxLength="100"
                       />
                     </td>
                   </tr>

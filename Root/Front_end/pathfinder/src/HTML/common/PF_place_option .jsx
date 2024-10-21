@@ -21,35 +21,14 @@ const PF_placeSeCd_option = () => {
   return (
     <fieldset className="lost_inputbox">
       <legend>장소 입력</legend>
-      <label htmlFor="placeSeCd">장소</label>
-      <select
-        name="PLACE_SE_CD"
-        id="placeSeCd"
-        title="장소 선택"
-        value={formData.PLACE_SE_CD}
-        onChange={handleChange}
-        style={{ display: "inline-block" }}
-      >
-        <option value="">선택</option>
-        {/* 추가 옵션들 */}
-        <option value="LL1011">우체국(통)</option>
-        <option value="LL1015">노상</option>
-        <option value="LL1005">기차</option>
-        <option value="LL1003">지하철</option>
-        <option value="LL1012">백화점/매장</option>
-        <option value="LL1002">택시</option>
-        <option value="LL1014">음식점(업소포함)</option>
-        <option value="LL1008">공공기관</option>
-        <option value="LL1001">버스</option>
-        <option value="LL1016">주택</option>
-        <option value="LL1004">공항</option>
-        <option value="LL1013">상점</option>
-        <option value="LL1020">영화관</option>
-        <option value="LL1009">놀이공원</option>
-        <option value="LL1007">스포츠시설</option>
-        <option value="LL1006">회사</option>
-        <option value="LL1017">기타</option>
-      </select>
+      <label>장소</label>
+      <input
+        type="text"
+        id="place_option"
+        name="place_option"
+        className="input"
+        maxLength="100"
+      />
     </fieldset>
   );
 };
