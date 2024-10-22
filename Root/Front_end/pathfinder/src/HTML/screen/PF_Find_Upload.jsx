@@ -6,6 +6,24 @@ import PF_Nav from "../common/PF_Nav";
 
 const PF_Find_Upload = () => {
   const [imagePreview, setImagePreview] = useState(null);
+  const [formData, setFormData] = useState({
+    boardTitle: "",
+    acquirePropertyName: "",
+    acquireArea: "",
+    acquirePlace: "",
+    acquirePlace_classifi: "",
+    boardContent: "",
+    propertyColor: "",
+    propertyType: "",
+    reporterPhone: "",
+    etc: "",
+    acquirePlace_adress1: "",
+    acquirePlace_adress2: "",
+    acquirePlace_adress3: "",
+    acquirePlace_adress4: "",
+    acquirePlace_adress5: "",
+    memberNickName: "1111",
+  });
 
   const new_script = (src) => {
     return new Promise((resolve, reject) => {
@@ -57,72 +75,64 @@ const PF_Find_Upload = () => {
     }
   };
 
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    // 입력 항목 수집
-    const lstPlace = document.getElementById("LST_PLACE").value;
-    const lstDate = document.getElementById("LST_DTE").value;
-    const lstLctCd = document.getElementById("LST_LCT_CD").value;
-    const lstSigungu = document.getElementById("LST_SIGUNGU").value;
-    const lstName = document.getElementById("LST_NAME").value;
-    const lstCl = document.getElementById("PRDT_CL_NM").value;
-    const lstTi = document.getElementById("LST_Title").value;
-    const lstPcfi = document.getElementById("LST_PLACE_SE_CD").value;
-    const lstCol = document.getElementById("LST_COLOR").value;
-    const lstFe = document.getElementById("LST_FEATURE").value;
-    const lstPho = document.getElementById("LST_PHONE").value;
-    const lstNote = document.getElementById("LST_NOTE").value;
-
-    if (
-      !lstPlace ||
-      !lstDate ||
-      !lstLctCd ||
-      !lstSigungu ||
-      !lstName ||
-      !lstCl ||
-      !lstTi
-    ) {
-      alert("필수 입력 항목을 모두 채워주세요.");
-      return;
-    }
-
-    // 서버에 보낼 데이터를 객체로 생성
     const postData = {
       member: {
-        memberNickName: "testNickName",
+        memberNickName: "1111", // 사용자가 입력한 값
       },
-      boardTitle: lstTi,
-      boardContent: `${lstPlace}에서 ${lstDate}에 발견된 ${lstName}`,
-      boardImage: imagePreview,
-      createDate: "2024-09-20",
-      classfiName: lstCl,
-      lostPropertyName: lstName,
-      lostArea: lstLctCd,
-      lostPlace: lstSigungu,
-      lostPlace_classifi: lstPcfi,
-      lostDate: lstDate,
-      propertyColor: lstCol,
-      propertyType: lstFe,
-      reporterPhone: lstPho,
-      etc: lstNote,
-      lostPlace_adress: null,
+      boardTitle: formData.boardTitle,
+      classifiName: formData.acquirePlace_classifi,
+      acquirePropertyName: formData.acquirePropertyName,
+      acquireArea: formData.acquireArea,
+      acquirePlace: formData.acquirePlace,
+      acquirePlace_classifi: formData.acquirePlace_classifi,
+      acquireDate: new Date().toISOString().slice(0, 10),
+      boardContent: formData.boardContent,
+      boardImage: imagePreview, 
+      propertyColor: formData.propertyColor,
+      propertyType: formData.propertyType,
+      reporterPhone: formData.reporterPhone,
+      etc: formData.etc,
+      acquirePlace_adress1: formData.acquirePlace_adress1,
+      acquirePlace_adress2: formData.acquirePlace_adress2,
+      acquirePlace_adress3: formData.acquirePlace_adress3,
+      acquirePlace_adress4: formData.acquirePlace_adress4,
+      acquirePlace_adress5: formData.acquirePlace_adress5,
     };
 
-    // 서버에 POST 요청 보내기
-    fetch(`/boards/lost-and-found`, {
+    console.log("Sending data:", postData);
+
+    fetch(`/boards/acquire-property-board`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(postData),
     })
-      .then((response) => response.json())
-      .then((data) => {
-        if (data.statusCode === 200) {
-          alert("분실물 게시글 작성 성공");
+      .then((response) => {
+        const contentType = response.headers.get("content-type");
+        if (contentType && contentType.includes("application/json")) {
+          return response.json();
         } else {
-          alert(`오류 발생: ${data.responseMessage}`);
+          return response.text();
+        }
+      })
+      .then((data) => {
+        if (data.message) {
+          alert(data.message);
+          console.log("게시글 ID:", data.postId);
+        } else {
+          alert("게시글 작성 성공");
         }
       })
       .catch((error) => {
@@ -130,6 +140,7 @@ const PF_Find_Upload = () => {
         alert("분실물 게시글 작성 중 오류가 발생했습니다.");
       });
   };
+
 
   return (
     <div className="body">
@@ -143,7 +154,7 @@ const PF_Find_Upload = () => {
               습득물 신고양식입니다. (*) 표시는 필수 입력 항목입니다.
             </span>
           </div>
-
+  
           <form
             name="commandMap"
             id="commandMap"
@@ -160,22 +171,15 @@ const PF_Find_Upload = () => {
             <input type="hidden" id="CHRGR_ID" name="CHRGR_ID" />
             <input type="hidden" id="CHRGR_NM" name="CHRGR_NM" />
             <input type="hidden" id="ORG_ID2" name="ORG_ID2" />
-
+  
             <div className="Box">
               <div className="titls01">습득정보</div>
               <table className="lost_insert">
                 <tbody>
                   <tr>
-                    <th scope="row">
-                      <em>*</em>
-                      <label htmlFor="PRDT_CL_NM">분류명</label>
-                    </th>
+                    <th scope="row"><em>*</em><label htmlFor="PRDT_CL_NM">분류명</label></th>
                     <td>
-                      <select
-                        id="PRDT_CL_NM"
-                        name="PRDT_CL_NM"
-                        className="choice"
-                      >
+                      <select id="PRDT_CL_NM" name="classifiName" className="choice" onChange={handleChange}>
                         <option value="">선택</option>
                         <option value="LCA000">가방</option>
                         <option value="LCH000">귀금속</option>
@@ -199,175 +203,68 @@ const PF_Find_Upload = () => {
                         <option value="LCE000">유류품</option>
                       </select>
                     </td>
-                    <div className="App">
-                      <div id="map" className="map" />
-                    </div>{" "}
-                  </tr>
-                  <tr>
-                    <th scope="row">
-                      <em>*</em>
-                      <label htmlFor="LST_Title">게시글 제목 입력</label>
-                    </th>
-                    <td>
-                      <input
-                        type="text"
-                        id="LST_Title"
-                        name="LST_Title"
-                        className="input"
-                      />
-                    </td>
-                    <th scope="row">
-                      <em>*</em>
-                      <label htmlFor="LST_LCT_CD">
-                        분실지역 ex)경기도 안양시
-                      </label>
-                    </th>
-                    <td colSpan="3">
-                      <input
-                        type="text"
-                        id="LST_SIGUNGU"
-                        name="LST_SIGUNGU"
-                        className="input"
-                        maxLength="100"
-                      />
+                    <td colSpan="2">
+                      <div className="App">
+                        <div id="map" className="map" />
+                      </div>
                     </td>
                   </tr>
                   <tr>
-                    <th scope="row">
-                      <em>*</em>
-                      <label htmlFor="LST_PLACE">분실장소</label>
-                    </th>
-                    <td>
-                      <input
-                        id="LST_PLACE"
-                        name="LST_PLACE"
-                        type="text"
-                        className="input"
-                        maxLength="50"
-                      />
-                    </td>
-                    <th scope="row">
-                      <em>*</em>
-                      <label htmlFor="LST_NAME">분실물명</label>
-                    </th>
-                    <td>
-                      <input
-                        type="text"
-                        id="LST_NAME"
-                        name="LST_NAME"
-                        className="input"
-                      />
-                    </td>
+                    <th scope="row"><em>*</em><label htmlFor="LST_Title">게시글 제목 입력</label></th>
+                    <td><input type="text" id="LST_Title" name="boardTitle" className="input" onChange={handleChange} /></td>
+
+                    <th scope="row"><em>*</em><label htmlFor="LST_LCT_CD">분실지역 ex)경기도 안양시</label></th>
+                    <td colSpan="3"><input type="text" id="LST_SIGUNGU" name="acquireArea" className="input" maxLength="100" onChange={handleChange} /></td>
                   </tr>
                   <tr>
-                    <th scope="row">
-                      <em>*</em>
-                      <label htmlFor="LST_DTE">분실일자</label>
-                    </th>
-                    <td>
-                      <input
-                        type="date"
-                        id="LST_DTE"
-                        name="LST_DTE"
-                        className="input"
-                      />
-                    </td>
+                    <th scope="row"><em>*</em><label htmlFor="LST_PLACE">분실장소</label></th>
+                    <td><input id="LST_PLACE" name="acquirePlace" type="text" className="input" maxLength="50" onChange={handleChange} /></td>
+
+                    <th scope="row"><em>*</em><label htmlFor="LST_NAME">분실물명</label></th>
+                    <td><input type="text" id="LST_NAME" name="acquirePropertyName" className="input" onChange={handleChange} /></td>
+                  </tr>
+                  <tr>
+                    <th scope="row"><em>*</em><label htmlFor="LST_DTE">분실일자</label></th>
+                    <td><input type="date" id="LST_DTE" name="acquireDate" className="input" onChange={handleChange} /></td>
                   </tr>
                 </tbody>
               </table>
             </div>
-
+  
             <div className="Box">
               <div className="titls01">추가정보</div>
               <table className="lost_insert">
                 <tbody>
                   <tr>
-                    <th>
-                      <label htmlFor="LST_COLOR">물품 색상</label>
-                    </th>
-                    <td>
-                      <input
-                        type="text"
-                        id="LST_COLOR"
-                        name="LST_COLOR"
-                        className="input"
-                      />
-                    </td>
-                    <th>
-                      <label htmlFor="LST_PHONE">신고자 연락처</label>
-                    </th>
-                    <td>
-                      <input
-                        type="text"
-                        id="LST_PHONE"
-                        name="LST_PHONE"
-                        className="input"
-                      />
-                    </td>
+                    <th><label htmlFor="LST_COLOR">물품 색상</label></th>
+                    <td><input type="text" id="LST_COLOR" name="propertyColor" className="input" onChange={handleChange} /></td>
+
+                    <th><label htmlFor="LST_PHONE">신고자 연락처</label></th>
+                    <td><input type="text" id="LST_PHONE" name="reporterPhone" className="input" onChange={handleChange} /></td>
                   </tr>
                   <tr>
-                    <th>
-                      <label htmlFor="LST_FEATURE">물품 특징</label>
-                    </th>
-                    <td>
-                      <input
-                        type="text"
-                        id="LST_FEATURE"
-                        name="LST_FEATURE"
-                        className="input"
-                      />
-                    </td>
+                    <th><label htmlFor="LST_FEATURE">물품 특징</label></th>
+                    <td><input type="text" id="LST_FEATURE" name="etc" className="input" onChange={handleChange} /></td>
 
-                    <th>
-                      <label htmlFor="LST_NOTE">비고</label>
-                    </th>
-                    <td>
-                      <input
-                        type="text"
-                        id="LST_NOTE"
-                        name="LST_NOTE"
-                        className="input"
-                        maxLength="100"
-                      />
-                    </td>
+                    <th><label htmlFor="LST_NOTE">비고</label></th>
+                    <td><input type="text" id="LST_NOTE" name="boardContent" className="input" maxLength="100" onChange={handleChange} /></td>
                   </tr>
                 </tbody>
               </table>
             </div>
-
+  
             <div className="Box">
               <div className="titls01">파일첨부</div>
               <table className="lost_insert" summary="파일첨부 입력">
                 <tbody>
                   <tr>
-                    <th>
-                      <label htmlFor="LST_FILE">파일첨부</label>
-                    </th>
+                    <th><label htmlFor="LST_FILE">파일첨부</label></th>
                     <td>
-                      <input
-                        type="file"
-                        id="LST_FILE"
-                        name="LST_FILE"
-                        title="파일 첨부"
-                        accept="image/*"
-                        onChange={handleFileChange} // 파일 선택 시 호출되는 함수
-                      />
-                      <span className="f_red">
-                        <b>
-                          이미지 파일만 업로드 가능(파일형식: JPG, JPEG, PNG)
-                        </b>
-                      </span>
+                      <input type="file" id="LST_FILE" name="boardImage" title="파일 첨부" accept="image/*" onChange={handleFileChange} />
+                      <span className="f_red"><b>이미지 파일만 업로드 가능(파일형식: JPG, JPEG, PNG)</b></span>
                       {imagePreview && (
                         <div style={{ marginTop: "10px" }}>
-                          <img
-                            src={imagePreview}
-                            alt="Preview"
-                            style={{
-                              width: "200px",
-                              height: "auto",
-                              border: "1px solid #ccc",
-                            }}
-                          />
+                          <img src={imagePreview} alt="Preview" style={{ width: "200px", height: "auto", border: "1px solid #ccc" }} />
                         </div>
                       )}
                     </td>
@@ -375,20 +272,17 @@ const PF_Find_Upload = () => {
                 </tbody>
               </table>
             </div>
-
+  
             <div className="submit_area">
-              <button type="submit" className="submit_btn">
-                제출
-              </button>
-              <button type="reset" className="reset_btn">
-                초기화
-              </button>
+              <button type="submit" className="submit_btn">제출</button>
+              <button type="reset" className="reset_btn">초기화</button>
             </div>
           </form>
         </div>
       </div>
     </div>
   );
+  
 };
 
 export default PF_Find_Upload;

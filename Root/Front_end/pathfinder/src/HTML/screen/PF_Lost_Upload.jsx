@@ -66,15 +66,24 @@ const PF_Lost_Upload = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-
-    const lstPlace = document.getElementById("LST_PLACE").value;
-    const lstDate = document.getElementById("LST_DTE").value;
-    const lstLctCd = document.getElementById("LST_LCT_CD").value;
-    const lstSigungu = document.getElementById("LST_SIGUNGU").value;
-    const lstName = document.getElementById("LST_NAME").value;
-    const lstCl = document.getElementById("PRDT_CL_NM").value;
-    const lstTi = document.getElementById("LST_Title").value;
-
+  
+    // 각 요소에 대해 null 체크 추가
+    const lstPlaceElement = document.getElementById("LST_PLACE");
+    const lstDateElement = document.getElementById("LST_DTE");
+    const lstLctCdElement = document.getElementById("LST_LCT_CD");
+    const lstSigunguElement = document.getElementById("LST_SIGUNGU");
+    const lstNameElement = document.getElementById("LST_NAME");
+    const lstClElement = document.getElementById("PRDT_CL_NM");
+    const lstTiElement = document.getElementById("LST_Title");
+  
+    const lstPlace = lstPlaceElement ? lstPlaceElement.value : "";
+    const lstDate = lstDateElement ? lstDateElement.value : "";
+    const lstLctCd = lstLctCdElement ? lstLctCdElement.value : "";
+    const lstSigungu = lstSigunguElement ? lstSigunguElement.value : "";
+    const lstName = lstNameElement ? lstNameElement.value : "";
+    const lstCl = lstClElement ? lstClElement.value : "";
+    const lstTi = lstTiElement ? lstTiElement.value : "";
+  
     if (
       !lstPlace ||
       !lstDate ||
@@ -87,9 +96,10 @@ const PF_Lost_Upload = () => {
       alert("필수 입력 항목을 모두 채워주세요.");
       return;
     }
-
+  
     console.log("폼 제출 성공!");
-  }; //필수 입력 항목을 입력하지 않으면 페이지이동을 제어하는 핸들
+  };
+  
 
   return (
     <div className="body">

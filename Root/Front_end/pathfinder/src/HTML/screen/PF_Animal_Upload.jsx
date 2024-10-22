@@ -68,28 +68,60 @@ const PF_Animal_Upload = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    const lstPlace = document.getElementById("LST_PLACE").value;
-    const lstDate = document.getElementById("LST_DTE").value;
-    const lstLctCd = document.getElementById("LST_LCT_CD").value;
-    const lstSigungu = document.getElementById("LST_SIGUNGU").value;
-    const lstName = document.getElementById("LST_NAME").value;
-    const lstCl = document.getElementById("PRDT_CL_NM").value;
-    const lstTi = document.getElementById("LST_Title").value;
+    const postData = {
+      member: {
+        memberNickName: "1111", // 서버에서 멤버를 처리하는 로직이 필요
+      },
+      boardTitle: "제목 없음",
+      boardContent: "미정", // 게시글 내용
+      boardImage: "aaa", // 이미지 미리보기 관련 로직
+      classifiName: "기타", // 분류명
+      petName: "미정", // 반려동물 이름 (선택적)
+      findArea: "기본 지역", // 분실 지역
+      lostDate: new Date().toISOString().slice(0, 10), // YYYY-MM-DD 형식으로 변환
+      findPlace: "기본 시군구", // 분실 장소
+      petType: "없음", // 반려동물 종류 (선택적)
+      petColor: "미정", // 반려동물 색상 (선택적)
+      petChar: "미정", // 반려동물 특징 (선택적)
+      reporterPhone: "미정", // 신고자 연락처
+      etc: "없음", // 비고
 
-    if (
-      !lstPlace ||
-      !lstDate ||
-      !lstLctCd ||
-      !lstSigungu ||
-      !lstName ||
-      !lstCl ||
-      !lstTi
-    ) {
-      alert("필수 입력 항목을 모두 채워주세요.");
-      return;
-    }
+      // 추가된 주소 필드들
+      lostPlace_adress1: "주소1",
+      lostPlace_adress2: "주소2",
+      lostPlace_adress3: "주소3",
+      lostPlace_adress4: "주소4",
+      lostPlace_adress5: "주소5",
+    };
 
-    console.log("폼 제출 성공!");
+    fetch(`/boards/lost-pet-board`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(postData),
+    })
+      .then((response) => {
+        // JSON 형식의 응답이면 JSON으로 처리하고, 그렇지 않으면 텍스트로 처리
+        const contentType = response.headers.get("content-type");
+        if (contentType && contentType.includes("application/json")) {
+          return response.json();
+        } else {
+          return response.text();
+        }
+      })
+      .then((data) => {
+        // JSON 형식일 경우와 텍스트 형식일 경우를 구분해서 처리
+        if (typeof data === "string") {
+          alert(data); // 예: "게시글 작성 성공"
+        } else {
+          alert("게시글 작성 성공");
+        }
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+        alert("분실물 게시글 작성 중 오류가 발생했습니다.");
+      });
   };
 
   return (
