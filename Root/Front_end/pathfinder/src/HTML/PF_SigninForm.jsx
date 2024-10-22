@@ -14,7 +14,6 @@ const LoginForm = () => {
   const handleLogin = async (event) => {
     event.preventDefault();
 
-    // 비밀번호와 사용자 이름 유효성 검사 (간단한 예)
     if (username === "" || password === "") {
       alert("아이디와 비밀번호를 입력해주세요.");
       return;
@@ -24,23 +23,23 @@ const LoginForm = () => {
 
     try {
       const response = await fetch(
-        "http://43.203.203.157:8085/members/login",
+        "/members/login", 
         {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            memberId: username,
-            memberPw: password,
+            "memberId": username,
+            "memberPw": password,
           }),
         }
       );
 
+      // 서버에서 JSON 응답 받기
       const result = await response.json();
 
       if (response.ok) {
-        // 성공적으로 로그인하면 토큰과 사용자 정보를 세션에 저장
         sessionStorage.setItem("token", result.token);
         sessionStorage.setItem("username", result.memberId);
 
@@ -50,6 +49,7 @@ const LoginForm = () => {
       } else {
         setLoginCheck(true); // 로그인 실패 시 메시지 표시
         console.error("로그인 실패:", result.message || "서버 오류");
+        alert(result.message || "로그인에 실패했습니다."); // 서버 메시지를 alert로 표시
       }
     } catch (error) {
       console.error("네트워크 또는 서버 오류:", error.message);
@@ -57,7 +57,9 @@ const LoginForm = () => {
     } finally {
       setLoading(false);
     }
-  };
+};
+
+  
 
   return (
     <div className="container">

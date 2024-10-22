@@ -5,9 +5,9 @@ import { FaUser, FaLock } from "react-icons/fa";
 
 const SignupForm = () => {
   
-  const [username, setUsername] = useState(""); // memberId에 대응
-  const [userNickname, setUserNickname] = useState(""); // memberNickName에 대응
-  const [password, setPassword] = useState(""); // memberPw에 대응
+  const [username, setUsername] = useState("");               // memberId에 대응
+  const [userNickname, setUserNickname] = useState("");       // memberNickName에 대응
+  const [password, setPassword] = useState("");               // memberPw에 대응
   const [confirmPassword, setConfirmPassword] = useState(""); // 비밀번호 확인용
 
   const navigate = useNavigate();

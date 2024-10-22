@@ -5,7 +5,7 @@ import PF_Header from "../common/PF_Header";
 import PF_Nav from "../common/PF_Nav";
 
 const PF_Lost_Upload = () => {
-  const [imagePreview, setImagePreview] = useState(null);
+  const [imagePreview, setImagePreview] = useState("");
   const new_script = (src) => {
     return new Promise((resolve, reject) => {
       const script = document.createElement("script");
@@ -353,7 +353,7 @@ const PF_Lost_Upload = () => {
             </div> */}
 
             <div className="submit_area">
-              <button type="submit" className="submit_btn">
+              <button type="submit" className="submit_btn" onClick={handleSubmit}>
                 제출
               </button>
               <button type="reset" className="reset_btn">
