@@ -5,7 +5,13 @@
 - npm install react-calendar    // npm 캘린더 패키지 다운로드
 - npm install react-router-dom  // react router 다중페이지 구축
 ## package.json 설정 추가 및 수정
-- "proxy": "https://c1ed-14-35-63-77.ngrok-free.app", //로컬 개발 서버에서 API 요청이 해당 ngrok URL로 프록시 처리 name 과 같은 최상단에 위치해야함.
+- "proxy": "http://43.203.203.157:8085", //로컬 개발 서버에서 API 요청이 해당 ngrok URL로 프록시 처리 name 과 같은 최상단에 위치해야함.
+## 빌드된 곳
+- http://43.203.203.157/   or
+## ec2 주소
+- http://ec2-43-203-203-157.ap-northeast-2.compute.amazonaws.com/
+## 카카오 DEV 주소 
+- https://developers.kakao.com/console/app/1135990
 ## "찾아드림" 로고 제작
 ## 9월 7일 18시까지 
 
