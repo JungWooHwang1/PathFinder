@@ -4,7 +4,7 @@ import "../CSS/PF_SignupForm.css";
 import { FaUser, FaLock } from "react-icons/fa";
 
 const SignupForm = () => {
-  const [email, setEmail] = useState("");
+  
   const [username, setUsername] = useState(""); // memberId에 대응
   const [userNickname, setUserNickname] = useState(""); // memberNickName에 대응
   const [password, setPassword] = useState(""); // memberPw에 대응
@@ -21,16 +21,16 @@ const SignupForm = () => {
     }
   
     const payload = {
-      memberId: username,
-      memberPw: password,
-      memberNickName: userNickname,
+      "memberId": username,
+      "memberPw": password,
+      "memberNickName": userNickname,
     };
   
     console.log("전송할 데이터:", payload); // 전송할 데이터 확인
   
     try {
       // URL 수정: fetch 요청 시 프로토콜이 포함된 절대 경로로 수정
-      const response = await fetch("http://ec2-43-203-203-157.ap-northeast-2.compute.amazonaws.com/PF_SignupForm/members", {
+      const response = await fetch("/members", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
