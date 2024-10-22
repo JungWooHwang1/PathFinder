@@ -9,6 +9,7 @@
 ##
 - 빌드된 곳
 - http://43.203.203.157/   or
+- ec2 주소
 - http://ec2-43-203-203-157.ap-northeast-2.compute.amazonaws.com/
   
 ## "찾아드림" 로고 제작
