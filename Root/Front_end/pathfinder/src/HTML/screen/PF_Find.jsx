@@ -132,14 +132,14 @@ const PF_Find = () => {
       }));
 
       // createDate 기준으로 내림차순 정렬
-      const sortedData = dataWithRandomNumber.sort((a, b) => new Date(b.createDate) - new Date(a.createDate));
+      const sortedData = dataWithRandomNumber.sort(
+        (a, b) => new Date(b.createDate) - new Date(a.createDate)
+      );
       setPosts(sortedData);
     } catch (error) {
       console.error("Error:", error);
     }
   };
-
-
 
   useEffect(() => {
     fetchLostItems();
@@ -184,7 +184,14 @@ const PF_Find = () => {
       navigate("/PF_Find_Upload");
     }
   };
-
+  const getCalendarStyle = () => {
+    if (calendarType === "START_YMD") {
+      return { top: "120px", left: "600px" }; // startYMD 위에 위치 (원하는 좌표로 변경 가능)
+    } else if (calendarType === "END_YMD") {
+      return { top: "120px", right: "400px" }; // endYMD 위에 위치 (원하는 좌표로 변경 가능)
+    }
+    return {};
+  };
   // 현재 페이지에 표시할 게시글
   const indexOfLastPost = currentPage * postsPerPage;
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
@@ -280,7 +287,11 @@ const PF_Find = () => {
 
                 {/* 달력 렌더링 */}
                 {showCalendar && (
-                  <div className="calendar-popup" ref={calendarRef}>
+                  <div
+                    className="calendar-popup"
+                    ref={calendarRef}
+                    style={getCalendarStyle()}
+                  >
                     <Calendar onChange={handleDateChange} value={date} />
                   </div>
                 )}
@@ -296,7 +307,10 @@ const PF_Find = () => {
 
           <div className="find_listBox">
             <h2>습득물 게시판</h2>
-            <table className="type01" summary="관리번호, 습득물명, 습득장소, 습득일자">
+            <table
+              className="type01"
+              summary="관리번호, 습득물명, 습득장소, 습득일자"
+            >
               <colgroup>
                 <col style={{ width: "160px" }} />
                 <col style={{ width: "auto" }} />

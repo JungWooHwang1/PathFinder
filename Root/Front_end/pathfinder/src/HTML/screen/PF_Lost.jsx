@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { useUser } from "../common/userContext";
 import Calendar from "react-calendar";
@@ -14,6 +14,13 @@ import PF_product_option from "../common/PF_product_option";
 import "../../CSS/PF_Lost.css";
 
 const PF_Lost = () => {
+  const getTodayDate = () => {
+    const today = new Date();
+    const yyyy = today.getFullYear();
+    const mm = String(today.getMonth() + 1).padStart(2, "0"); // 월은 0부터 시작하므로 1을 더해줌
+    const dd = String(today.getDate()).padStart(2, "0");
+    return `${yyyy}${mm}${dd}`; // yyyyMMdd 형식으로 반환
+  };
   const [formData, setFormData] = useState({
     LST_PRDT_NM: "",
     START_YMD: "",
@@ -74,11 +81,8 @@ const PF_Lost = () => {
     console.log("검색 폼 제출:", formData);
   };
 
-  const handleCalendarToggle = (type) => {
-    setCalendarType(type);
-    setShowCalendar((prev) => !prev);
-  };
-
+  const calendarRef = useRef(null); // 달력 DOM 참조
+  // 날짜 변경 핸들러
   const handleDateChange = (newDate) => {
     const formattedDate = newDate.toISOString().split("T")[0].replace(/-/g, "");
     if (calendarType === "START_YMD") {
@@ -87,9 +91,34 @@ const PF_Lost = () => {
       setFormData((prevData) => ({ ...prevData, END_YMD: formattedDate }));
     }
     setDate(newDate);
-    setShowCalendar(false);
+    setShowCalendar(false); // 달력 선택 후 닫기
   };
+  // 달력 토글 핸들러 (달력 열기)
+  const handleCalendarToggle = (type) => {
+    setCalendarType(type);
+    setShowCalendar(true);
+  };
+  // 화면 외부 클릭 시 달력 닫기
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (calendarRef.current && !calendarRef.current.contains(event.target)) {
+        setShowCalendar(false); // 외부 클릭 시 달력 닫기
+      }
+    };
 
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+  const getCalendarStyle = () => {
+    if (calendarType === "START_YMD") {
+      return { top: "120px", left: "600px" }; // startYMD 위에 위치 (원하는 좌표로 변경 가능)
+    } else if (calendarType === "END_YMD") {
+      return { top: "120px", right: "400px" }; // endYMD 위에 위치 (원하는 좌표로 변경 가능)
+    }
+    return {};
+  };
   // 현재 페이지에 해당하는 게시글 계산
   const currentPosts = boardData.slice(
     (currentPage - 1) * postsPerPage,
@@ -175,7 +204,11 @@ const PF_Lost = () => {
                   </div>
                 </fieldset>
                 {showCalendar && (
-                  <div className="calendar-popup">
+                  <div
+                    className="calendar-popup"
+                    ref={calendarRef}
+                    style={getCalendarStyle()}
+                  >
                     <Calendar onChange={handleDateChange} value={date} />
                   </div>
                 )}
