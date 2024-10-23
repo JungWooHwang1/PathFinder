@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import Calendar from "react-calendar";
 import PF_Nav from "../common/PF_Nav";
 import PF_Header from "../common/PF_Header";
@@ -12,10 +12,17 @@ import PF_Paging from "../common/PF_Paging";
 import "../../CSS/PF_Lost.css";
 
 const PF_Lost = () => {
+  const getTodayDate = () => {
+    const today = new Date();
+    const yyyy = today.getFullYear();
+    const mm = String(today.getMonth() + 1).padStart(2, "0"); // 월은 0부터 시작하므로 1을 더해줌
+    const dd = String(today.getDate()).padStart(2, "0");
+    return `${yyyy}${mm}${dd}`; // yyyyMMdd 형식으로 반환
+  };
   const [formData, setFormData] = useState({
     PRDT_CL_NM: "",
-    START_YMD: "20240721",
-    END_YMD: "20240919",
+    START_YMD: getTodayDate(),
+    END_YMD: getTodayDate(),
     LST_PRDT_NM: "",
     LST_LCT_CD: "",
     LST_PLACE: "",
@@ -57,11 +64,8 @@ const PF_Lost = () => {
     console.log("검색 폼 제출:", formData);
   };
 
-  const handleCalendarToggle = (type) => {
-    setCalendarType(type);
-    setShowCalendar((prev) => !prev);
-  };
-
+  const calendarRef = useRef(null); // 달력 DOM 참조
+  // 날짜 변경 핸들러
   const handleDateChange = (newDate) => {
     const formattedDate = newDate.toISOString().split("T")[0].replace(/-/g, "");
     if (calendarType === "START_YMD") {
@@ -76,7 +80,34 @@ const PF_Lost = () => {
       }));
     }
     setDate(newDate);
-    setShowCalendar(false);
+    setShowCalendar(false); // 달력 선택 후 닫기
+  };
+  // 달력 토글 핸들러 (달력 열기)
+  const handleCalendarToggle = (type) => {
+    setCalendarType(type);
+    setShowCalendar(true);
+  };
+  // 화면 외부 클릭 시 달력 닫기
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (calendarRef.current && !calendarRef.current.contains(event.target)) {
+        setShowCalendar(false); // 외부 클릭 시 달력 닫기
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+  // 달력 위치 계산
+  const getCalendarStyle = () => {
+    if (calendarType === "START_YMD") {
+      return { top: "220px", left: "100px" }; // startYMD 위에 위치 (원하는 좌표로 변경 가능)
+    } else if (calendarType === "END_YMD") {
+      return { top: "220px", left: "400px" }; // endYMD 위에 위치 (원하는 좌표로 변경 가능)
+    }
+    return {};
   };
 
   return (
@@ -111,9 +142,10 @@ const PF_Lost = () => {
                   <PF_place_option />
                 </div>
               </div>
+              {/* 기간 */}
               <div className="date-section">
                 <fieldset className="lost_period">
-                  <legend>분실기간 입력</legend>
+                  <legend>실종기간 입력</legend>
                   <label htmlFor="startYmdInput">기간</label>
                   <div className="date-input-group">
                     <input
@@ -122,10 +154,9 @@ const PF_Lost = () => {
                       name="START_YMD"
                       id="startYmdInput"
                       className="search_text_isNumber"
-                      size="20"
+                      size="10"
                       value={formData.START_YMD}
                       readOnly
-                      onChange={handleChange}
                     />
                     <button
                       type="button"
@@ -136,7 +167,7 @@ const PF_Lost = () => {
                       달력 열기
                     </button>
                   </div>
-                  <span className="datecom"> ~ </span>
+                  <span>~</span>
                   <div className="date-input-group">
                     <input
                       type="text"
@@ -144,10 +175,9 @@ const PF_Lost = () => {
                       name="END_YMD"
                       id="endYmdInput"
                       className="search_text_isNumber"
-                      size="20"
+                      size="10"
                       value={formData.END_YMD}
                       readOnly
-                      onChange={handleChange}
                     />
                     <button
                       type="button"
@@ -159,8 +189,13 @@ const PF_Lost = () => {
                     </button>
                   </div>
                 </fieldset>
+                {/* 달력 렌더링 */}
                 {showCalendar && (
-                  <div className="calendar-popup">
+                  <div
+                    className="calendar-popup"
+                    ref={calendarRef}
+                    style={getCalendarStyle()}
+                  >
                     <Calendar onChange={handleDateChange} value={date} />
                   </div>
                 )}
