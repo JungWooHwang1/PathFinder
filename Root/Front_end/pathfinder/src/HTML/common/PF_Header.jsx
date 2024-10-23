@@ -23,23 +23,20 @@ const PF_Header = () => {
         }
     };
 
+
     return (
         <header className="PF_header">
             <Link to="/">
-                <img src={mainLogo} alt="main logo" width={150} height={70}/>
+                <img src={mainLogo} alt="main logo" width={150} height={70} />
             </Link>
             <div className="search_area">
                 <form className="search-box" onSubmit={handleSearch} method="get">
                     <input
-                        className="search_txt"
                         type="search"
-                        title="검색어를 입력해 주세요."
                         placeholder="검색어를 입력해 주세요."
-                        maxLength="255"
-                        autoComplete="off"
-                        data-atcmp-element
                         onChange={(e) => setSearchTerm(e.target.value)}
                     />
+
                 </form>
             </div>
             <div className="PF_member">
