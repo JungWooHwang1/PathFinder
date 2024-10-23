@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useUser } from '../common/userContext'; // UserContext에서 훅 가져오기
+import mainLogo from "../../img/main_logo.png";
 
 const PF_Header = () => {
     const { user, login, logout } = useUser(); // UserContext에서 사용자 정보 및 함수 가져오기
@@ -25,7 +26,7 @@ const PF_Header = () => {
     return (
         <header className="PF_header">
             <Link to="/">
-                <img src="../img/main_logo.png" alt="main logo" />
+                <img src={mainLogo} alt="main logo" width={150} height={70}/>
             </Link>
             <div className="search_area">
                 <form className="search-box" onSubmit={handleSearch} method="get">

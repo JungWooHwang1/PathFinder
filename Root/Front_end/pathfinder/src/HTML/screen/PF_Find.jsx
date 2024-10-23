@@ -172,16 +172,9 @@ const PF_Find = () => {
     setCurrentPage(pageNumber);
   };
 
-  const handleMouseEnter = (image) => {
-    setPreviewImage(`data:image/jpeg;base64,${image}`);
+  const handlePostClick = (postId) => {
+    navigate(`/PF_Find_Upload/${postId}`); // 게시물 상세 페이지로 이동
   };
-
-
-  const handleMouseLeave = () => {
-    setPreviewImage(null);
-  };
-
-
 
   return (
     <div className="body">
@@ -302,55 +295,57 @@ const PF_Find = () => {
                 </tr>
               </thead>
               <tbody>
-  {currentPosts.map((post, index) => (
-    <tr
-      key={index}
-      onMouseEnter={() => {
-        setPreviewImage(post.boardImage); 
-      }}
-      onMouseLeave={() => {
-        setPreviewImage(null);
-      }}
-    >
-      <td>{post.id}</td>
-      <td style={{ display: "flex", alignItems: "center" }}>
-        {post.boardImage && (
-          <div
-            className="preview-image"
-            style={{ position: 'relative' }} // 위치를 상대적으로 설정
-          >
-            <img
-              style={{
-                opacity: previewImage === post.boardImage ? '0.5' : '1', // 현재 게시물 이미지에 대해서만 불투명하게 설정
-                transition: 'opacity 0.3s' // 불투명도 전환 효과
-              }}
-            />
-            {previewImage === post.boardImage && ( // 현재 게시물의 이미지일 때만 프리뷰 표시
-              <div style={{
-                position: 'absolute',
-                top: '0',
-                left: '0',
-                backgroundColor: 'rgba(255, 255, 255, 0.8)', // 반투명 배경
-                borderRadius: '5px',
-                padding: '5px',
-                zIndex: '1',
-              }}>
-                <img
-                  src={`data:image/jpeg;base64,${previewImage}`}
-                  alt="Preview"
-                  style={{ width: '100px', height: 'auto' }} // 프리뷰 이미지 크기
-                />
-              </div>
-            )}
-          </div>
-        )}
-        {post.boardTitle}
-      </td>
-      <td>{post.acquirePlace}</td>
-      <td>{post.acquireDate}</td>
-    </tr>
-  ))}
-</tbody>
+                {currentPosts.map((post, index) => (
+                  <tr
+                    key={index}
+                    onClick={() => handlePostClick(post.id)} // 클릭 시 상세 페이지로 이동
+                    style={{ cursor: "pointer" }} // 클릭 가능한 스타일 추가
+                    onMouseEnter={() => {
+                      setPreviewImage(post.boardImage);
+                    }}
+                    onMouseLeave={() => {
+                      setPreviewImage(null);
+                    }}
+                  >
+                    <td>{post.id}</td>
+                    <td style={{ display: "flex", alignItems: "center" }}>
+                      {post.boardImage && (
+                        <div
+                          className="preview-image"
+                          style={{ position: 'relative' }} // 위치를 상대적으로 설정
+                        >
+                          <img
+                            style={{
+                              opacity: previewImage === post.boardImage ? '0.5' : '1', // 현재 게시물 이미지에 대해서만 불투명하게 설정
+                              transition: 'opacity 0.3s' // 불투명도 전환 효과
+                            }}
+                          />
+                          {previewImage === post.boardImage && ( // 현재 게시물의 이미지일 때만 프리뷰 표시
+                            <div style={{
+                              position: 'absolute',
+                              top: '0',
+                              left: '0',
+                              backgroundColor: 'rgba(255, 255, 255, 0.8)', // 반투명 배경
+                              borderRadius: '5px',
+                              padding: '5px',
+                              zIndex: '1',
+                            }}>
+                              <img
+                                src={`data:image/jpeg;base64,${previewImage}`}
+                                alt="Preview"
+                                style={{ width: '100px', height: 'auto' }} // 프리뷰 이미지 크기
+                              />
+                            </div>
+                          )}
+                        </div>
+                      )}
+                      {post.boardTitle}
+                    </td>
+                    <td>{post.acquirePlace}</td>
+                    <td>{post.acquireDate}</td>
+                  </tr>
+                ))}
+              </tbody>
 
 
 

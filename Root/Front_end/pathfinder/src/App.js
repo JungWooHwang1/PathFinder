@@ -44,7 +44,7 @@ function App() {
           <Route path="/PF_Animal" element={<PF_Animal />} />
           <Route path="/PF_Wanted" element={<PF_Wanted />} />
           <Route path="/PF_Lost_Upload" element={<PF_Lost_Upload />} />
-          <Route path="/PF_Find_Upload" element={<PF_Find_Upload />} />
+          <Route path="/PF_Find_Upload/:postId" element={<PF_Find_Upload />} /> 
           <Route path="/PF_Animal_Upload" element={<PF_Animal_Upload />} />
           <Route path="/PF_Wanted_Upload" element={<PF_Wanted_Upload />} />
           <Route path="/PF_Find_Board" element={<PF_Find_Board />} />
