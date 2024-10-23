@@ -84,9 +84,9 @@ const PF_Animal = () => {
   // 달력 위치 계산
   const getCalendarStyle = () => {
     if (calendarType === "START_YMD") {
-      return { top: "220px", left: "100px" }; // startYMD 위에 위치 (원하는 좌표로 변경 가능)
+      return { top: "120px", left: "100px" }; // startYMD 위에 위치 (원하는 좌표로 변경 가능)
     } else if (calendarType === "END_YMD") {
-      return { top: "220px", left: "400px" }; // endYMD 위에 위치 (원하는 좌표로 변경 가능)
+      return { top: "120px", left: "400px" }; // endYMD 위에 위치 (원하는 좌표로 변경 가능)
     }
     return {};
   };

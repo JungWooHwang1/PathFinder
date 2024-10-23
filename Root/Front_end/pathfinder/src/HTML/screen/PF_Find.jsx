@@ -66,7 +66,9 @@ const PF_Find = () => {
         fdLctCd: formData.FD_LCT_CD,
       }).toString();
 
-      const response = await fetch(`/boards/acquire-property-board?${queryParams}`);
+      const response = await fetch(
+        `/boards/acquire-property-board?${queryParams}`
+      );
 
       if (!response.ok) {
         throw new Error("검색 결과를 가져오는 중 오류 발생");
@@ -82,7 +84,9 @@ const PF_Find = () => {
       }));
 
       // createDate 기준으로 내림차순 정렬
-      const sortedData = dataWithRandomNumber.sort((a, b) => new Date(b.createDate) - new Date(a.createDate));
+      const sortedData = dataWithRandomNumber.sort(
+        (a, b) => new Date(b.createDate) - new Date(a.createDate)
+      );
       setPosts(sortedData);
       setCurrentPage(1); // 검색 후 첫 페이지로 이동
     } catch (error) {
@@ -106,14 +110,14 @@ const PF_Find = () => {
       }));
 
       // createDate 기준으로 내림차순 정렬
-      const sortedData = dataWithRandomNumber.sort((a, b) => new Date(b.createDate) - new Date(a.createDate));
+      const sortedData = dataWithRandomNumber.sort(
+        (a, b) => new Date(b.createDate) - new Date(a.createDate)
+      );
       setPosts(sortedData);
     } catch (error) {
       console.error("Error:", error);
     }
   };
-
-
 
   useEffect(() => {
     fetchLostItems();
@@ -158,7 +162,14 @@ const PF_Find = () => {
       navigate("/PF_Find_Upload");
     }
   };
-
+  const getCalendarStyle = () => {
+    if (calendarType === "START_YMD") {
+      return { top: "120px", left: "600px" }; // startYMD 위에 위치 (원하는 좌표로 변경 가능)
+    } else if (calendarType === "END_YMD") {
+      return { top: "120px", right: "400px" }; // endYMD 위에 위치 (원하는 좌표로 변경 가능)
+    }
+    return {};
+  };
   // 현재 페이지에 표시할 게시글
   const indexOfLastPost = currentPage * postsPerPage;
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
@@ -191,7 +202,10 @@ const PF_Find = () => {
               action="#none"
               onSubmit={handleSearchSubmit}
             >
-              <div className="lost_qfind2" style={{ display: "flex", position: "relative" }}>
+              <div
+                className="lost_qfind2"
+                style={{ display: "flex", position: "relative" }}
+              >
                 <div className="left-section">
                   <PF_product_option />
                   <fieldset className="lost_inputbox">
@@ -263,7 +277,11 @@ const PF_Find = () => {
 
                 {/* 달력 렌더링 */}
                 {showCalendar && (
-                  <div className="calendar-popup" ref={calendarRef}>
+                  <div
+                    className="calendar-popup"
+                    ref={calendarRef}
+                    style={getCalendarStyle()}
+                  >
                     <Calendar onChange={handleDateChange} value={date} />
                   </div>
                 )}
@@ -279,7 +297,10 @@ const PF_Find = () => {
 
           <div className="find_listBox">
             <h2>습득물 게시판</h2>
-            <table className="type01" summary="관리번호, 습득물명, 습득장소, 습득일자">
+            <table
+              className="type01"
+              summary="관리번호, 습득물명, 습득장소, 습득일자"
+            >
               <colgroup>
                 <col style={{ width: "160px" }} />
                 <col style={{ width: "auto" }} />
@@ -312,28 +333,31 @@ const PF_Find = () => {
                       {post.boardImage && (
                         <div
                           className="preview-image"
-                          style={{ position: 'relative' }} // 위치를 상대적으로 설정
+                          style={{ position: "relative" }} // 위치를 상대적으로 설정
                         >
                           <img
                             style={{
-                              opacity: previewImage === post.boardImage ? '0.5' : '1', // 현재 게시물 이미지에 대해서만 불투명하게 설정
-                              transition: 'opacity 0.3s' // 불투명도 전환 효과
+                              opacity:
+                                previewImage === post.boardImage ? "0.5" : "1", // 현재 게시물 이미지에 대해서만 불투명하게 설정
+                              transition: "opacity 0.3s", // 불투명도 전환 효과
                             }}
                           />
                           {previewImage === post.boardImage && ( // 현재 게시물의 이미지일 때만 프리뷰 표시
-                            <div style={{
-                              position: 'absolute',
-                              top: '0',
-                              left: '0',
-                              backgroundColor: 'rgba(255, 255, 255, 0.8)', // 반투명 배경
-                              borderRadius: '5px',
-                              padding: '5px',
-                              zIndex: '1',
-                            }}>
+                            <div
+                              style={{
+                                position: "absolute",
+                                top: "0",
+                                left: "0",
+                                backgroundColor: "rgba(255, 255, 255, 0.8)", // 반투명 배경
+                                borderRadius: "5px",
+                                padding: "5px",
+                                zIndex: "1",
+                              }}
+                            >
                               <img
                                 src={`data:image/jpeg;base64,${previewImage}`}
                                 alt="Preview"
-                                style={{ width: '100px', height: 'auto' }} // 프리뷰 이미지 크기
+                                style={{ width: "100px", height: "auto" }} // 프리뷰 이미지 크기
                               />
                             </div>
                           )}
@@ -346,11 +370,6 @@ const PF_Find = () => {
                   </tr>
                 ))}
               </tbody>
-
-
-
-
-
             </table>
 
             <PF_Paging
