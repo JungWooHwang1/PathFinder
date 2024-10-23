@@ -1,10 +1,10 @@
 import React, { useState, useRef, useEffect } from "react";
-import { useNavigate } from "react-router-dom"; // React Router의 useNavigate 사용
-import { useUser } from "../common/userContext"; // UserContext 사용
+import { useNavigate } from "react-router-dom";
+import { useUser } from "../common/userContext";
 import Calendar from "react-calendar";
 import PF_Nav from "../common/PF_Nav";
 import PF_Header from "../common/PF_Header";
-import "react-calendar/dist/Calendar.css"; // 스타일 import
+import "react-calendar/dist/Calendar.css";
 import "../../CSS/PF_Main.css";
 import "../../CSS/PF_Write.css";
 import PF_product_option from "../common/PF_product_option";
@@ -13,16 +13,10 @@ import PF_place_option from "../common/PF_place_option";
 import PF_Paging from "../common/PF_Paging";
 
 const PF_Find = () => {
-  const { user } = useUser(); // user, login, logout 가져오기
-  const isLoggedIn = user !== null; // 로그인 여부 확인
-  const navigate = useNavigate(); // 페이지 이동을 위한 훅
+  const { user } = useUser();
+  const isLoggedIn = user !== null;
+  const navigate = useNavigate();
 
-  useEffect(() => {
-    console.log("user 상태:", user); // user 상태 출력
-    console.log("isLoggedIn 상태:", isLoggedIn); // 로그인 여부 출력
-  }, [user]); // user 상태가 변경될 때마다 로그 출력
-
-  // 오늘 날짜를 yyyyMMdd 형식으로 반환
   const getTodayDate = () => {
     const today = new Date();
     const yyyy = today.getFullYear();
@@ -41,11 +35,13 @@ const PF_Find = () => {
     FD_LCT_CD: "",
   });
 
-  const [showCalendar, setShowCalendar] = useState(false); // 달력 표시 여부
-  const [calendarType, setCalendarType] = useState(""); // 달력 타입 (시작일/종료일)
-  const [date, setDate] = useState(new Date()); // 선택된 날짜
+  const [showCalendar, setShowCalendar] = useState(false);
+  const [calendarType, setCalendarType] = useState("");
+  const [date, setDate] = useState(new Date());
+  const [posts, setPosts] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1); // 현재 페이지
+  const [postsPerPage] = useState(10); // 페이지당 게시글 수
 
-  // 핸들러 함수
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
@@ -54,15 +50,30 @@ const PF_Find = () => {
     }));
   };
 
-  const handleSearchSubmit = (e) => {
+  const handleSearchSubmit = async (e) => {
     e.preventDefault();
-    // 검색 요청 처리
     console.log("검색 폼 제출:", formData);
+    // API 호출을 통해 검색 결과를 업데이트하는 로직 추가 가능
   };
 
-  const calendarRef = useRef(null); // 달력 DOM 참조
+  const fetchLostItems = async () => {
+    try {
+      const response = await fetch("/boards/acquire-property-board");
+      if (!response.ok) {
+        throw new Error("분실물 목록을 가져오는 중 오류 발생");
+      }
+      const data = await response.json();
+      console.log("API 응답 데이터:", data);
+      setPosts(data);
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
 
-  // 날짜 변경 핸들러
+  useEffect(() => {
+    fetchLostItems();
+  }, []);
+
   const handleDateChange = (newDate) => {
     const formattedDate = newDate.toISOString().split("T")[0].replace(/-/g, "");
     setFormData((prevData) => ({
@@ -70,20 +81,20 @@ const PF_Find = () => {
       [calendarType]: formattedDate,
     }));
     setDate(newDate);
-    setShowCalendar(false); // 달력 선택 후 닫기
+    setShowCalendar(false);
   };
 
-  // 달력 토글 핸들러 (달력 열기)
   const handleCalendarToggle = (type) => {
     setCalendarType(type);
     setShowCalendar(true);
   };
 
-  // 화면 외부 클릭 시 달력 닫기
+  const calendarRef = useRef(null);
+
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (calendarRef.current && !calendarRef.current.contains(event.target)) {
-        setShowCalendar(false); // 외부 클릭 시 달력 닫기
+        setShowCalendar(false);
       }
     };
 
@@ -93,25 +104,27 @@ const PF_Find = () => {
     };
   }, []);
 
-  // 로그인 상태에 따른 접근 제어
-  const handleUploadClick = () => {
-    console.log("isLoggedIn 상태:", isLoggedIn);
-    console.log("user 상태:", user);
+  const handleUploadClick = (event) => {
+    event.preventDefault();
     if (!isLoggedIn) {
       alert("로그인 후 이용해주세요.");
-      navigate("/PF_SigninForm"); // 로그인 페이지로 이동
+      navigate("/PF_SigninForm");
     } else {
-      navigate("/PF_Find_Upload"); // 게시물 등록 페이지로 이동
+      navigate("/PF_Find_Upload");
     }
   };
 
-  // 달력 위치 계산
-  const getCalendarStyle = () => {
-    const styles = {
-      top: "220px",
-      left: calendarType === "START_YMD" ? "100px" : "400px",
-    };
-    return styles;
+  // 현재 페이지에 표시할 게시글
+  const indexOfLastPost = currentPage * postsPerPage;
+  const indexOfFirstPost = indexOfLastPost - postsPerPage;
+  const currentPosts = posts.slice(indexOfFirstPost, indexOfLastPost);
+
+  // 페이지 수 계산
+  const totalPages = Math.ceil(posts.length / postsPerPage);
+
+  // 페이지 변경 핸들러
+  const handlePageChange = (pageNumber) => {
+    setCurrentPage(pageNumber);
   };
 
   return (
@@ -129,7 +142,6 @@ const PF_Find = () => {
               action="#none"
               onSubmit={handleSearchSubmit}
             >
-              <input type="hidden" name="pageIndex" id="pageIndex" value="1" />
               <div className="lost_qfind2" style={{ display: "flex", position: "relative" }}>
                 <div className="left-section">
                   <PF_product_option />
@@ -202,7 +214,7 @@ const PF_Find = () => {
 
                 {/* 달력 렌더링 */}
                 {showCalendar && (
-                  <div className="calendar-popup" ref={calendarRef} style={getCalendarStyle()}>
+                  <div className="calendar-popup" ref={calendarRef}>
                     <Calendar onChange={handleDateChange} value={date} />
                   </div>
                 )}
@@ -222,41 +234,36 @@ const PF_Find = () => {
               <colgroup>
                 <col style={{ width: "160px" }} />
                 <col style={{ width: "auto" }} />
-                <col style={{ width: "200px" }} />
-                <col style={{ width: "110px" }} />
+                <col style={{ width: "160px" }} />
+                <col style={{ width: "160px" }} />
               </colgroup>
               <thead>
                 <tr>
-                  <th scope="col" className="first">관리번호</th>
+                  <th scope="col">관리번호</th>
                   <th scope="col">습득물명</th>
                   <th scope="col">습득장소</th>
                   <th scope="col">습득일자</th>
                 </tr>
               </thead>
-              <tbody>{/* 검색 결과를 여기에 표시 */}</tbody>
+              <tbody>
+                {currentPosts.map((post, index) => (
+                  <tr key={index}>
+                    <td>{post.id}</td>
+                    <td>{post.boardTitle}</td>
+                    <td>{post.acquirePlace}</td>
+                    <td>{post.acquireDate}</td>
+                  </tr>
+                ))}
+              </tbody>
             </table>
-
-            <a href="#" className="subMenu_select" onClick={handleUploadClick}>
-              습득물 게시물 등록
-            </a>
+            <br/>
+            {/* 페이지 네비게이션 추가 */}
+            <PF_Paging
+              currentPage={currentPage}
+              totalPages={totalPages}
+              onPageChange={handlePageChange}
+            />
           </div>
-
-          <nav id="sub_lnb">
-            <ul>
-              <li>
-                <a href="#" className="subMenu_select" onClick={handleUploadClick}>
-                  습득물 게시물 등록
-                </a>
-              </li>
-              <li>
-                <a href="#">자주 묻는 질문</a>
-              </li>
-              <li>
-                <a href="#">공지사항</a>
-              </li>
-            </ul>
-          </nav>
-          <PF_Paging />
         </div>
       </div>
     </div>

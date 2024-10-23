@@ -1,4 +1,6 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { useUser } from "../common/userContext";
 import Calendar from "react-calendar";
 import PF_Nav from "../common/PF_Nav";
 import PF_Header from "../common/PF_Header";
@@ -6,23 +8,16 @@ import "../../CSS/PF_Main.css";
 import "../../CSS/PF_Write.css";
 import "react-calendar/dist/Calendar.css";
 import PF_local_option from "../common/PF_local_option";
-import PF_product_option from "../common/PF_product_option";
 import PF_place_option from "../common/PF_place_option";
 import PF_Paging from "../common/PF_Paging";
+import PF_product_option from "../common/PF_product_option";
 import "../../CSS/PF_Lost.css";
 
 const PF_Lost = () => {
-  const getTodayDate = () => {
-    const today = new Date();
-    const yyyy = today.getFullYear();
-    const mm = String(today.getMonth() + 1).padStart(2, "0"); // 월은 0부터 시작하므로 1을 더해줌
-    const dd = String(today.getDate()).padStart(2, "0");
-    return `${yyyy}${mm}${dd}`; // yyyyMMdd 형식으로 반환
-  };
   const [formData, setFormData] = useState({
     PRDT_CL_NM: "",
-    START_YMD: getTodayDate(),
-    END_YMD: getTodayDate(),
+    START_YMD: "20240721",
+    END_YMD: "20240919",
     LST_PRDT_NM: "",
     LST_LCT_CD: "",
     LST_PLACE: "",
@@ -31,24 +26,46 @@ const PF_Lost = () => {
   const [showCalendar, setShowCalendar] = useState(false);
   const [calendarType, setCalendarType] = useState("");
   const [date, setDate] = useState(new Date());
-  const [posts, setPosts] = useState([]);
+  const [boardData, setBoardData] = useState([]);
+  const { user } = useUser(); // user가져오기
+  const isLoggedIn = user !== null; // 로그인 여부 확인
+  const navigate = useNavigate(); // 페이지 이동을 위한 훅
+
+  const [currentPage, setCurrentPage] = useState(1); // 현재 페이지 상태
+  const postsPerPage = 10; // 페이지당 게시글 수
+  const totalPages = Math.ceil(boardData.length / postsPerPage); // 전체 페이지 수
+
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
+  };
+
+  const handleUploadClick = (event) => {
+    event.preventDefault();
+    console.log("isLoggedIn 상태:", isLoggedIn);
+    console.log("user 상태:", user);
+    if (!isLoggedIn) {
+      alert("로그인 후 이용해주세요.");
+      navigate("/PF_SigninForm"); // 로그인 페이지로 이동
+    } else {
+      navigate("/PF_Lost_Upload"); // 게시물 등록 페이지로 이동
+    }
+  };
 
   useEffect(() => {
-    const tempPosts = [
-      {
-        id: 1,
-        boardTitle: "지갑을 잃어버렸어요",
-        lostPlace: "서울특별시 강남구",
-        createDate: "2024-09-20",
-      },
-      {
-        id: 2,
-        boardTitle: "휴대폰을 분실했습니다",
-        lostPlace: "부산광역시 해운대구",
-        createDate: "2024-09-18",
-      },
-    ];
-    setPosts(tempPosts);
+    fetch("/boards/lost-property-board")
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("게시글을 불러오는 중 오류 발생");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        console.log("게시글 데이터:", data); // 추가된 디버그 로그
+        setBoardData(data); // API에서 받은 데이터를 상태로 저장
+      })
+      .catch((error) => {
+        console.error("Error:", error); // 오류 메시지 출력
+      });
   }, []);
 
   const handleChange = (e) => {
@@ -64,8 +81,11 @@ const PF_Lost = () => {
     console.log("검색 폼 제출:", formData);
   };
 
-  const calendarRef = useRef(null); // 달력 DOM 참조
-  // 날짜 변경 핸들러
+  const handleCalendarToggle = (type) => {
+    setCalendarType(type);
+    setShowCalendar((prev) => !prev);
+  };
+
   const handleDateChange = (newDate) => {
     const formattedDate = newDate.toISOString().split("T")[0].replace(/-/g, "");
     if (calendarType === "START_YMD") {
@@ -80,35 +100,14 @@ const PF_Lost = () => {
       }));
     }
     setDate(newDate);
-    setShowCalendar(false); // 달력 선택 후 닫기
+    setShowCalendar(false);
   };
-  // 달력 토글 핸들러 (달력 열기)
-  const handleCalendarToggle = (type) => {
-    setCalendarType(type);
-    setShowCalendar(true);
-  };
-  // 화면 외부 클릭 시 달력 닫기
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (calendarRef.current && !calendarRef.current.contains(event.target)) {
-        setShowCalendar(false); // 외부 클릭 시 달력 닫기
-      }
-    };
 
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, []);
-  // 달력 위치 계산
-  const getCalendarStyle = () => {
-    if (calendarType === "START_YMD") {
-      return { top: "220px", left: "100px" }; // startYMD 위에 위치 (원하는 좌표로 변경 가능)
-    } else if (calendarType === "END_YMD") {
-      return { top: "220px", left: "400px" }; // endYMD 위에 위치 (원하는 좌표로 변경 가능)
-    }
-    return {};
-  };
+  // 현재 페이지에 해당하는 게시글 계산
+  const currentPosts = boardData.slice(
+    (currentPage - 1) * postsPerPage,
+    currentPage * postsPerPage
+  );
 
   return (
     <div className="body">
@@ -142,10 +141,9 @@ const PF_Lost = () => {
                   <PF_place_option />
                 </div>
               </div>
-              {/* 기간 */}
               <div className="date-section">
                 <fieldset className="lost_period">
-                  <legend>실종기간 입력</legend>
+                  <legend>분실기간 입력</legend>
                   <label htmlFor="startYmdInput">기간</label>
                   <div className="date-input-group">
                     <input
@@ -154,9 +152,10 @@ const PF_Lost = () => {
                       name="START_YMD"
                       id="startYmdInput"
                       className="search_text_isNumber"
-                      size="10"
+                      size="20"
                       value={formData.START_YMD}
                       readOnly
+                      onChange={handleChange}
                     />
                     <button
                       type="button"
@@ -167,7 +166,7 @@ const PF_Lost = () => {
                       달력 열기
                     </button>
                   </div>
-                  <span>~</span>
+                  <span className="datecom"> ~ </span>
                   <div className="date-input-group">
                     <input
                       type="text"
@@ -175,9 +174,10 @@ const PF_Lost = () => {
                       name="END_YMD"
                       id="endYmdInput"
                       className="search_text_isNumber"
-                      size="10"
+                      size="20"
                       value={formData.END_YMD}
                       readOnly
+                      onChange={handleChange}
                     />
                     <button
                       type="button"
@@ -189,13 +189,8 @@ const PF_Lost = () => {
                     </button>
                   </div>
                 </fieldset>
-                {/* 달력 렌더링 */}
                 {showCalendar && (
-                  <div
-                    className="calendar-popup"
-                    ref={calendarRef}
-                    style={getCalendarStyle()}
-                  >
+                  <div className="calendar-popup">
                     <Calendar onChange={handleDateChange} value={date} />
                   </div>
                 )}
@@ -231,31 +226,25 @@ const PF_Lost = () => {
                 </tr>
               </thead>
               <tbody>
-                {posts.map((post) => (
-                  <tr key={post.id}>
-                    <td>{post.id}</td>
-                    <td>{post.boardTitle}</td>
-                    <td>{post.lostPlace}</td>
-                    <td>{post.createDate}</td>
+                {currentPosts.map((board) => (
+                  <tr key={board.id}>
+                    <td>{board.id}</td>
+                    <td>{board.boardTitle}</td>
+                    <td>{board.lostPlace}</td>
+                    <td>{board.createDate}</td>
                   </tr>
                 ))}
               </tbody>
             </table>
           </div>
-
-          <a href="/PF_Lost_Board" className="board">
-            분실물 게시물
-          </a>
-          <nav id="sub_lnb">
-            <ul>
-              <li>
-                <a href="/PF_Lost_Upload" className="subMenu_select">
-                  분실물 게시물 등록
-                </a>
-              </li>
-            </ul>
-          </nav>
-          <PF_Paging />
+          <PF_Paging
+            currentPage={currentPage}
+            totalPages={totalPages}
+            onPageChange={handlePageChange}
+          />
+        </div>
+        <div className="upload_button">
+          <a onClick={handleUploadClick}>습득물 등록</a>
         </div>
       </div>
     </div>
