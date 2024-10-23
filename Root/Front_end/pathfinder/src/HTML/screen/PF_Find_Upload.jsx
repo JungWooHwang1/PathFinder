@@ -23,6 +23,7 @@ const PF_Find_Upload = () => {
     acquirePlace_adress4: "",
     acquirePlace_adress5: "",
     memberNickName: "1111",
+    acquireDate: "" 
   });
 
   const new_script = (src) => {
@@ -96,14 +97,14 @@ const PF_Find_Upload = () => {
         memberNickName: formData.memberNickName, // 사용자가 입력한 값으로 변경
       },
       boardTitle: formData.boardTitle,
-      classifiName: formData.acquirePlace_classifi,
+      classifiName: formData.classifiName,
       acquirePropertyName: formData.acquirePropertyName,
       acquireArea: formData.acquireArea,
       acquirePlace: formData.acquirePlace,
       acquirePlace_classifi: formData.acquirePlace_classifi,
-      acquireDate: new Date().toISOString().slice(0, 10),
+      acquireDate: formData.acquireDate, 
       boardContent: formData.boardContent,
-      boardImage: imagePreview ? imagePreview.split(',')[1] : null, // 순수 Base64 데이터만 전송
+      boardImage: imagePreview ? imagePreview.split(',')[1] : null,
       propertyColor: formData.propertyColor,
       propertyType: formData.propertyType,
       reporterPhone: formData.reporterPhone,
@@ -114,9 +115,9 @@ const PF_Find_Upload = () => {
       acquirePlace_adress4: formData.acquirePlace_adress4,
       acquirePlace_adress5: formData.acquirePlace_adress5,
     };
-  
+
     console.log("Sending data:", postData);
-  
+
     fetch(`/boards/acquire-property-board`, {
       method: "POST",
       headers: {
@@ -186,26 +187,26 @@ const PF_Find_Upload = () => {
                     <td>
                       <select id="PRDT_CL_NM" name="classifiName" className="choice" onChange={handleChange}>
                         <option value="">선택</option>
-                        <option value="LCA000">가방</option>
-                        <option value="LCH000">귀금속</option>
-                        <option value="LCI000">도서용품</option>
-                        <option value="LCJ000">서류</option>
-                        <option value="LCK000">산업용품</option>
-                        <option value="LCQ000">소핑백</option>
-                        <option value="LCR000">스포츠용품</option>
-                        <option value="LCS000">악기</option>
-                        <option value="LCT000">유가증권</option>
-                        <option value="LCU000">의류</option>
-                        <option value="LCV000">자동차</option>
-                        <option value="LCL000">전자기기</option>
-                        <option value="LCM000">지갑</option>
-                        <option value="LCN000">증명서</option>
-                        <option value="LCO000">컴퓨터</option>
-                        <option value="LCP000">카드</option>
-                        <option value="LCW000">현금</option>
-                        <option value="LCF000">휴대폰</option>
-                        <option value="LCE000">기타</option>
-                        <option value="LCE000">유류품</option>
+                        <option value="가방">가방</option>
+                        <option value="귀금속">귀금속</option>
+                        <option value="도서용품">도서용품</option>
+                        <option value="서류">서류</option>
+                        <option value="산업용품">산업용품</option>
+                        <option value="소핑백">소핑백</option>
+                        <option value="스포츠용품">스포츠용품</option>
+                        <option value="악기">악기</option>
+                        <option value="유가증권">유가증권</option>
+                        <option value="의류">의류</option>
+                        <option value="자동차">자동차</option>
+                        <option value="전자기기">전자기기</option>
+                        <option value="지갑">지갑</option>
+                        <option value="증명서">증명서</option>
+                        <option value="컴퓨터">컴퓨터</option>
+                        <option value="카드">카드</option>
+                        <option value="현금">현금</option>
+                        <option value="휴대폰">휴대폰</option>
+                        <option value="기타">기타</option>
+                        <option value="유류품">유류품</option>
                       </select>
                     </td>
                     <td colSpan="2">
@@ -218,18 +219,18 @@ const PF_Find_Upload = () => {
                     <th scope="row"><em>*</em><label htmlFor="LST_Title">게시글 제목 입력</label></th>
                     <td><input type="text" id="LST_Title" name="boardTitle" className="input" onChange={handleChange} /></td>
 
-                    <th scope="row"><em>*</em><label htmlFor="LST_LCT_CD">분실지역 ex)경기도 안양시</label></th>
+                    <th scope="row"><em>*</em><label htmlFor="LST_LCT_CD">습득지역 ex)경기도 안양시</label></th>
                     <td colSpan="3"><input type="text" id="LST_SIGUNGU" name="acquireArea" className="input" maxLength="100" onChange={handleChange} /></td>
                   </tr>
                   <tr>
-                    <th scope="row"><em>*</em><label htmlFor="LST_PLACE">분실장소</label></th>
+                    <th scope="row"><em>*</em><label htmlFor="LST_PLACE">습득장소</label></th>
                     <td><input id="LST_PLACE" name="acquirePlace" type="text" className="input" maxLength="50" onChange={handleChange} /></td>
 
-                    <th scope="row"><em>*</em><label htmlFor="LST_NAME">분실물명</label></th>
+                    <th scope="row"><em>*</em><label htmlFor="LST_NAME">습득물명</label></th>
                     <td><input type="text" id="LST_NAME" name="acquirePropertyName" className="input" onChange={handleChange} /></td>
                   </tr>
                   <tr>
-                    <th scope="row"><em>*</em><label htmlFor="LST_DTE">분실일자</label></th>
+                    <th scope="row"><em>*</em><label htmlFor="LST_DTE">습득일자</label></th>
                     <td><input type="date" id="LST_DTE" name="acquireDate" className="input" onChange={handleChange} /></td>
                   </tr>
                 </tbody>

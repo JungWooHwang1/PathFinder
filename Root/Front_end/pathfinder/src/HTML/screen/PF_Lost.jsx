@@ -15,25 +15,22 @@ import "../../CSS/PF_Lost.css";
 
 const PF_Lost = () => {
   const [formData, setFormData] = useState({
-    PRDT_CL_NM: "",
-    START_YMD: "20240721",
-    END_YMD: "20240919",
     LST_PRDT_NM: "",
+    START_YMD: "",
+    END_YMD: "",
     LST_LCT_CD: "",
     LST_PLACE: "",
-    P_ATC_ID: "",
   });
   const [showCalendar, setShowCalendar] = useState(false);
   const [calendarType, setCalendarType] = useState("");
   const [date, setDate] = useState(new Date());
   const [boardData, setBoardData] = useState([]);
-  const { user } = useUser(); // user가져오기
-  const isLoggedIn = user !== null; // 로그인 여부 확인
-  const navigate = useNavigate(); // 페이지 이동을 위한 훅
+  const { user } = useUser();
+  const isLoggedIn = user !== null;
+  const navigate = useNavigate();
 
-  const [currentPage, setCurrentPage] = useState(1); // 현재 페이지 상태
-  const postsPerPage = 10; // 페이지당 게시글 수
-  const totalPages = Math.ceil(boardData.length / postsPerPage); // 전체 페이지 수
+  const [currentPage, setCurrentPage] = useState(1);
+  const postsPerPage = 10;
 
   const handlePageChange = (page) => {
     setCurrentPage(page);
@@ -41,30 +38,25 @@ const PF_Lost = () => {
 
   const handleUploadClick = (event) => {
     event.preventDefault();
-    console.log("isLoggedIn 상태:", isLoggedIn);
-    console.log("user 상태:", user);
     if (!isLoggedIn) {
       alert("로그인 후 이용해주세요.");
-      navigate("/PF_SigninForm"); // 로그인 페이지로 이동
+      navigate("/PF_SigninForm");
     } else {
-      navigate("/PF_Lost_Upload"); // 게시물 등록 페이지로 이동
+      navigate("/PF_Lost_Upload");
     }
   };
 
   useEffect(() => {
     fetch("/boards/lost-property-board")
       .then((response) => {
-        if (!response.ok) {
-          throw new Error("게시글을 불러오는 중 오류 발생");
-        }
+        if (!response.ok) throw new Error("게시글을 불러오는 중 오류 발생");
         return response.json();
       })
       .then((data) => {
-        console.log("게시글 데이터:", data); // 추가된 디버그 로그
-        setBoardData(data); // API에서 받은 데이터를 상태로 저장
+        setBoardData(data);
       })
       .catch((error) => {
-        console.error("Error:", error); // 오류 메시지 출력
+        console.error("Error:", error);
       });
   }, []);
 
@@ -78,6 +70,7 @@ const PF_Lost = () => {
 
   const handleSearchSubmit = (e) => {
     e.preventDefault();
+    // 검색 로직 추가 필요
     console.log("검색 폼 제출:", formData);
   };
 
@@ -89,15 +82,9 @@ const PF_Lost = () => {
   const handleDateChange = (newDate) => {
     const formattedDate = newDate.toISOString().split("T")[0].replace(/-/g, "");
     if (calendarType === "START_YMD") {
-      setFormData((prevData) => ({
-        ...prevData,
-        START_YMD: formattedDate,
-      }));
+      setFormData((prevData) => ({ ...prevData, START_YMD: formattedDate }));
     } else if (calendarType === "END_YMD") {
-      setFormData((prevData) => ({
-        ...prevData,
-        END_YMD: formattedDate,
-      }));
+      setFormData((prevData) => ({ ...prevData, END_YMD: formattedDate }));
     }
     setDate(newDate);
     setShowCalendar(false);
@@ -121,7 +108,6 @@ const PF_Lost = () => {
               <div className="lost_qfind2">
                 <div className="left-section">
                   <PF_product_option />
-
                   <fieldset className="lost_inputbox">
                     <legend>분실물명 입력</legend>
                     <label htmlFor="lstPrdtNm">제목</label>
@@ -135,7 +121,6 @@ const PF_Lost = () => {
                     />
                   </fieldset>
                 </div>
-
                 <div className="right-section">
                   <PF_local_option />
                   <PF_place_option />
@@ -217,9 +202,7 @@ const PF_Lost = () => {
               </colgroup>
               <thead>
                 <tr>
-                  <th scope="col" className="first">
-                    관리번호
-                  </th>
+                  <th scope="col" className="first">관리번호</th>
                   <th scope="col">제목</th>
                   <th scope="col">분실장소</th>
                   <th scope="col">분실일자</th>
@@ -239,7 +222,7 @@ const PF_Lost = () => {
           </div>
           <PF_Paging
             currentPage={currentPage}
-            totalPages={totalPages}
+            totalPages={Math.ceil(boardData.length / postsPerPage)}
             onPageChange={handlePageChange}
           />
         </div>

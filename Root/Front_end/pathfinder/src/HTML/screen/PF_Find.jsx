@@ -16,23 +16,25 @@ const PF_Find = () => {
   const { user } = useUser();
   const isLoggedIn = user !== null;
   const navigate = useNavigate();
-
-  const getTodayDate = () => {
-    const today = new Date();
-    const yyyy = today.getFullYear();
-    const mm = String(today.getMonth() + 1).padStart(2, "0");
-    const dd = String(today.getDate()).padStart(2, "0");
-    return `${yyyy}${mm}${dd}`;
-  };
-
-  // 상태 관리
   const [formData, setFormData] = useState({
-    LST_PRDT_NM: "",
-    START_YMD: getTodayDate(),
-    END_YMD: getTodayDate(),
-    PLACE_SE_CD: "",
-    FD_LCT_CD: "",
+    memberNickName: '',
+    boardTitle: '',
+    acquirePlace_classifi: '',
+    acquirePropertyName: '',
+    acquireArea: '',
+    acquirePlace: '',
+    boardContent: '',
+    propertyColor: '',
+    propertyType: '',
+    reporterPhone: '',
+    etc: '',
+    acquirePlace_adress1: '',
+    acquirePlace_adress2: '',
+    acquirePlace_adress3: '',
+    acquirePlace_adress4: '',
+    acquirePlace_adress5: '',
   });
+
 
   const [showCalendar, setShowCalendar] = useState(false);
   const [calendarType, setCalendarType] = useState("");
@@ -42,53 +44,77 @@ const PF_Find = () => {
   const [postsPerPage] = useState(10); // 페이지당 게시글 수
   const [previewImage, setPreviewImage] = useState(null); // 미리보기 이미지 상태 추가
 
+
+  const getTodayDate = () => {
+    const today = new Date();
+    const yyyy = today.getFullYear();
+    const mm = String(today.getMonth() + 1).padStart(2, "0");
+    const dd = String(today.getDate()).padStart(2, "0");
+    return `${yyyy}${mm}${dd}`;
+  };
+
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
+    setFormData({ ...formData, [name]: value });
   };
+
   const generateRandomNumber = () => {
     return Math.floor(100000 + Math.random() * 900000); // 6자리 랜덤 숫자 생성
   };
 
   const handleSearchSubmit = async (e) => {
-    e.preventDefault();
-    console.log("검색 폼 제출:", formData);
+    e.preventDefault(); // 기본 제출 동작 방지
+
+    const postData = {
+      member: {
+        memberNickName: formData.memberNickName,
+      },
+      boardTitle: formData.boardTitle,
+      classifiName: formData.acquirePlace_classifi,
+      acquirePropertyName: formData.acquirePropertyName,
+      acquireArea: formData.acquireArea,
+      acquirePlace: formData.acquirePlace,
+      acquireDate: formData.acquireDate.toISOString().slice(0, 10),
+      boardContent: formData.boardContent,
+      boardImage: previewImage ? previewImage.split(',')[1] : null, // 순수 Base64 데이터만 전송
+      propertyColor: formData.propertyColor,
+      propertyType: formData.propertyType,
+      reporterPhone: formData.reporterPhone,
+      etc: formData.etc,
+      acquirePlace_adress1: formData.acquirePlace_adress1,
+      acquirePlace_adress2: formData.acquirePlace_adress2,
+      acquirePlace_adress3: formData.acquirePlace_adress3,
+      acquirePlace_adress4: formData.acquirePlace_adress4,
+      acquirePlace_adress5: formData.acquirePlace_adress5,
+    };
+
+    console.log("Sending data:", postData); // 데이터 확인용 콘솔 출력
 
     try {
-      const queryParams = new URLSearchParams({
-        prdtNm: formData.LST_PRDT_NM,
-        startYmd: formData.START_YMD,
-        endYmd: formData.END_YMD,
-        placeSeCd: formData.PLACE_SE_CD,
-        fdLctCd: formData.FD_LCT_CD,
-      }).toString();
-
-      const response = await fetch(`/boards/acquire-property-board?${queryParams}`);
+      const response = await fetch('/search', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(postData),
+      });
 
       if (!response.ok) {
-        throw new Error("검색 결과를 가져오는 중 오류 발생");
+        console.error('Network response was not ok:', response.status, response.statusText); // 오류 시 상태 출력
+        throw new Error('Network response was not ok');
       }
 
       const data = await response.json();
-      console.log("검색 API 응답 데이터:", data);
+      console.log("Received data:", data); // 검색 결과 확인
 
-      // 관리번호를 6자리 랜덤 숫자로 설정
-      const dataWithRandomNumber = data.map((item) => ({
-        ...item,
-        managementNumber: generateRandomNumber(),
-      }));
+      // 검색 결과를 posts 상태에 저장
+      setPosts(data); // API 응답 데이터로 posts 상태 업데이트
 
-      // createDate 기준으로 내림차순 정렬
-      const sortedData = dataWithRandomNumber.sort((a, b) => new Date(b.createDate) - new Date(a.createDate));
-      setPosts(sortedData);
-      setCurrentPage(1); // 검색 후 첫 페이지로 이동
     } catch (error) {
-      console.error("Error:", error);
+      console.error('Error fetching data:', error); // 에러 출력
     }
   };
+
 
   const fetchLostItems = async () => {
     try {
@@ -184,13 +210,7 @@ const PF_Find = () => {
         <div id="contents">
           <h2>습득물 검색</h2>
           <div className="findList">
-            <form
-              name="commandMap"
-              id="commandMap"
-              method="post"
-              action="#none"
-              onSubmit={handleSearchSubmit}
-            >
+            <form name="commandMap" id="commandMap" method="post" action="#none" onSubmit={handleSearchSubmit}>
               <div className="lost_qfind2" style={{ display: "flex", position: "relative" }}>
                 <div className="left-section">
                   <PF_product_option />
@@ -200,9 +220,8 @@ const PF_Find = () => {
                     <input
                       type="text"
                       id="lstPrdtNm"
-                      name="LST_PRDT_NM"
+                      name="boardTitle"
                       className="input"
-                      value={formData.LST_PRDT_NM}
                       onChange={handleChange}
                     />
                   </fieldset>
@@ -226,7 +245,6 @@ const PF_Find = () => {
                       id="startYmdInput"
                       className="search_text_isNumber"
                       size="10"
-                      value={formData.START_YMD}
                       readOnly
                     />
                     <button
@@ -247,7 +265,6 @@ const PF_Find = () => {
                       id="endYmdInput"
                       className="search_text_isNumber"
                       size="10"
-                      value={formData.END_YMD}
                       readOnly
                     />
                     <button
@@ -292,65 +309,72 @@ const PF_Find = () => {
                   <th scope="col">습득물명</th>
                   <th scope="col">습득장소</th>
                   <th scope="col">습득일자</th>
+                  <th scope="col">작성일자</th>
                 </tr>
               </thead>
               <tbody>
-                {currentPosts.map((post, index) => (
-                  <tr
-                    key={index}
-                    onClick={() => handlePostClick(post.id)} // 클릭 시 상세 페이지로 이동
-                    style={{ cursor: "pointer" }} // 클릭 가능한 스타일 추가
-                    onMouseEnter={() => {
-                      setPreviewImage(post.boardImage);
-                    }}
-                    onMouseLeave={() => {
-                      setPreviewImage(null);
-                    }}
-                  >
-                    <td>{post.id}</td>
-                    <td style={{ display: "flex", alignItems: "center" }}>
-                      {post.boardImage && (
-                        <div
-                          className="preview-image"
-                          style={{ position: 'relative' }} // 위치를 상대적으로 설정
-                        >
-                          <img
-                            style={{
-                              opacity: previewImage === post.boardImage ? '0.5' : '1', // 현재 게시물 이미지에 대해서만 불투명하게 설정
-                              transition: 'opacity 0.3s' // 불투명도 전환 효과
-                            }}
-                          />
-                          {previewImage === post.boardImage && ( // 현재 게시물의 이미지일 때만 프리뷰 표시
-                            <div style={{
-                              position: 'absolute',
-                              top: '0',
-                              left: '0',
-                              backgroundColor: 'rgba(255, 255, 255, 0.8)', // 반투명 배경
-                              borderRadius: '5px',
-                              padding: '5px',
-                              zIndex: '1',
-                            }}>
-                              <img
-                                src={`data:image/jpeg;base64,${previewImage}`}
-                                alt="Preview"
-                                style={{ width: '100px', height: 'auto' }} // 프리뷰 이미지 크기
-                              />
-                            </div>
-                          )}
-                        </div>
-                      )}
-                      {post.boardTitle}
-                    </td>
-                    <td>{post.acquirePlace}</td>
-                    <td>{post.acquireDate}</td>
-                  </tr>
-                ))}
+                {currentPosts
+                  .slice()
+                  .sort((a, b) => new Date(b.createDate) - new Date(a.createDate))
+                  .map((post, index) => {
+                    // createDate에서 날짜 부분만 추출하는 함수
+                    const formatDate = (dateString) => {
+                      const date = new Date(dateString);
+                      return date.toISOString().split('T')[0]; // "YYYY-MM-DD" 형식으로 변환
+                    };
+                    return (
+                    <tr
+                      key={index}
+                      onClick={() => handlePostClick(post.id)} // 클릭 시 상세 페이지로 이동
+                      style={{ cursor: "pointer" }} // 클릭 가능한 스타일 추가
+                      onMouseEnter={() => {
+                        setPreviewImage(post.boardImage);
+                      }}
+                      onMouseLeave={() => {
+                        setPreviewImage(null);
+                      }}
+                    >
+                      <td>{post.id}</td>
+                      <td style={{ display: "flex", alignItems: "center" }}>
+                        {post.boardImage && (
+                          <div
+                            className="preview-image"
+                            style={{ position: 'relative' }}
+                          >
+                            <img
+                              style={{
+                                opacity: previewImage === post.boardImage ? '0.5' : '1', // 현재 게시물 이미지에 대해서만 불투명하게 설정
+                                transition: 'opacity 0.3s' // 불투명도 전환 효과
+                              }}
+                            />
+                            {previewImage === post.boardImage && ( // 현재 게시물의 이미지일 때만 프리뷰 표시
+                              <div style={{
+                                position: 'absolute',
+                                top: '0',
+                                left: '0',
+                                backgroundColor: 'rgba(255, 255, 255, 0.8)', // 반투명 배경
+                                borderRadius: '5px',
+                                padding: '5px',
+                                zIndex: '1',
+                              }}>
+                                <img
+                                  src={`data:image/jpeg;base64,${previewImage}`}
+                                  alt="Preview"
+                                  style={{ width: '100px', height: 'auto' }} // 프리뷰 이미지 크기
+                                />
+                              </div>
+                            )}
+                          </div>
+                        )}
+                        {post.boardTitle}
+                      </td>
+                      <td>{post.acquirePlace}</td>
+                      <td>{post.acquireDate}</td>
+                      <td>{formatDate(post.createDate)}</td> 
+                    </tr>
+                    );
+                })}
               </tbody>
-
-
-
-
-
             </table>
 
             <PF_Paging
