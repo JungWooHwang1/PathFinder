@@ -6,7 +6,7 @@ import "../../CSS/PF_Main.css";
 import "../../CSS/PF_Write.css";
 import "react-calendar/dist/Calendar.css"; // 스타일을 import
 import PF_local_option from "../common/PF_local_option";
-import PF_place_option from "../common/PF_place_option ";
+import PF_place_option from "../common/PF_place_option";
 import PF_Paging from "../common/PF_Paging";
 
 const PF_Wanted = () => {

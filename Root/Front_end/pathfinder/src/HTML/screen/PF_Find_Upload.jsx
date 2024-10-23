@@ -3,8 +3,10 @@ import "../../CSS/PF_Main.css";
 import "../../CSS/PF_Write.css";
 import PF_Header from "../common/PF_Header";
 import PF_Nav from "../common/PF_Nav";
+import { useUser } from "../common/userContext";
 
 const PF_Find_Upload = () => {
+  const { user } = useUser(); // 현재 로그인한 사용자 정보 가져오기
   const [imagePreview, setImagePreview] = useState(null);
   const [formData, setFormData] = useState({
     boardTitle: "",
@@ -22,7 +24,7 @@ const PF_Find_Upload = () => {
     acquirePlace_adress3: "",
     acquirePlace_adress4: "",
     acquirePlace_adress5: "",
-    memberNickName: "1111",
+    memberNickName: user?.memberNickName || "", 
   });
 
   const new_script = (src) => {

@@ -1,9 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import "../CSS/PF_SigninForm.css";
 import { FaUser, FaLock } from "react-icons/fa";
+import { useUser } from "./common/userContext"; // useUser import
+import "../CSS/PF_SigninForm.css";
 
 const LoginForm = () => {
+  const { login } = useUser(); // UserContext에서 login 함수 가져오기
   const [username, setUsername] = useState(""); // 사용자 이름 (ID)
   const [password, setPassword] = useState(""); // 비밀번호
   const [loginCheck, setLoginCheck] = useState(false); // 로그인 실패 체크
@@ -22,19 +24,16 @@ const LoginForm = () => {
     setLoading(true); // 로딩 시작
 
     try {
-      const response = await fetch(
-        "/members/login", 
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            "memberId": username,
-            "memberPw": password,
-          }),
-        }
-      );
+      const response = await fetch("/members/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          memberId: username,
+          memberPw: password,
+        }),
+      });
 
       // 서버에서 JSON 응답 받기
       const result = await response.json();
@@ -45,6 +44,7 @@ const LoginForm = () => {
 
         console.log("로그인 성공, 아이디:", result.memberId);
         setLoginCheck(false);
+        login(result); // UserContext에 로그인 정보 설정
         navigate("/"); // 홈으로 리다이렉트
       } else {
         setLoginCheck(true); // 로그인 실패 시 메시지 표시
@@ -57,9 +57,7 @@ const LoginForm = () => {
     } finally {
       setLoading(false);
     }
-};
-
-  
+  };
 
   return (
     <div className="container">

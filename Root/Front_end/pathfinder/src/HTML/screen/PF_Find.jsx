@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom"; // React Router의 useNavigate 사용
 import Calendar from "react-calendar";
 import PF_Nav from "../common/PF_Nav";
 import PF_Header from "../common/PF_Header";
@@ -7,10 +8,20 @@ import "../../CSS/PF_Main.css";
 import "../../CSS/PF_Write.css";
 import PF_product_option from "../common/PF_product_option";
 import PF_local_option from "../common/PF_local_option";
-import PF_place_option from "../common/PF_place_option ";
+import PF_place_option from "../common/PF_place_option";
 import PF_Paging from "../common/PF_Paging";
+import { useUser } from "../common/userContext"; // UserContext 사용
 
 const PF_Find = () => {
+  const { user } = useUser(); // user, login, logout 가져오기
+  const isLoggedIn = user !== null; // 로그인 여부 확인
+  const navigate = useNavigate(); // 페이지 이동을 위한 훅
+
+  useEffect(() => {
+    console.log("user 상태:", user); // user 상태 출력
+    console.log("isLoggedIn 상태:", isLoggedIn); // 로그인 여부 출력
+  }, [user]); // user 상태가 변경될 때마다 로그 출력
+
   // 상태 관리
   const [formData, setFormData] = useState({
     PRDT_CL_NM: "",
@@ -60,6 +71,18 @@ const PF_Find = () => {
     }
     setDate(newDate);
     setShowCalendar(false); // 달력 선택 후 닫기
+  };
+
+  // 로그인 상태에 따른 접근 제어
+  const handleUploadClick = () => {
+    console.log("isLoggedIn 상태:", isLoggedIn); // 로그인 상태 확인용 콘솔
+    console.log("user 상태:", user); // 현재 user 상태 확인
+    if (!isLoggedIn) {
+      alert("로그인 후 이용해주세요.");
+      navigate("/PF_SigninForm"); // 로그인 페이지로 이동
+    } else {
+      navigate("/PF_Find_Upload"); // 게시물 등록 페이지로 이동
+    }
   };
 
   return (
@@ -191,14 +214,22 @@ const PF_Find = () => {
               </thead>
               <tbody>{/* 검색 결과를 여기에 표시 */}</tbody>
             </table>
-            <a href="PF_Find_Board" class="board">
-              습득물 게시물
+            <a
+              href="#"
+              className="subMenu_select"
+              onClick={handleUploadClick}
+            >
+              습득물 게시물 등록
             </a>
           </div>
           <nav id="sub_lnb">
             <ul>
               <li>
-                <a href="PF_Find_Upload" class="subMenu_select">
+                <a
+                  href="#"
+                  className="subMenu_select"
+                  onClick={handleUploadClick}
+                >
                   습득물 게시물 등록
                 </a>
               </li>

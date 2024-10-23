@@ -7,7 +7,7 @@ import "../../CSS/PF_Write.css";
 import "react-calendar/dist/Calendar.css";
 import PF_local_option from "../common/PF_local_option";
 import PF_product_option from "../common/PF_product_option";
-import PF_place_option from "../common/PF_place_option ";
+import PF_place_option from "../common/PF_place_option";
 import PF_Paging from "../common/PF_Paging";
 import "../../CSS/PF_Lost.css";
 
