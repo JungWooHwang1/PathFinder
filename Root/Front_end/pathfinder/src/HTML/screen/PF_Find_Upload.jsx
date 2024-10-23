@@ -3,10 +3,8 @@ import "../../CSS/PF_Main.css";
 import "../../CSS/PF_Write.css";
 import PF_Header from "../common/PF_Header";
 import PF_Nav from "../common/PF_Nav";
-import { useUser } from "../common/userContext";
 
 const PF_Find_Upload = () => {
-  const { user } = useUser(); // 현재 로그인한 사용자 정보 가져오기
   const [imagePreview, setImagePreview] = useState(null);
   const [formData, setFormData] = useState({
     boardTitle: "",
@@ -24,8 +22,7 @@ const PF_Find_Upload = () => {
     acquirePlace_adress3: "",
     acquirePlace_adress4: "",
     acquirePlace_adress5: "",
-    memberNickName: user?.memberNickName || "", 
-    classifiName: "",
+    memberNickName: "1111",
   });
 
   const new_script = (src) => {
@@ -73,28 +70,15 @@ const PF_Find_Upload = () => {
   const handleFileChange = (event) => {
     const file = event.target.files[0];
     if (file) {
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        // Base64 문자열로 변환
-        const base64String = e.target.result.split(',')[1]; // 'data:image/jpeg;base64,...'에서 'base64...' 부분만 추출
-        setFormData((prevData) => ({
-          ...prevData,
-          boardImage: base64String, // Base64 문자열을 formData에 추가
-        }));
-        // 이미지 미리보기 설정
-        setImagePreview(e.target.result);
-      };
-      reader.readAsDataURL(file); // 데이터를 URL 형식으로 읽음
+      const previewUrl = URL.createObjectURL(file);
+      setImagePreview(previewUrl);
     }
   };
-  
-  
-  
 
   const handleChange = (event) => {
     const { name, value } = event.target;
     setFormData((prevData) => ({
-      ...prevData,  
+      ...prevData,
       [name]: value,
     }));
   };
@@ -107,14 +91,14 @@ const PF_Find_Upload = () => {
         memberNickName: "1111", // 사용자가 입력한 값
       },
       boardTitle: formData.boardTitle,
-      classifiName: formData.classifiName, 
+      classifiName: formData.acquirePlace_classifi,
       acquirePropertyName: formData.acquirePropertyName,
       acquireArea: formData.acquireArea,
       acquirePlace: formData.acquirePlace,
       acquirePlace_classifi: formData.acquirePlace_classifi,
       acquireDate: new Date().toISOString().slice(0, 10),
       boardContent: formData.boardContent,
-      boardImage: formData.boardImage, // Base64 문자열
+      boardImage: imagePreview, 
       propertyColor: formData.propertyColor,
       propertyType: formData.propertyType,
       reporterPhone: formData.reporterPhone,
@@ -196,27 +180,27 @@ const PF_Find_Upload = () => {
                     <th scope="row"><em>*</em><label htmlFor="PRDT_CL_NM">분류명</label></th>
                     <td>
                       <select id="PRDT_CL_NM" name="classifiName" className="choice" onChange={handleChange}>
-                        <option value="선택">선택</option>
-                        <option value="가방">가방</option>
-                        <option value="귀금속">귀금속</option>
-                        <option value="도서용품">도서용품</option>
-                        <option value="서류">서류</option>
-                        <option value="산업용품">산업용품</option>
-                        <option value="소핑백">소핑백</option>
-                        <option value="스포츠용품">스포츠용품</option>
-                        <option value="악기">악기</option>
-                        <option value="유가증권">유가증권</option>
-                        <option value="의류">의류</option>
-                        <option value="자동차">자동차</option>
-                        <option value="전자기기">전자기기</option>
-                        <option value="지갑">지갑</option>
-                        <option value="증명서">증명서</option>
-                        <option value="컴퓨터">컴퓨터</option>
-                        <option value="카드">카드</option>
-                        <option value="현금">현금</option>
-                        <option value="휴대폰">휴대폰</option>
-                        <option value="기타">기타</option>
-                        <option value="유류품">유류품</option>
+                        <option value="">선택</option>
+                        <option value="LCA000">가방</option>
+                        <option value="LCH000">귀금속</option>
+                        <option value="LCI000">도서용품</option>
+                        <option value="LCJ000">서류</option>
+                        <option value="LCK000">산업용품</option>
+                        <option value="LCQ000">소핑백</option>
+                        <option value="LCR000">스포츠용품</option>
+                        <option value="LCS000">악기</option>
+                        <option value="LCT000">유가증권</option>
+                        <option value="LCU000">의류</option>
+                        <option value="LCV000">자동차</option>
+                        <option value="LCL000">전자기기</option>
+                        <option value="LCM000">지갑</option>
+                        <option value="LCN000">증명서</option>
+                        <option value="LCO000">컴퓨터</option>
+                        <option value="LCP000">카드</option>
+                        <option value="LCW000">현금</option>
+                        <option value="LCF000">휴대폰</option>
+                        <option value="LCE000">기타</option>
+                        <option value="LCE000">유류품</option>
                       </select>
                     </td>
                     <td colSpan="2">
@@ -260,10 +244,10 @@ const PF_Find_Upload = () => {
                   </tr>
                   <tr>
                     <th><label htmlFor="LST_FEATURE">물품 특징</label></th>
-                    <td><input type="text" id="LST_FEATURE" name="propertyType" className="input" onChange={handleChange} /></td>
+                    <td><input type="text" id="LST_FEATURE" name="etc" className="input" onChange={handleChange} /></td>
 
-                    <th><label htmlFor="LST_NOTE">게시글 내용</label></th>
-                    <td><textarea type="text" id="LST_NOTE" name="boardContent" className="input" maxLength="100" onChange={handleChange} placeholder="상세 제원을 입력해주세요"/></td>
+                    <th><label htmlFor="LST_NOTE">비고</label></th>
+                    <td><input type="text" id="LST_NOTE" name="boardContent" className="input" maxLength="100" onChange={handleChange} /></td>
                   </tr>
                 </tbody>
               </table>

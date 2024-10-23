@@ -25,7 +25,7 @@ const PF_Header = () => {
     return (
         <header className="PF_header">
             <Link to="/">
-                <img src="" alt="main logo" />
+                <img src="../img/main_logo.png" alt="main logo" />
             </Link>
             <div className="search_area">
                 <form className="search-box" onSubmit={handleSearch} method="get">
