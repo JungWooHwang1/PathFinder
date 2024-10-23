@@ -4,6 +4,8 @@
 - npm install react-icons --save // icon 라이브러리
 - npm install react-calendar    // npm 캘린더 패키지 다운로드
 - npm install react-router-dom  // react router 다중페이지 구축
+## 프로젝트 노션
+- https://sly-grape-e30.notion.site/10611252aa96805299c7dd793aae410c
 ## package.json 설정 추가 및 수정
 - "proxy": "http://43.203.203.157:8085", //로컬 개발 서버에서 API 요청이 해당 ngrok URL로 프록시 처리 name 과 같은 최상단에 위치해야함.
 ## 빌드된 곳
