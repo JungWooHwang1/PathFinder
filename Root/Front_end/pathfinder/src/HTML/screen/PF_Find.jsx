@@ -27,10 +27,9 @@ const PF_Find = () => {
 
   // 상태 관리
   const [formData, setFormData] = useState({
-    PRDT_CL_NM: "",
+    LST_PRDT_NM: "",
     START_YMD: getTodayDate(),
     END_YMD: getTodayDate(),
-    PRDT_NM: "",
     PLACE_SE_CD: "",
     FD_LCT_CD: "",
   });
@@ -41,6 +40,7 @@ const PF_Find = () => {
   const [posts, setPosts] = useState([]);
   const [currentPage, setCurrentPage] = useState(1); // 현재 페이지
   const [postsPerPage] = useState(10); // 페이지당 게시글 수
+  const [previewImage, setPreviewImage] = useState(null); // 미리보기 이미지 상태 추가
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -49,11 +49,45 @@ const PF_Find = () => {
       [name]: value,
     }));
   };
+  const generateRandomNumber = () => {
+    return Math.floor(100000 + Math.random() * 900000); // 6자리 랜덤 숫자 생성
+  };
 
   const handleSearchSubmit = async (e) => {
     e.preventDefault();
     console.log("검색 폼 제출:", formData);
-    // API 호출을 통해 검색 결과를 업데이트하는 로직 추가 가능
+
+    try {
+      const queryParams = new URLSearchParams({
+        prdtNm: formData.LST_PRDT_NM,
+        startYmd: formData.START_YMD,
+        endYmd: formData.END_YMD,
+        placeSeCd: formData.PLACE_SE_CD,
+        fdLctCd: formData.FD_LCT_CD,
+      }).toString();
+
+      const response = await fetch(`/boards/acquire-property-board?${queryParams}`);
+
+      if (!response.ok) {
+        throw new Error("검색 결과를 가져오는 중 오류 발생");
+      }
+
+      const data = await response.json();
+      console.log("검색 API 응답 데이터:", data);
+
+      // 관리번호를 6자리 랜덤 숫자로 설정
+      const dataWithRandomNumber = data.map((item) => ({
+        ...item,
+        managementNumber: generateRandomNumber(),
+      }));
+
+      // createDate 기준으로 내림차순 정렬
+      const sortedData = dataWithRandomNumber.sort((a, b) => new Date(b.createDate) - new Date(a.createDate));
+      setPosts(sortedData);
+      setCurrentPage(1); // 검색 후 첫 페이지로 이동
+    } catch (error) {
+      console.error("Error:", error);
+    }
   };
 
   const fetchLostItems = async () => {
@@ -64,11 +98,22 @@ const PF_Find = () => {
       }
       const data = await response.json();
       console.log("API 응답 데이터:", data);
-      setPosts(data);
+
+      // 관리번호를 6자리 랜덤 숫자로 설정
+      const dataWithRandomNumber = data.map((item) => ({
+        ...item,
+        managementNumber: generateRandomNumber(),
+      }));
+
+      // createDate 기준으로 내림차순 정렬
+      const sortedData = dataWithRandomNumber.sort((a, b) => new Date(b.createDate) - new Date(a.createDate));
+      setPosts(sortedData);
     } catch (error) {
       console.error("Error:", error);
     }
   };
+
+
 
   useEffect(() => {
     fetchLostItems();
@@ -126,6 +171,17 @@ const PF_Find = () => {
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
   };
+
+  const handleMouseEnter = (image) => {
+    setPreviewImage(`data:image/jpeg;base64,${image}`);
+  };
+
+
+  const handleMouseLeave = () => {
+    setPreviewImage(null);
+  };
+
+
 
   return (
     <div className="body">
@@ -249,21 +305,47 @@ const PF_Find = () => {
                 {currentPosts.map((post, index) => (
                   <tr key={index}>
                     <td>{post.id}</td>
-                    <td>{post.boardTitle}</td>
+                    <td style={{ display: "flex", alignItems: "center" }}>
+                      {post.boardImage && (
+                        <div
+                          className="preview-image"
+                          onMouseEnter={() => {
+                            setPreviewImage(`data:image/jpeg;base64,${post.boardImage}`);
+                            // 흐릿함을 제거
+                            const img = document.querySelector(`.preview-image img`);
+                            if (img) img.style.opacity = '1'; // 마우스 오버 시 불투명하게
+                          }}
+                          onMouseLeave={handleMouseLeave}
+                        >
+                          <img src={`data:image/jpeg;base64,${post.boardImage}`} alt="Preview" />
+                        </div>
+                      )}
+                      {post.boardTitle}
+                    </td>
                     <td>{post.acquirePlace}</td>
                     <td>{post.acquireDate}</td>
                   </tr>
                 ))}
               </tbody>
+
+
             </table>
-            <br/>
-            {/* 페이지 네비게이션 추가 */}
+
+
+
+
             <PF_Paging
               currentPage={currentPage}
               totalPages={totalPages}
               onPageChange={handlePageChange}
             />
           </div>
+
+          <p style={{ textAlign: "center" }}>
+            <button onClick={handleUploadClick} className="btn_01">
+              습득물 등록
+            </button>
+          </p>
         </div>
       </div>
     </div>
