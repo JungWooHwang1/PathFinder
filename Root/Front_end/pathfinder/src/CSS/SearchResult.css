@@ -1,0 +1,55 @@
+:root {
+    --maincolor: #e4a656;
+    --subcolor: #fff5e8;
+    --bordercolor: rgba(0, 0, 0, 0.1);
+    --textcolor: #333;
+    --hovercolor: #d18a36;
+  }
+  
+  .find_listBox {
+    width: 100%;
+    max-width: 1280px;
+    margin: 20px auto;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 2px 5px var(--bordercolor);
+  }
+  
+  h2 {
+    font-size: 1.5rem;
+    color: var(--maincolor);
+    margin-bottom: 20px;
+  }
+  
+  .search-description {
+    margin-bottom: 20px;
+    font-size: 1.1rem;
+  }
+  
+  .type01 {
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid var(--bordercolor);
+  }
+  
+  .type01 th,
+  .type01 td {
+    padding: 12px;
+    text-align: left;
+    border: 1px solid var(--bordercolor);
+  }
+  
+  .type01 th {
+    background-color: var(--maincolor);
+    color: white;
+  }
+  
+  .type01 tbody tr:hover {
+    background-color: var(--subcolor);
+  }
+  
+  .type01 .first {
+    font-weight: bold;
+  }
+  

@@ -173,7 +173,7 @@ const PF_Find = () => {
   };
 
   const handlePostClick = (postId) => {
-    navigate(`/PF_Find_Upload/${postId}`); // 게시물 상세 페이지로 이동
+    navigate(`/PF_Find_Board/${postId}`); // 게시물 상세 페이지로 이동
   };
 
   return (
