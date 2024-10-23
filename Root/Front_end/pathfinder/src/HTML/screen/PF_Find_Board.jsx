@@ -74,7 +74,6 @@ const PF_Find_Upload = () => {
   });
 
   // 특정 게시물 정보 가져오기
-  // 특정 게시물 정보 가져오기
   useEffect(() => {
     const fetchPost = async () => {
       if (postId) {
@@ -86,10 +85,10 @@ const PF_Find_Upload = () => {
             throw new Error("게시물 정보를 가져오는 중 오류 발생");
           }
           const data = await response.json();
-
+  
           // 서버로부터 가져온 데이터를 콘솔에 출력
           console.log("API로부터 가져온 데이터:", data);
-
+  
           setPost(data);
           setFormData({
             ...formData,
@@ -103,11 +102,11 @@ const PF_Find_Upload = () => {
             reporterPhone: data.reporterPhone,
             etc: data.etc,
             classifiName: data.classifiName, // classifiName 업데이트
-            boardImage: data.boardImage, // 서버에서 받아온 이미지 경로 설정
           });
+          
           // 이미지 미리보기 설정 (서버 이미지 경로로 설정)
           if (data.boardImage) {
-            setImagePreview(data.boardImage);
+            setImagePreview(`data:image/png;base64,${data.boardImage}`); // Base64 형식으로 설정
           }
         } catch (error) {
           console.error("Error:", error);
@@ -116,15 +115,20 @@ const PF_Find_Upload = () => {
     };
     fetchPost();
   }, [postId]);
+  
 
   // 이미지 파일 처리
   const handleFileChange = (event) => {
     const file = event.target.files[0];
     if (file) {
-      const previewUrl = URL.createObjectURL(file);
-      setImagePreview(previewUrl);
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setImagePreview(reader.result); // Base64 데이터로 설정
+      };
+      reader.readAsDataURL(file); // 파일을 Data URL로 변환
     }
   };
+
 
   // 입력 필드 값 변경 핸들러
   const handleChange = (event) => {
@@ -239,9 +243,11 @@ const PF_Find_Upload = () => {
               <div className="img-name">물품 사진</div>
               {handleFileChange ? (
                 <img
-                  src={handleFileChange}
-                  style={{ maxWidth: "300px", height: "300px" }}
+                  src={imagePreview} 
+                  alt="물품 사진" 
+                  style={{ maxWidth: "150px", height: "150px" }}
                 />
+
               ) : (
                 <p>이미지가 없습니다.</p>
               )}
