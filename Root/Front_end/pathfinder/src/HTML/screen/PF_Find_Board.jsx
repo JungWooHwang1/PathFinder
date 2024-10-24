@@ -51,14 +51,14 @@ const PF_Find_Upload = () => {
       kakao.maps.load(() => {
         const mapContainer = document.getElementById("map");
         const options = {
-          center: new kakao.maps.LatLng(37.56000302825312, 126.97540593203321), //좌표설정
+          center: new kakao.maps.LatLng(37.40410395971753, 126.93064874219576), //좌표설정
           level: 3,
         };
         const map = new kakao.maps.Map(mapContainer, options); //맵생성
         //마커설정
         const markerPosition = new kakao.maps.LatLng(
-          37.56000302825312,
-          126.97540593203321
+          37.40410395971753,
+          126.93064874219576
         );
         const marker = new kakao.maps.Marker({
           position: markerPosition,
@@ -133,7 +133,6 @@ const PF_Find_Upload = () => {
     fetchPost();
   }, [postId]);
 
-
   // 이미지 파일 처리
   const handleFileChange = (event) => {
     const file = event.target.files[0];
@@ -145,7 +144,6 @@ const PF_Find_Upload = () => {
       reader.readAsDataURL(file); // 파일을 Data URL로 변환
     }
   };
-
 
   // 입력 필드 값 변경 핸들러
   const handleChange = (event) => {
@@ -264,7 +262,6 @@ const PF_Find_Upload = () => {
                   alt="물품 사진"
                   style={{ maxWidth: "150px", height: "150px" }}
                 />
-
               ) : (
                 <p>이미지가 없습니다.</p>
               )}
