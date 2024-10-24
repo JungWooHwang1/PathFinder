@@ -34,14 +34,14 @@ const PF_Find_Upload = () => {
       kakao.maps.load(() => {
         const mapContainer = document.getElementById("map");
         const options = {
-          center: new kakao.maps.LatLng(37.56000302825312, 126.97540593203321), //좌표설정
+          center: new kakao.maps.LatLng(37.40410395971753, 126.93064874219576), //좌표설정
           level: 3,
         };
         const map = new kakao.maps.Map(mapContainer, options); //맵생성
         //마커설정
         const markerPosition = new kakao.maps.LatLng(
-          37.56000302825312,
-          126.97540593203321
+          37.40410395971753,
+          126.93064874219576
         );
         const marker = new kakao.maps.Marker({
           position: markerPosition,
@@ -85,10 +85,10 @@ const PF_Find_Upload = () => {
             throw new Error("게시물 정보를 가져오는 중 오류 발생");
           }
           const data = await response.json();
-  
+
           // 서버로부터 가져온 데이터를 콘솔에 출력
           console.log("API로부터 가져온 데이터:", data);
-  
+
           setPost(data);
           setFormData({
             ...formData,
@@ -103,7 +103,7 @@ const PF_Find_Upload = () => {
             etc: data.etc,
             classifiName: data.classifiName, // classifiName 업데이트
           });
-          
+
           // 이미지 미리보기 설정 (서버 이미지 경로로 설정)
           if (data.boardImage) {
             setImagePreview(`data:image/png;base64,${data.boardImage}`); // Base64 형식으로 설정
@@ -115,7 +115,6 @@ const PF_Find_Upload = () => {
     };
     fetchPost();
   }, [postId]);
-  
 
   // 이미지 파일 처리
   const handleFileChange = (event) => {
@@ -128,7 +127,6 @@ const PF_Find_Upload = () => {
       reader.readAsDataURL(file); // 파일을 Data URL로 변환
     }
   };
-
 
   // 입력 필드 값 변경 핸들러
   const handleChange = (event) => {
@@ -243,11 +241,10 @@ const PF_Find_Upload = () => {
               <div className="img-name">물품 사진</div>
               {handleFileChange ? (
                 <img
-                  src={imagePreview} 
-                  alt="물품 사진" 
+                  src={imagePreview}
+                  alt="물품 사진"
                   style={{ maxWidth: "150px", height: "150px" }}
                 />
-
               ) : (
                 <p>이미지가 없습니다.</p>
               )}

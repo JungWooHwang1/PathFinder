@@ -72,6 +72,10 @@ body {
 .lost_inputbox {
   width: 400px;
 }
+.lost_insert th {
+  display: flex;
+}
+
 .search_text_isNumber {
   width: 200px;
 }
@@ -196,10 +200,11 @@ body {
 }
 /* Comment Section */
 .com {
-  display: flex;
+  max-width: 500px;
   flex-direction: column; /* 요소들을 세로로 정렬 */
   align-items: center; /* 중앙 정렬 */
   margin-top: 20px;
+  margin: auto;
 }
 .input-comment {
   width: 500px;
@@ -218,7 +223,7 @@ body {
   color: white;
   border-radius: 8px;
   font-size: 16px;
-  right: 0;
+  margin-left: 420px;
 }
 .append_lost {
   margin-top: 20px;
