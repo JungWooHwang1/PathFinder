@@ -6,6 +6,21 @@ import PF_Header from "../common/PF_Header";
 import PF_Nav from "../common/PF_Nav";
 
 const PF_Find_Upload = () => {
+  const [comments, setComments] = useState([]); // 댓글 목록 상태
+  const [newComment, setNewComment] = useState(""); // 새 댓글 내용 상태
+  const boardId = 1; // 게시글 ID (예시로 1로 설정)
+
+  const handleCommentSubmit = (event) => {
+    event.preventDefault();
+    if (newComment.trim()) {
+      setComments((prevComments) => [
+        ...prevComments,
+        { memberNickName: formData.memberNickName, content: newComment },
+      ]);
+      setNewComment(""); // 댓글 입력 필드 비우기
+    }
+  };
+
   //스크립트 파일 읽어오기
   const new_script = (src) => {
     return new Promise((resolve, reject) => {
@@ -20,6 +35,8 @@ const PF_Find_Upload = () => {
       document.head.appendChild(script);
     });
   };
+
+
 
   useEffect(() => {
     //카카오맵 스크립트 읽어오기
@@ -85,10 +102,10 @@ const PF_Find_Upload = () => {
             throw new Error("게시물 정보를 가져오는 중 오류 발생");
           }
           const data = await response.json();
-  
+
           // 서버로부터 가져온 데이터를 콘솔에 출력
           console.log("API로부터 가져온 데이터:", data);
-  
+
           setPost(data);
           setFormData({
             ...formData,
@@ -103,7 +120,7 @@ const PF_Find_Upload = () => {
             etc: data.etc,
             classifiName: data.classifiName, // classifiName 업데이트
           });
-          
+
           // 이미지 미리보기 설정 (서버 이미지 경로로 설정)
           if (data.boardImage) {
             setImagePreview(`data:image/png;base64,${data.boardImage}`); // Base64 형식으로 설정
@@ -115,7 +132,7 @@ const PF_Find_Upload = () => {
     };
     fetchPost();
   }, [postId]);
-  
+
 
   // 이미지 파일 처리
   const handleFileChange = (event) => {
@@ -243,8 +260,8 @@ const PF_Find_Upload = () => {
               <div className="img-name">물품 사진</div>
               {handleFileChange ? (
                 <img
-                  src={imagePreview} 
-                  alt="물품 사진" 
+                  src={imagePreview}
+                  alt="물품 사진"
                   style={{ maxWidth: "150px", height: "150px" }}
                 />
 
@@ -259,15 +276,28 @@ const PF_Find_Upload = () => {
         </div>
         <hr className="bottom_line" />
 
-        <div className="append_lost">
-          <p className="comment">예시 댓글 1</p>
-          <p className="comment">예시 댓글 2</p>
-          <p className="comment">예시 댓글 3</p>
-          <div className="com">
-            <input type="text" className="input-comment"></input>
-            <br />
-            <button className="find_comment">댓글 작성</button>
-          </div>
+        <div className="comment-section">
+          <h3>댓글</h3>
+          <ul className="comment">
+            {comments.map((comment, index) => (
+              <li key={index}>
+                <strong>{comment.memberNickName}:</strong> {comment.content}
+                <br></br>
+                <br></br>
+                
+              </li>
+            ))}
+          </ul>
+          <form onSubmit={handleCommentSubmit} className="comment-form">
+            <input
+              type="text"
+              value={newComment}
+              onChange={(e) => setNewComment(e.target.value)}
+              placeholder="댓글을 입력하세요"
+              className="comment-input"
+            />
+            <button type="submit">댓글 추가</button>
+          </form>
         </div>
         <hr className="bottom_line" />
         <div className="find_info_btn2">

@@ -244,17 +244,11 @@ body {
 .PLACE_SE_MO {
   display: inline-block;
 }
-.board-info {
-  display: flex;
-  gap: 120px;
-}
+
 #content {
   width: 900px;
 }
-.img-box {
-  width: 200px;
-  height: 200px;
-}
+
 .board-App {
   width: 900px;
   height: 250px;

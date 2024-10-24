@@ -146,9 +146,10 @@ ul {
 }
 
 ul > li {
+    display: flex;
     font-size: 1rem;
     font-weight: 500;
-   
+    
     transition: background-color 0.3s ease;
 }
 
@@ -199,4 +200,41 @@ ul > li:hover {
     width: 90px;
     object-fit: cover;
     border-radius: 8px; 
+}
+
+.comment {
+    display: flex;
+    flex-direction: column;
+    font-size: 1rem;
+    font-weight: 500;
+    
+    transition: background-color 0.3s ease;
+}
+
+.comment-section{
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+}
+.comment-form {
+    display: flex;
+
+    width: 70%;
+    flex-direction: column;
+    align-items: center;
+}
+.comment-input {
+    display: flex;
+
+    width: 70%;
+    flex-direction: column;
+    align-items: center;
+    
+}
+
+.board-info {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
 }

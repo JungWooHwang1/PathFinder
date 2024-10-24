@@ -25,7 +25,7 @@ const PF_placeSeCd_option = () => {
       <input
         type="text"
         id="place_option"
-        name="place_option"
+        name="lostPlace"
         className="input"
         maxLength="100"
       />
