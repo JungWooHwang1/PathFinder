@@ -75,7 +75,9 @@ body {
 .lost_insert th {
   display: flex;
 }
-
+.Box div {
+  text-align: center;
+}
 .search_text_isNumber {
   width: 200px;
 }
