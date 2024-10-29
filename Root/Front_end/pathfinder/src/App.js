@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { UserProvider } from './HTML/common/userContext';
+import { Reset } from 'styled-reset'
 import "./App.css";
 import PF_Main from "./HTML/PF_Main";
 import PF_SigninForm from "./HTML/PF_SigninForm";
@@ -32,7 +33,9 @@ function App() {
   }, []);
 
   return (
+
     <UserProvider>
+      <Reset>
       <Router>
         <Routes>
           <Route path="/" element={<PF_Main />} />
@@ -54,6 +57,7 @@ function App() {
           <Route path="/PF_Lost_Board" element={<PF_Lost_Board />} />
         </Routes>
       </Router>
+      </Reset>
     </UserProvider>
   );
 }
