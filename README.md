@@ -1,5 +1,5 @@
 # 
-<img src="https://capsule-render.vercel.app/api?type=egg&color=#eeeeee&height=20px&section=header&text=PathFinder&fontSize=20px" />
+<img src="https://capsule-render.vercel.app/api?type=egg&color=#eeeeee&height=15px&section=header&text=PathFinder&fontSize=20px" />
 
 [![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=JungWooHwang1)](https://github.com/anuraghazra/github-readme-stats)
 
