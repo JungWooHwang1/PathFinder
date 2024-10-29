@@ -1,6 +1,7 @@
 # PathFinder
 
-[![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=yohan050605)](https://github.com/anuraghazra/github-readme-stats)
+[![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=JungWooHwang1)](https://github.com/anuraghazra/github-readme-stats)
+
 
 ## npm 외부 라이브러리
 - npm install react-icons --save       // icon 라이브러리
