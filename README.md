@@ -1,5 +1,5 @@
 # 
-<img src="https://capsule-render.vercel.app/api?type=waving&color=3F5277&height=15px&section=header&text=&fontSize=20px" />
+<img src="https://capsule-render.vercel.app/api?type=waving&color=3F5277&height=15px&section=header" />
 
 [![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=JungWooHwang1)](https://github.com/anuraghazra/github-readme-stats)
 
@@ -48,4 +48,5 @@
 ## 카카오맵 API
 ## https://apis.map.kakao.com/
 
-## 
+<img src="https://capsule-render.vercel.app/api?type=waving&color=BDBDC8&height=150&section=footer" />
+
