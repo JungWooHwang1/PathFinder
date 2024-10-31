@@ -1,9 +1,15 @@
-# PathFinder 
+# 
+<img src="https://capsule-render.vercel.app/api?type=waving&color=BDBDC8&height=150&section=header" />
+
+#PathFinder
+[![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=JungWooHwang1)](https://github.com/anuraghazra/github-readme-stats)
+
 
 ## npm 외부 라이브러리
-- npm install react-icons --save // icon 라이브러리
-- npm install react-calendar    // npm 캘린더 패키지 다운로드
-- npm install react-router-dom  // react router 다중페이지 구축
+- npm install react-icons --save       // icon 라이브러리
+- npm install react-calendar           // npm 캘린더 패키지 다운로드
+- npm install react-router-dom         // react router 다중페이지 구축
+- npm install styled-reset             // style.css 초기화 라이브러리
 ## 프로젝트 노션
 - https://sly-grape-e30.notion.site/10611252aa96805299c7dd793aae410c
 ## package.json 설정 추가 및 수정
@@ -43,4 +49,5 @@
 ## 카카오맵 API
 ## https://apis.map.kakao.com/
 
-## 
+<img src="https://capsule-render.vercel.app/api?type=waving&color=BDBDC8&height=150&section=footer" />
+
