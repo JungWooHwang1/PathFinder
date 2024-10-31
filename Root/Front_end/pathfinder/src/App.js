@@ -1,7 +1,9 @@
 import React, { useEffect } from "react";
+import { createGlobalStyle } from "styled-components";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { UserProvider } from './HTML/common/userContext';
-import "./App.css";
+import reset from "styled-reset";
+
 import PF_Main from "./HTML/PF_Main";
 import PF_SigninForm from "./HTML/PF_SigninForm";
 import PF_SignupForm from "./HTML/PF_SignupForm";
@@ -26,13 +28,19 @@ const initializeKakao = () => {
   }
 };
 
+const GlobalStyle = createGlobalStyle`
+ ${reset}
+`;
+
 function App() {
   useEffect(() => {
     initializeKakao();
   }, []);
 
   return (
+    
     <UserProvider>
+      <GlobalStyle/>
       <Router>
         <Routes>
           <Route path="/" element={<PF_Main />} />
