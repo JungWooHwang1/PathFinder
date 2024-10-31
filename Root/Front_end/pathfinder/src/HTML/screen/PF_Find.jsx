@@ -16,6 +16,15 @@ const PF_Find = () => {
   const { user } = useUser();
   const isLoggedIn = user !== null;
   const navigate = useNavigate();
+  const [showCalendar, setShowCalendar] = useState(false);
+  const [calendarType, setCalendarType] = useState("");
+  const [date, setDate] = useState(new Date());
+  const [posts, setPosts] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1); // 현재 페이지
+  const [postsPerPage] = useState(10); // 페이지당 게시글 수
+  const [previewImage, setPreviewImage] = useState(null); // 미리보기 이미지 상태 추가
+  const [searchResults, setSearchResults] = useState([]);
+
   const [formData, setFormData] = useState({
     memberNickName: '',
     boardTitle: '',
@@ -40,35 +49,12 @@ const PF_Find = () => {
     lostPropertyName: '',
   });
 
-
-  const [showCalendar, setShowCalendar] = useState(false);
-  const [calendarType, setCalendarType] = useState("");
-  const [date, setDate] = useState(new Date());
-  const [posts, setPosts] = useState([]);
-  const [currentPage, setCurrentPage] = useState(1); // 현재 페이지
-  const [postsPerPage] = useState(10); // 페이지당 게시글 수
-  const [previewImage, setPreviewImage] = useState(null); // 미리보기 이미지 상태 추가
-
-
-  const getTodayDate = () => {
-    const today = new Date();
-    const yyyy = today.getFullYear();
-    const mm = String(today.getMonth() + 1).padStart(2, "0");
-    const dd = String(today.getDate()).padStart(2, "0");
-    return `${yyyy}${mm}${dd}`;
-  };
-
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
       ...prevData,
       [name]: value,
     }));
-  };
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
   };
 
   const generateRandomNumber = () => {
@@ -79,26 +65,26 @@ const PF_Find = () => {
 
     // 검색 요청을 위한 데이터 설정
     const postData = {
-        member: {
-            memberNickName: formData.memberNickName,
-        },
-        boardTitle: formData.boardTitle,
-        classifiName: formData.acquirePlace_classifi,
-        acquirePropertyName: formData.acquirePropertyName, // 이 부분은 아래에서 'lostPropertyName'으로 변경
-        acquireArea: formData.acquireArea,
-        acquirePlace: formData.acquirePlace,
-        acquireDate: formData.acquireDate ? formData.acquireDate.toISOString().slice(0, 10) : null,
-        boardContent: formData.boardContent,
-        boardImage: previewImage ? previewImage.split(',')[1] : null,
-        propertyColor: formData.propertyColor,
-        propertyType: formData.propertyType,
-        reporterPhone: formData.reporterPhone,
-        etc: formData.etc,
-        acquirePlace_adress1: formData.acquirePlace_adress1,
-        acquirePlace_adress2: formData.acquirePlace_adress2,
-        acquirePlace_adress3: formData.acquirePlace_adress3,
-        acquirePlace_adress4: formData.acquirePlace_adress4,
-        acquirePlace_adress5: formData.acquirePlace_adress5,
+      member: {
+        memberNickName: formData.memberNickName,
+      },
+      boardTitle: formData.boardTitle,
+      classifiName: formData.acquirePlace_classifi,
+      acquirePropertyName: formData.acquirePropertyName, // 이 부분은 아래에서 'lostPropertyName'으로 변경
+      acquireArea: formData.acquireArea,
+      acquirePlace: formData.acquirePlace,
+      acquireDate: formData.acquireDate ? formData.acquireDate.toISOString().slice(0, 10) : null,
+      boardContent: formData.boardContent,
+      boardImage: previewImage ? previewImage.split(',')[1] : null,
+      propertyColor: formData.propertyColor,
+      propertyType: formData.propertyType,
+      reporterPhone: formData.reporterPhone,
+      etc: formData.etc,
+      acquirePlace_adress1: formData.acquirePlace_adress1,
+      acquirePlace_adress2: formData.acquirePlace_adress2,
+      acquirePlace_adress3: formData.acquirePlace_adress3,
+      acquirePlace_adress4: formData.acquirePlace_adress4,
+      acquirePlace_adress5: formData.acquirePlace_adress5,
     };
 
     // 빈 값에 대한 필터링 추가
@@ -111,44 +97,37 @@ const PF_Find = () => {
 
     console.log(`Request URL: http://43.203.203.157:8085/search?${params.toString()}`);
     console.log('Request Parameters: ', {
-        classifiName: postData.classifiName,
-        acquireArea: postData.acquireArea,
-        acquirePlace: postData.acquirePlace,
-        lostDate: postData.acquireDate,
-        acquirePropertyName: postData.acquirePropertyName,
+      classifiName: postData.classifiName,
+      acquireArea: postData.acquireArea,
+      acquirePlace: postData.acquirePlace,
+      lostDate: postData.acquireDate,
+      acquirePropertyName: postData.acquirePropertyName,
     });
 
     try {
-        // 검색 API 호출 (서버 URL로 변경)
-        const response = await fetch(`/search?${params.toString()}`, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        });
+      // 검색 API 호출 (서버 URL로 변경)
+      const response = await fetch(`/search?${params.toString()}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
 
-        if (!response.ok) {
-            const errorText = await response.text();
-            throw new Error(errorText);
-        }
+      if (!response.ok) {
+        const errorText = await response.text();
+        throw new Error(errorText);
+      }
 
-        const data = await response.json();
-        // 데이터를 처리하는 로직 추가 (예: 상태 업데이트)
-        setSearchResults(data);
+      const data = await response.json();
+      // 데이터를 처리하는 로직 추가 (예: 상태 업데이트)
+      setSearchResults(data);
 
     } catch (error) {
-        console.error('Error fetching data:', error.message);
+      console.error('Error fetching data:', error.message);
     }
-};
+  };
 
-  
   // 추가로 사용할 상태 선언
-  const [searchResults, setSearchResults] = useState([]);
-  
-  
-  
-  
-  
 
   const resetSearch = () => {
     setFormData({
@@ -176,6 +155,7 @@ const PF_Find = () => {
     });
     setPosts([]); // 검색 결과 초기화
   };
+
 
 
 
@@ -405,10 +385,7 @@ const PF_Find = () => {
                       return date.toISOString().split('T')[0]; // "YYYY-MM-DD" 형식으로 변환
                     };
                     return (
-                      <tr
-                        key={index}
-                        onClick={() => handlePostClick(post.id)} // 클릭 시 상세 페이지로 이동
-                        style={{ cursor: "pointer" }} // 클릭 가능한 스타일 추가
+                      <tr key={index} onClick={() => handlePostClick(post.id)} style={{ cursor: "pointer" }}
                         onMouseEnter={() => {
                           setPreviewImage(post.boardImage);
                         }}
@@ -419,16 +396,8 @@ const PF_Find = () => {
                         <td>{post.id}</td>
                         <td style={{ display: "flex", alignItems: "center" }}>
                           {post.boardImage && (
-                            <div
-                              className="preview-image"
-                              style={{ position: 'relative' }}
-                            >
-                              <img
-                                style={{
-                                  opacity: previewImage === post.boardImage ? '0.5' : '1', // 현재 게시물 이미지에 대해서만 불투명하게 설정
-                                  transition: 'opacity 0.3s' // 불투명도 전환 효과
-                                }}
-                              />
+                            <div className="preview-image" style={{ position: 'relative' }} >
+                              <img style={{ opacity: previewImage === post.boardImage ? '0.5' : '1', transition: 'opacity 0.3s' }} />
                               {previewImage === post.boardImage && ( // 현재 게시물의 이미지일 때만 프리뷰 표시
                                 <div style={{
                                   position: 'absolute',
@@ -459,13 +428,8 @@ const PF_Find = () => {
               </tbody>
             </table>
             <br />
-            <PF_Paging
-              currentPage={currentPage}
-              totalPages={totalPages}
-              onPageChange={handlePageChange}
-            />
+            <PF_Paging currentPage={currentPage} totalPages={totalPages} onPageChange={handlePageChange} />
           </div>
-
           <p style={{ textAlign: "center" }}>
             <button onClick={handleUploadClick} className="btn_01">
               습득물 등록
