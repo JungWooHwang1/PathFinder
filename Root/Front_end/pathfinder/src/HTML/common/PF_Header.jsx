@@ -44,7 +44,7 @@ const PF_Header = () => {
                     {user ? ( // 사용자 정보가 있으면 로그인 상태로 간주
                         <>
                             <Link to="/" onClick={handleLogout}>로그아웃</Link>
-                            <Link to="/member/edit">회원수정</Link>
+                            <Link to="/member/edit">내 정보 보기</Link>
                         </>
                     ) : (
                         <Link to="/PF_SigninForm">로그인</Link>
