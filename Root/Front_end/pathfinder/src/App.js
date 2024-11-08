@@ -3,7 +3,6 @@ import { createGlobalStyle } from "styled-components";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { UserProvider } from './HTML/common/userContext';
 import { reset } from 'styled-reset';
-import { createGlobalStyle } from 'styled-components'
 import "./App.css";
 import PF_Main from "./HTML/PF_Main";
 import PF_SigninForm from "./HTML/PF_SigninForm";
@@ -30,15 +29,9 @@ const initializeKakao = () => {
 };
 
 const GlobalStyle = createGlobalStyle`
-<<<<<<< HEAD
   ${reset}
   
 `
-=======
- ${reset}
-`;
->>>>>>> 994884716ebe6a1b740ea20e3c8892413f341251
-
 function App() {
   useEffect(() => {
     initializeKakao();
@@ -69,10 +62,6 @@ function App() {
           <Route path="/PF_Lost_Board" element={<PF_Lost_Board />} />
         </Routes>
       </Router>
-<<<<<<< HEAD
-=======
-    
->>>>>>> 994884716ebe6a1b740ea20e3c8892413f341251
     </UserProvider>
   );
 }
