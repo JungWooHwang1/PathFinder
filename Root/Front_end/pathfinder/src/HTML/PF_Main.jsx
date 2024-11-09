@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import PF_Nav from "./common/PF_Nav";
 import PF_Header from "./common/PF_Header";
-import "../CSS/PF_Main.css";
 import lost_img from "../img/분실물.jpg";
 import lost_img2 from "../img/분실물 (2).jpg";
 import lost_img3 from "../img/분실물 (3).jpg";
@@ -12,6 +11,9 @@ import animal_img from "../img/반려동물.jpg";
 import animal_img2 from "../img/반려동물 (2).jpg";
 import animal_img3 from "../img/반려동물 (3).jpg";
 import animal_img4 from "../img/반려동물 (4).jpg";
+
+
+
 
 
 const PF_Container = () => {
