@@ -1,16 +1,13 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useUser } from "../common/userContext";
-import Calendar from "react-calendar";
 import PF_Nav from "../common/PF_Nav";
 import PF_Header from "../common/PF_Header";
 import "react-calendar/dist/Calendar.css";
 import "../../CSS/PF_Main.css";
 import "../../CSS/PF_Write.css";
-import PF_product_option from "../common/PF_product_option";
-import PF_local_option from "../common/PF_local_option";
-import PF_place_option from "../common/PF_place_option";
 import PF_Paging from "../common/PF_Paging";
+import PF_SearchForm from "../common/PF_SearchForm";
 
 const PF_Find = () => {
   const { user } = useUser();
@@ -49,17 +46,16 @@ const PF_Find = () => {
     lostPropertyName: '',
   });
 
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
-  };
+
+  const [posts, setPosts] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1); // 현재 페이지
+  const [postsPerPage] = useState(10); // 페이지당 게시글 수
+  const [previewImage, setPreviewImage] = useState(null); // 미리보기 이미지 상태 추가
 
   const generateRandomNumber = () => {
     return Math.floor(100000 + Math.random() * 900000); // 6자리 랜덤 숫자 생성
   };
+<<<<<<< HEAD
   const handleSearchSubmit = async (e) => {
     e.preventDefault();
 
@@ -159,6 +155,9 @@ const PF_Find = () => {
 
 
 
+=======
+  
+>>>>>>> fb071b6015060073a4eaceb46dbced4e8ca0bc26
   const fetchLostItems = async () => {
     try {
       const response = await fetch("/boards/acquire-property-board");
@@ -188,36 +187,6 @@ const PF_Find = () => {
     fetchLostItems();
   }, []);
 
-  const handleDateChange = (newDate) => {
-    const formattedDate = newDate.toISOString().split("T")[0].replace(/-/g, "");
-    setFormData((prevData) => ({
-      ...prevData,
-      [calendarType]: formattedDate,
-    }));
-    setDate(newDate);
-    setShowCalendar(false);
-  };
-
-  const handleCalendarToggle = (type) => {
-    setCalendarType(type);
-    setShowCalendar(true);
-  };
-
-  const calendarRef = useRef(null);
-
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (calendarRef.current && !calendarRef.current.contains(event.target)) {
-        setShowCalendar(false);
-      }
-    };
-
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, []);
-
   const handleUploadClick = (event) => {
     event.preventDefault();
     if (!isLoggedIn) {
@@ -226,14 +195,6 @@ const PF_Find = () => {
     } else {
       navigate("/PF_Find_Upload");
     }
-  };
-  const getCalendarStyle = () => {
-    if (calendarType === "START_YMD") {
-      return { top: "120px", left: "600px" }; // startYMD 위에 위치 (원하는 좌표로 변경 가능)
-    } else if (calendarType === "END_YMD") {
-      return { top: "120px", right: "400px" }; // endYMD 위에 위치 (원하는 좌표로 변경 가능)
-    }
-    return {};
   };
   // 현재 페이지에 표시할 게시글
   const indexOfLastPost = currentPage * postsPerPage;
@@ -259,99 +220,7 @@ const PF_Find = () => {
         <PF_Nav />
         <div id="contents">
           <h2>습득물 검색</h2>
-          <div className="findList">
-            <form name="commandMap" id="commandMap" method="post" action="#none" onSubmit={handleSearchSubmit}>
-              <div className="lost_qfind2" style={{ display: "flex", position: "relative" }}>
-                <div className="left-section">
-                  <PF_product_option />
-                  <fieldset className="lost_inputbox">
-                    <legend>습득물명 입력</legend>
-                    <label htmlFor="lstPrdtNm">제목</label>
-                    <input
-                      type="text"
-                      id="lstPrdtNm"
-                      name="acquirePropertyName"
-                      className="input"
-                      value={formData.acquirePropertyName}
-                      onChange={handleInputChange}
-                    />
-                  </fieldset>
-                </div>
-                <div className="right-section">
-                  <PF_local_option />
-                  <PF_place_option />
-                </div>
-              </div>
-
-              {/* 기간 */}
-              <div className="date-section">
-                <fieldset className="lost_period">
-                  <legend>실종기간 입력</legend>
-                  <label htmlFor="startYmdInput">기간</label>
-                  <div className="date-input-group">
-                    <input
-                      type="text"
-                      title="검색시작일"
-                      name="START_YMD"
-                      id="startYmdInput"
-                      className="search_text_isNumber"
-                      size="10"
-                      readOnly
-                    />
-                    <button
-                      type="button"
-                      className="cal_btn"
-                      onClick={() => handleCalendarToggle("START_YMD")}
-                      title="검색 시작일 달력 열기"
-                    >
-                      달력 열기
-                    </button>
-                  </div>
-                  <span>~</span>
-                  <div className="date-input-group">
-                    <input
-                      type="text"
-                      title="검색종료일"
-                      name="END_YMD"
-                      id="endYmdInput"
-                      className="search_text_isNumber"
-                      size="10"
-                      readOnly
-                    />
-                    <button
-                      type="button"
-                      className="cal_btn"
-                      onClick={() => handleCalendarToggle("END_YMD")}
-                      title="검색 종료일 달력 열기"
-                    >
-                      달력 열기
-                    </button>
-                  </div>
-                </fieldset>
-
-                {/* 달력 렌더링 */}
-                {showCalendar && (
-                  <div
-                    className="calendar-popup"
-                    ref={calendarRef}
-                    style={getCalendarStyle()}
-                  >
-                    <Calendar onChange={handleDateChange} value={date} />
-                  </div>
-                )}
-              </div>
-
-              <p style={{ textAlign: "center" }}>
-                <button type="submit" className="btn_01" title="검색">
-                  검색
-                </button>
-                <button type="button" onClick={resetSearch} className="btn_02" title="초기화">
-                  초기화
-                </button>
-              </p>
-
-            </form>
-          </div>
+          <PF_SearchForm></PF_SearchForm>
 
           <div className="find_listBox">
             <h2>습득물 게시판</h2>
@@ -396,23 +265,30 @@ const PF_Find = () => {
                         <td>{post.id}</td>
                         <td style={{ display: "flex", alignItems: "center" }}>
                           {post.boardImage && (
+<<<<<<< HEAD
                             <div className="preview-image" style={{ position: 'relative' }} >
                               <img style={{ opacity: previewImage === post.boardImage ? '0.5' : '1', transition: 'opacity 0.3s' }} />
+=======
+                            <div className="preview-image" style={{ position: 'relative' }}>
+                              {/* <img
+                                style={{
+                                  opacity: previewImage === post.boardImage ? '0.5' : '1', // 현재 게시물 이미지에 대해서만 불투명하게 설정
+                                  transition: 'opacity 0.3s' // 불투명도 전환 효과
+                                }}
+                              /> */}
+>>>>>>> fb071b6015060073a4eaceb46dbced4e8ca0bc26
                               {previewImage === post.boardImage && ( // 현재 게시물의 이미지일 때만 프리뷰 표시
                                 <div style={{
                                   position: 'absolute',
                                   top: '0',
                                   left: '0',
-                                  backgroundColor: 'rgba(255, 255, 255, 0.8)', // 반투명 배경
+                                  right: '0',
+                                  backgroundColor: 'rgba(255, 255, 255, 0.8)', 
                                   borderRadius: '5px',
                                   padding: '5px',
                                   zIndex: '1',
                                 }}>
-                                  <img
-                                    src={`data:image/jpeg;base64,${previewImage}`}
-                                    alt="Preview"
-                                    style={{ width: '100px', height: 'auto' }} // 프리뷰 이미지 크기
-                                  />
+                                  <img src={`data:image/jpeg;base64,${previewImage}`} alt="Preview" style={{ width: '100px', height: 'auto' }} />
                                 </div>
                               )}
                             </div>
