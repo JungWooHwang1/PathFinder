@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-import "../../CSS/PF_Main.css";
-import "../../CSS/PF_Write.css";
+import "../../CSS/PF_Find_Upload.css";
 import PF_Header from "../common/PF_Header";
 import PF_Nav from "../common/PF_Nav";
+
 
 const PF_Find_Upload = () => {
   const [imagePreview, setImagePreview] = useState(null);
@@ -134,13 +134,13 @@ const PF_Find_Upload = () => {
         }
       })
       .then((data) => {
-        if (data.message) {
-          alert(data.message);
-          console.log("게시글 ID:", data.postId);
+        if (data.success || data.postId) { 
+           alert("게시글 작성 성공");
+           console.log("게시글 ID:", data.postId);
         } else {
-          alert("게시글 작성 성공");
+           alert(data.message || "게시글 작성 실패");
         }
-      })
+     })
       .catch((error) => {
         console.error("Error:", error);
         alert("분실물 게시글 작성 중 오류가 발생했습니다.");
@@ -153,7 +153,7 @@ const PF_Find_Upload = () => {
       <PF_Header />
       <div className="PF_container">
         <PF_Nav />
-        <div id="content" tabIndex="-1">
+        <div id="content" tabIndex="-1" className="content">
           <div className="contents_common">
             <h2>습득물 신고</h2>
             <span className="subtxt1">

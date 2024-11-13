@@ -2,15 +2,16 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import PF_Nav from "./common/PF_Nav";
 import PF_Header from "./common/PF_Header";
-import lost_img from "../img/분실물.jpg";
-import lost_img2 from "../img/분실물 (2).jpg";
-import lost_img3 from "../img/분실물 (3).jpg";
-import lost_img4 from "../img/분실물 (4).jpg";
+// import lost_img from "../img/분실물.jpg";
+// import lost_img2 from "../img/분실물 (2).jpg";
+// import lost_img3 from "../img/분실물 (3).jpg";
+// import lost_img4 from "../img/분실물 (4).jpg";
 
-import animal_img from "../img/반려동물.jpg";
-import animal_img2 from "../img/반려동물 (2).jpg";
-import animal_img3 from "../img/반려동물 (3).jpg";
-import animal_img4 from "../img/반려동물 (4).jpg";
+// import animal_img from "../img/반려동물.jpg";
+// import animal_img2 from "../img/반려동물 (2).jpg";
+// import animal_img3 from "../img/반려동물 (3).jpg";
+// import animal_img4 from "../img/반려동물 (4).jpg";
+import PF_Section from "./common/PF_Section";
 
 
 
@@ -60,22 +61,16 @@ const PF_Container = () => {
   return (
     <div className="body">
 
-    
-
-
+  
       <PF_Header />
-      <div className="PF_section">
-        <div className="section1"></div>
-        <div className="section1"></div>
-        <div className="section1"></div>
-        <div className="section1"></div>
-      </div>
-      <div className="PF_container">
+      <PF_Section />
+      
+      {/* <div className="PF_container">
         <PF_Nav />
         <div className="PF_main">
           <section className="PF_section1">
             <Link to="/PF_Lost">분실물 게시판</Link>
-            {/* <div className="img_group">
+            <div className="img_group">
               {recentLost.slice(0, 4).map((post) => (
                 <img
                   key={post.id}
@@ -83,7 +78,9 @@ const PF_Container = () => {
                   alt={post.boardTitle}
                 />
               ))}
-            </div> */}
+            </div>
+
+            더미 이미지
             <div className="img_group">
               <img src={lost_img} alt="" width={100} height={100} />
               <img src={lost_img2} alt="" width={100} height={100} />
@@ -105,7 +102,7 @@ const PF_Container = () => {
           </section>
           <section className="PF_section3">
             <Link to="/PF_Animal">실종되어 있는 반려동물</Link>
-            {/* <div className="img_group">
+            <div className="img_group">
               {recentPets.slice(0, 4).map((post) => (
                 <img
                   key={post.id}
@@ -113,17 +110,21 @@ const PF_Container = () => {
                   alt={post.boardTitle}
                 />
               ))}
-            </div> */}
+            </div>
+            
+            더미 이미지
             <div className="img_group">
               <img src={animal_img} alt="" width={100} height={100} />
               <img src={animal_img2} alt="" width={100} height={100} />
               <img src={animal_img3} alt="" width={100} height={100} />
               <img src={animal_img4} alt="" width={100} height={100} />
             </div>
+
+          
           </section>
           <section className="PF_section4">
             <Link to="/PF_Wanted">분실물 의뢰페이지</Link>
-            {/* <div className="img_group">
+            <div className="img_group">
               {recentWanted.slice(0, 4).map((post) => (
                 <img
                   key={post.id}
@@ -131,16 +132,19 @@ const PF_Container = () => {
                   alt={post.boardTitle}
                 />
               ))}
-            </div> */}
+            </div>
+
+            더미 이미지
             <div className="img_group">
               <img src={animal_img} alt="" width={100} height={100} />
               <img src={lost_img3} alt="" width={100} height={100} />
               <img src={lost_img4} alt="" width={100} height={100} />
               <img src={animal_img4} alt="" width={100} height={100} />
             </div>
+
           </section>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };

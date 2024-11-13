@@ -1,0 +1,143 @@
+/* header css start */
+:root {
+    --maincolor: #E4A656;
+    --subcolor: #FFF5E8;
+    --bordercolor: rgba(0, 0, 0, 0.1);
+    --textcolor: #333;
+    --hovercolor: #D18A36;
+    --shadowcolor: rgba(0, 0, 0, 0.2);
+}
+
+.PF_header {
+    width: 100%;
+    height: 70px; /* 높이 조정 */
+    max-width: 1280px;
+    margin: 20px auto 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #fff;
+    padding: 10px 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px var(--shadowcolor); /* 그림자 효과 추가 */
+    animation: fadeIn 1s ease-in-out; /* 로드 시 페이드 인 애니메이션 추가 */
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.PF_header img {
+    height: 100%;
+    object-fit: contain;
+    animation: slideIn 1s ease-in-out; /* 로드 시 슬라이드 인 애니메이션 추가 */
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(-100%);
+    }
+    to {
+        transform: translateX(0);
+    }
+}
+
+.header_inner {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+}
+
+.header_right {
+    display: flex;
+    align-items: center;
+    gap: 15px; /* 아이템 간 간격 추가 */
+}
+
+.PF_member, .PF_member_ch {
+    display: flex;
+    align-items: center; /* 수직 중앙 정렬 */
+    gap: 15px; /* 아이템 간 간격 추가 */
+}
+
+.search_area {
+    visibility: hidden; /* 초기 상태에서 검색창 숨김 */
+    width: 0;
+    height: 45px;
+    border: 1px solid var(--maincolor);
+    border-radius: 20px;
+    padding: 0 10px;
+    display: flex;
+    align-items: center;
+    box-shadow: 0 2px 5px var(--shadowcolor); /* 그림자 효과 추가 */
+    overflow: hidden; /* 내용이 넘칠 때 숨김 */
+    transition: width 0.5s ease-in-out, opacity 0.5s ease-in-out, visibility 0.5s ease-in-out; /* 검색창 너비 및 불투명도 애니메이션 추가 */
+    opacity: 0; /* 초기 상태에서 검색창 숨김 */
+}
+
+.search_area.visible {
+    visibility: visible; /* 검색창이 보일 때 visibility 설정 */
+    width: 40%; /* 검색창이 보일 때 너비 설정 */
+    opacity: 1; /* 검색창이 보일 때 불투명도 설정 */
+}
+
+.search_area input[type="search"] {
+    width: 100%;
+    background: none;
+    font-size: 1rem;
+    color: var(--textcolor);
+    padding: 0 12px;
+    border: none; /* 테두리 제거 */
+    outline: none; /* 포커스 시 아웃라인 제거 */
+}
+
+.search_area input[type="search"]::placeholder {
+    color: var(--bordercolor); /* 플레이스홀더 색상 추가 */
+}
+
+.search_area:hover {
+    box-shadow: 0 4px 10px var(--shadowcolor); /* 호버 시 그림자 효과 추가 */
+}
+
+.PF_member a, .PF_member_ch a {
+    background-color: var(--maincolor);
+    color: #fff;
+    border: none;
+    border-radius: 20px;
+    padding: 10px 20px;
+    font-size: 1rem;
+    text-decoration: none; /* 링크 밑줄 제거 */
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 2px 5px var(--shadowcolor); /* 버튼에 그림자 효과 추가 */
+    animation: fadeIn 1s ease-in-out; /* 로드 시 페이드 인 애니메이션 추가 */
+}
+
+.PF_member a:hover, .PF_member_ch a:hover {
+    background-color: var(--hovercolor); /* 호버 시 배경색 변경 */
+    transform: scale(1.05); /* 호버 시 확대 효과 */
+}
+
+.PF_member a:focus, .PF_member_ch a:focus {
+    outline: none; /* 포커스 시 아웃라인 제거 */
+    box-shadow: 0 0 0 3px rgba(228, 166, 86, 0.5); /* 포커스 시 그림자 효과 추가 */
+}
+
+.search-icon {
+    cursor: pointer;
+    font-size: 1.5rem;
+    color: var(--textcolor);
+    transition: color 0.3s ease;
+}
+
+.search-icon:hover {
+    color: var(--hovercolor); /* 호버 시 색상 변경 */
+}
+
+/* header css end */

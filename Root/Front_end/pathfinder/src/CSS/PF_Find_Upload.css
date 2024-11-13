@@ -1,0 +1,214 @@
+:root {
+  --maincolor: #e4a656;
+  --subcolor: #fff5e8;
+  --bordercolor: rgba(0, 0, 0, 0.1);
+  --textcolor: #333;
+  --hovercolor: #d18a36;
+}
+
+.PF_container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 5px var(--bordercolor);
+  max-width: 1280px;
+  margin: 20px auto;
+}
+
+.PF_header {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.PF_nav {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.content {
+  width: 100%;
+  padding: 20px;
+  background-color: var(--subcolor);
+  border-radius: 12px;
+  box-shadow: 0 2px 5px var(--bordercolor);
+}
+
+.contents_common {
+  margin-bottom: 20px;
+}
+
+.contents_common h2 {
+  font-size: 2rem;
+  font-weight: bold;
+  color: var(--maincolor);
+  margin-bottom: 10px;
+}
+
+.contents_common .subtxt1 {
+  font-size: 1rem;
+  color: var(--textcolor);
+}
+
+.Box {
+  margin-bottom: 20px;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 5px var(--bordercolor);
+}
+
+.titls01 {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: var(--maincolor);
+  margin-bottom: 10px;
+}
+
+.lost_insert {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.lost_insert th,
+.lost_insert td {
+  padding: 10px;
+  border: 1px solid var(--bordercolor);
+  text-align: left;
+}
+
+.lost_insert th {
+  background-color: var(--maincolor);
+  color: #fff;
+  font-weight: bold;
+}
+
+.lost_insert td {
+  background-color: var(--subcolor);
+}
+
+.lost_insert input,
+.lost_insert select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid var(--bordercolor);
+  border-radius: 5px;
+  box-sizing: border-box;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.lost_insert input:focus,
+.lost_insert select:focus {
+  border-color: var(--maincolor);
+  box-shadow: 0 0 5px rgba(228, 166, 86, 0.5);
+}
+
+.lost_insert .map {
+  width: 100%;
+  height: 400px;
+  border: 1px solid var(--bordercolor);
+  border-radius: 5px;
+  box-shadow: 0 2px 5px var(--bordercolor);
+}
+
+.form-group {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: bold;
+  color: var(--textcolor);
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid var(--bordercolor);
+  border-radius: 5px;
+  box-sizing: border-box;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+  border-color: var(--maincolor);
+  box-shadow: 0 0 5px rgba(228, 166, 86, 0.5);
+}
+
+.form-group textarea {
+  resize: vertical;
+}
+
+.form-group input[type="file"] {
+  padding: 0;
+}
+
+.image-preview {
+  width: 100%;
+  max-width: 300px;
+  height: auto;
+  margin-top: 10px;
+  border: 1px solid var(--bordercolor);
+  border-radius: 5px;
+  box-shadow: 0 2px 5px var(--bordercolor);
+}
+
+.submit-btn {
+  background-color: var(--maincolor);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  box-shadow: 0 2px 5px var(--bordercolor);
+}
+
+.submit-btn:hover {
+  background-color: var(--hovercolor);
+  transform: scale(1.05);
+}
+
+.submit-btn:active {
+  transform: scale(0.95);
+}
+
+.map-container {
+  width: 100%;
+  height: 400px;
+  margin-top: 20px;
+  border: 1px solid var(--bordercolor);
+  border-radius: 5px;
+  box-shadow: 0 2px 5px var(--bordercolor);
+}
+
+@media (max-width: 768px) {
+  .PF_container {
+    padding: 10px;
+  }
+
+  .content {
+    padding: 10px;
+  }
+
+  .Box {
+    padding: 15px;
+  }
+
+  .form-group {
+    margin-bottom: 15px;
+  }
+
+  .submit-btn {
+    width: 100%;
+    padding: 15px;
+  }
+}

@@ -1,0 +1,100 @@
+:root {
+    --maincolor: #E4A656;
+    --subcolor: #FFF5E8;
+    --bordercolor: rgba(0, 0, 0, 0.1);
+    --textcolored: #FFF; /* 텍스트 색상을 밝은 색상으로 변경 */
+    --hovercolor: #D18A36;
+    --gradient: linear-gradient(135deg, #E4A656, #D18A36);
+}
+
+.PF_section {
+    width: 100%;
+    margin: 20px auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding: 20px;
+    gap: 20px; /* 자식 요소들 간의 간격 설정 */
+    background-color: #fff;
+    border-radius: 12px; 
+    box-shadow: 0 2px 5px var(--bordercolor);
+    box-sizing: border-box; /* 패딩과 보더를 요소의 전체 크기에 포함 */
+}
+
+.section1 {
+    position: relative; /* 오버레이를 위한 상대 위치 설정 */
+    width: 100%;
+    height: 50vh;
+    display: flex;  
+    flex-direction: column;
+    justify-content: center; /* 자식 요소들을 수평 중앙 정렬 */
+    align-items: center; /* 자식 요소들을 수직 중앙 정렬 */
+    gap: 20px;
+    padding: 20px; /* 섹션의 패딩 설정 */
+    border: 1px solid var(--bordercolor);
+    border-radius: 12px;
+    box-sizing: border-box; /* 패딩과 ��더를 요소의 전체 크기에 포함 */
+    overflow: hidden; /* 슬라이드 애니메이션을 위한 오버플로우 숨김 */
+}
+
+.background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover; /* 배경 이미지 크기 설정 */
+    background-position: center; /* 배경 이미지 위치 설정 */
+    transition: transform 0.5s ease-in-out; /* 슬라이드 애니메이션 추가 */
+}
+
+.background.slide-in {
+    transform: translateX(0); /* 슬라이드 인 애니메이션 */
+}
+
+.background.slide-out {
+    transform: translateX(-100%); /* 슬라이드 아웃 애니메이션 */
+}
+
+.section1::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* 반투명한 검정색 오버레이 추가 */
+    border-radius: 12px;
+    z-index: 1; /* 오버레이가 텍스트 뒤에 위치하도록 설정 */
+}
+
+.section1 p, .section1 .large-icon {
+    position: relative;
+    z-index: 2; /* 텍스트와 아이콘이 오버레이 위에 위치하도록 설정 */
+    color: var(--textcolored); /* 밝은 텍스트 색상 적용 */
+}
+
+.section1 p {
+    font-size: 4.5rem;
+    font-weight: bold;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* 텍스트에 그림자 추가 */
+    transition: transform 0.5s ease-in-out; /* 애니메이션을 위한 트랜지션 추가 */
+}
+.section1:hover {
+    transform: scale(1.03); /* 마우스 오버 시 확대 효과 */
+    
+}
+
+
+.section1 p:hover {
+    transform: scale(1.1); /* 마우스 오버 시 확대 효과 */
+}
+
+.large-icon {
+    width: 200px;
+    height: 200px;
+    transition: transform 0.5s ease-in-out; /* 애니메이션을 위한 트랜지션 추가 */
+}
+
+.large-icon:hover {
+    transform: translateY(-10px); /* 마우스 오버 시 바운스 효과 */
+}
