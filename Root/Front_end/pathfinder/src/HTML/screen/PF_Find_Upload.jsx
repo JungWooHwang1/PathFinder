@@ -2,22 +2,34 @@ import React, { useState, useEffect } from "react";
 import "../../CSS/PF_Find_Upload.css";
 import PF_Header from "../common/PF_Header";
 import PF_Nav from "../common/PF_Nav";
+import { useUser } from "../common/userContext";
 
 const PF_Find_Upload = () => {
   const [imagePreview, setImagePreview] = useState(null);
   const [formData, setFormData] = useState({
+    // id: "",
+    member :{
+      memberNickName: "",
+    },
+    
     boardTitle: "",
-    acquirePropertyName: "",
-    acquireArea: "",
-    acquirePlace: "",
-    acquirePlace_classifi: "",
     boardContent: "",
+    boardImage: "",
+    createDate: "",
+    classfiName: "",
+    propertyName: "",
+    area: "",
+    place: "",
+    placeClassifi: "",
+    date: "",
     propertyColor: "",
-    reporterPhone: "",
-    acquirePlace_adress1: "",
-    acquirePlace_adress2: "",
-    memberNickName: "1111",
-    acquireDate: ""
+    propertyType: "",
+    phone: "",
+    address: "",
+    // petName: "",
+    // petType: "",
+    // petChar: "",
+    requestCost: ""
   });
 
   const new_script = (src) => {
@@ -65,14 +77,14 @@ const PF_Find_Upload = () => {
   const handleFileChange = (event) => {
     const file = event.target.files[0];
     if (file) {
-        const reader = new FileReader();
-        reader.onloadend = () => {
-            const base64String = reader.result; // Base64 문자열
-            setImagePreview(base64String);
-        };
-        reader.readAsDataURL(file); // 파일을 Base64로 변환
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        const base64String = reader.result; // Base64 문자열
+        setImagePreview(base64String);
+      };
+      reader.readAsDataURL(file); // 파일을 Base64로 변환
     }
-};
+  };
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -84,28 +96,32 @@ const PF_Find_Upload = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-  
+
     const postData = {
-      boardTitle: formData.boardTitle, // 게시글 제목
-      board_type: "AcquireProperty", // 게시글 타입
-      boardContent: formData.boardContent, // 게시글 내용
+      // id: formData.id,
+      memberNickName: "1111",
+      boardTitle: formData.boardTitle,
+      boardContent: formData.boardContent,
       boardImage: imagePreview ? imagePreview.split(",")[1] : null, // Base64 이미지
-      classifiName: formData.classifiName, // 분류명
-      propertyColor: formData.propertyColor, // 물품 색상
-      phone: formData.reporterPhone, // 신고자 연락처
-      address: `${formData.acquirePlace_adress1} ${formData.acquirePlace_adress2}`, // 주소
-      acquirePropertyName: formData.acquirePropertyName, // 물품 이름
-      area: formData.acquireArea, // 습득 지역
-      place: formData.acquirePlace, // 습득 장소
-      placeClassifi: formData.acquirePlace_classifi, // 장소 분류
-      date: formData.acquireDate, // 습득 일자
-      member: {
-        memberNickName: formData.memberNickName, // 사용자 닉네임
-      },
+      createDate: formData.createDate,
+      classfiName: formData.classfiName,
+      propertyName: formData.propertyName,
+      area: formData.area,
+      place: formData.place,
+      placeClassifi: formData.placeClassifi,
+      date: formData.date,
+      propertyColor: formData.propertyColor,
+      propertyType: formData.propertyType,
+      phone: formData.phone,
+      address: formData.address,
+      // petName: formData.petName,
+      // petType: formData.petType,
+      // petChar: formData.petChar,
+      requestCost: formData.requestCost
     };
-  
+
     console.log("Sending updated data:", postData);
-  
+
     fetch(`/boards/AcquireProperty`, {
       method: "POST",
       headers: {
@@ -126,7 +142,7 @@ const PF_Find_Upload = () => {
           alert("게시글 작성 성공");
           console.log("게시글 ID:", data.postId);
         } else {
-          alert(data.message || "게시글 작성 성공");
+          alert(data.message || "게시글 작성 실패");
         }
       })
       .catch((error) => {
@@ -172,7 +188,7 @@ const PF_Find_Upload = () => {
                   <tr>
                     <th scope="row"><em>*</em><label htmlFor="PRDT_CL_NM">분류명</label></th>
                     <td>
-                      <select id="PRDT_CL_NM" name="classifiName" className="choice" onChange={handleChange}>
+                      <select id="PRDT_CL_NM" name="classfiName" className="choice" onChange={handleChange}>
                         <option value="">선택</option>
                         <option value="가방">가방</option>
                         <option value="귀금속">귀금속</option>
@@ -233,14 +249,19 @@ const PF_Find_Upload = () => {
                     <td><input type="text" id="LST_COLOR" name="propertyColor" className="input" onChange={handleChange} /></td>
 
                     <th><label htmlFor="LST_PHONE">신고자 연락처</label></th>
-                    <td><input type="text" id="LST_PHONE" name="reporterPhone" className="input" onChange={handleChange} /></td>
+                    <td><input type="text" id="LST_PHONE" name="phone" className="input" onChange={handleChange} /></td>
                   </tr>
                   <tr>
                     <th><label htmlFor="LST_FEATURE">물품 특징</label></th>
-                    <td><input type="text" id="LST_FEATURE" name="etc" className="input" onChange={handleChange} /></td>
+                    <td><input type="text" id="LST_FEATURE" name="propertyType" className="input" onChange={handleChange} /></td>
 
                     <th><label htmlFor="LST_NOTE">비고</label></th>
                     <td><input type="text" id="LST_NOTE" name="boardContent" className="input" maxLength="100" onChange={handleChange} /></td>
+                  </tr>
+                  
+                  <tr>
+                    <th><label htmlFor="LST_COST">요청 비용</label></th>
+                    <td><input type="text" id="LST_COST" name="requestCost" className="input" onChange={handleChange} /></td>
                   </tr>
                 </tbody>
               </table>
@@ -274,6 +295,8 @@ const PF_Find_Upload = () => {
         </div>
       </div>
     </div>
+
+    
   );
 };
 

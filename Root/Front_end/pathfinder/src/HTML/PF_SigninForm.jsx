@@ -1,4 +1,4 @@
-import React, { useState} from "react";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { FaUser, FaLock } from "react-icons/fa";
 import { useUser } from "./common/userContext"; // useUser import
@@ -92,14 +92,6 @@ const LoginForm = () => {
                 </label>
               )}
             </div>
-
-            {/* <div className="remember-forgot">
-              <label>
-                <input type="checkbox" />
-                Remember me
-              </label>
-              <a href="#">Forgot password?</a>
-            </div> */}
 
             <button type="submit" disabled={loading}>
               {loading ? "Logging in..." : "Login"}

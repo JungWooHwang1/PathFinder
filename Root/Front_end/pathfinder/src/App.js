@@ -31,20 +31,20 @@ const initializeKakao = () => {
 const GlobalStyle = createGlobalStyle`
   ${reset}
   
-`
+`;
+
 function App() {
   useEffect(() => {
     initializeKakao();
   }, []);
 
   return (
-    
     <UserProvider>
-      <GlobalStyle/>
+      <GlobalStyle />
       <Router>
         <Routes>
           <Route path="/" element={<PF_Main />} />
-          <Route path="/search" element={<SearchResults />} />{" "}
+          <Route path="/search" element={<SearchResults />} />
           <Route path="/PF_SigninForm" element={<PF_SigninForm />} />
           <Route path="/PF_SignupForm" element={<PF_SignupForm />} />
           <Route path="/PF_Lost" element={<PF_Lost />} />
@@ -52,8 +52,8 @@ function App() {
           <Route path="/PF_Animal" element={<PF_Animal />} />
           <Route path="/PF_Wanted" element={<PF_Wanted />} />
           <Route path="/PF_Lost_Upload" element={<PF_Lost_Upload />} />
-          <Route path="/PF_Find_Upload/" element={<PF_Find_Upload />} /> 
-          <Route path="/PF_Find_Board/:postId" element={<PF_Find_Board />} /> 
+          <Route path="/PF_Find_Upload" element={<PF_Find_Upload />} />
+          <Route path="/PF_Find_Board/:postId" element={<PF_Find_Board />} />
           <Route path="/PF_Animal_Upload" element={<PF_Animal_Upload />} />
           <Route path="/PF_Wanted_Upload" element={<PF_Wanted_Upload />} />
           <Route path="/PF_Find_Board" element={<PF_Find_Board />} />

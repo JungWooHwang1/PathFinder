@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { useUser } from "../common/userContext";
 import PF_Nav from "../common/PF_Nav";
 import PF_Header from "../common/PF_Header";
 import "react-calendar/dist/Calendar.css";
@@ -8,6 +7,7 @@ import "../../CSS/PF_Main.css";
 import "../../CSS/PF_Write.css";
 import PF_Paging from "../common/PF_Paging";
 import PF_SearchForm from "../common/PF_SearchForm";
+import { useUser } from "../common/userContext";  // UserContext에서 훅 가져오기
 
 const PF_Find = () => {
   const { user } = useUser();
@@ -17,93 +17,46 @@ const PF_Find = () => {
   const [currentPage, setCurrentPage] = useState(1); // 현재 페이지
   const [postsPerPage] = useState(10); // 페이지당 게시글 수
   const [previewImage, setPreviewImage] = useState(null); // 미리보기 이미지 상태 추가
-
-  const [formData, setFormData] = useState({
-    memberNickName: '',
-    boardTitle: '',
-    acquirePlace_classifi: '',
-    acquirePropertyName: '',
-    acquireArea: '',
-    acquirePlace: '',
-    boardContent: '',
-    propertyColor: '',
-    propertyType: '',
-    reporterPhone: '',
-    etc: '',
-    acquirePlace_adress1: '',
-    acquirePlace_adress2: '',
-    acquirePlace_adress3: '',
-    acquirePlace_adress4: '',
-    acquirePlace_adress5: '',
-    classifiName: '',
-    lostArea: '',
-    lostDate: '',
-    lostPlace: '',
-    lostPropertyName: '',
-  });
-
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
-  };
+  const [error, setError] = useState(null); // 오류 상태 추가
 
   const generateRandomNumber = () => {
     return Math.floor(100000 + Math.random() * 900000); // 6자리 랜덤 숫자 생성
   };
 
-  // 추가로 사용할 상태 선언
-  const resetSearch = () => {
-    setFormData({
-      memberNickName: '',
-      boardTitle: '',
-      acquirePlace_classifi: '',
-      acquirePropertyName: '',
-      acquireArea: '',
-      acquirePlace: '',
-      boardContent: '',
-      propertyColor: '',
-      propertyType: '',
-      reporterPhone: '',
-      etc: '',
-      acquirePlace_adress1: '',
-      acquirePlace_adress2: '',
-      acquirePlace_adress3: '',
-      acquirePlace_adress4: '',
-      acquirePlace_adress5: '',
-      classifiName: '',
-      lostArea: '',
-      lostDate: '',
-      lostPlace: '',
-      lostPropertyName: '',
-    });
-    setPosts([]); // 검색 결과 초기화
-  };
-
   const fetchLostItems = async () => {
     try {
-      const response = await fetch("/boards/acquire-property-board");
+      const response = await fetch("/boards/AcquireProperty");
+      const contentType = response.headers.get("content-type");
       if (!response.ok) {
-        throw new Error("분실물 목록을 가져오는 중 오류 발생");
+        if (contentType && contentType.includes("application/json")) {
+          const errorData = await response.json();
+          throw new Error(`Error: ${response.status} ${response.statusText} - ${errorData.message}`);
+        } else {
+          const errorText = await response.text();
+          throw new Error(`Error: ${response.status} ${response.statusText} - ${errorText}`);
+        }
       }
-      const data = await response.json();
-      console.log("API 응답 데이터:", data);
+      if (contentType && contentType.includes("application/json")) {
+        const data = await response.json();
+        console.log("API 응답 데이터:", data);
 
-      // 관리번호를 6자리 랜덤 숫자로 설정
-      const dataWithRandomNumber = data.map((item) => ({
-        ...item,
-        managementNumber: generateRandomNumber(),
-      }));
+        // 관리번호를 6자리 랜덤 숫자로 설정
+        const dataWithRandomNumber = data.map((item) => ({
+          ...item,
+          managementNumber: generateRandomNumber(),
+        }));
 
-      // createDate 기준으로 내림차순 정렬
-      const sortedData = dataWithRandomNumber.sort(
-        (a, b) => new Date(b.createDate) - new Date(a.createDate)
-      );
-      setPosts(sortedData);
+        // createDate 기준으로 내림차순 정렬
+        const sortedData = dataWithRandomNumber.sort(
+          (a, b) => new Date(b.createDate) - new Date(a.createDate)
+        );
+        setPosts(sortedData);
+      } else {
+        throw new Error("Unexpected content type");
+      }
     } catch (error) {
-      console.error("Error:", error);
+      console.error("Error fetching lost items:", error);
+      setError(error.message);
     }
   };
 
@@ -120,6 +73,7 @@ const PF_Find = () => {
       navigate("/PF_Find_Upload");
     }
   };
+
   // 현재 페이지에 표시할 게시글
   const indexOfLastPost = currentPage * postsPerPage;
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
@@ -145,6 +99,8 @@ const PF_Find = () => {
         <div id="contents">
           <h2>습득물 검색</h2>
           <PF_SearchForm></PF_SearchForm>
+
+          {error && <p style={{ color: 'red' }}>오류 발생: {error}</p>} {/* 오류 메시지 표시 */}
 
           <div className="find_listBox">
             <h2>습득물 게시판</h2>
@@ -186,7 +142,7 @@ const PF_Find = () => {
                           setPreviewImage(null);
                         }}
                       >
-                        <td>{post.id}</td>
+                        <td>{post.managementNumber}</td>
                         <td style={{ display: "flex", alignItems: "center" }}>
                           {post.boardImage && (
                             <div className="preview-image" style={{ position: 'relative' }} >
@@ -209,8 +165,8 @@ const PF_Find = () => {
                           )}
                           {post.boardTitle}
                         </td>
-                        <td>{post.acquirePlace}</td>
-                        <td>{post.acquireDate}</td>
+                        <td>{post.place}</td>
+                        <td>{post.date}</td>
                         <td>{formatDate(post.createDate)}</td>
                       </tr>
                     );
