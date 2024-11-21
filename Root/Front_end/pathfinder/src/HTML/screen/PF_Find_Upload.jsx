@@ -3,7 +3,6 @@ import "../../CSS/PF_Find_Upload.css";
 import PF_Header from "../common/PF_Header";
 import PF_Nav from "../common/PF_Nav";
 
-
 const PF_Find_Upload = () => {
   const [imagePreview, setImagePreview] = useState(null);
   const [formData, setFormData] = useState({
@@ -14,16 +13,11 @@ const PF_Find_Upload = () => {
     acquirePlace_classifi: "",
     boardContent: "",
     propertyColor: "",
-    propertyType: "",
     reporterPhone: "",
-    etc: "",
     acquirePlace_adress1: "",
     acquirePlace_adress2: "",
-    acquirePlace_adress3: "",
-    acquirePlace_adress4: "",
-    acquirePlace_adress5: "",
     memberNickName: "1111",
-    acquireDate: "" 
+    acquireDate: ""
   });
 
   const new_script = (src) => {
@@ -80,7 +74,6 @@ const PF_Find_Upload = () => {
     }
 };
 
-
   const handleChange = (event) => {
     const { name, value } = event.target;
     setFormData((prevData) => ({
@@ -93,32 +86,27 @@ const PF_Find_Upload = () => {
     event.preventDefault();
   
     const postData = {
+      boardTitle: formData.boardTitle, // 게시글 제목
+      board_type: "AcquireProperty", // 게시글 타입
+      boardContent: formData.boardContent, // 게시글 내용
+      boardImage: imagePreview ? imagePreview.split(",")[1] : null, // Base64 이미지
+      classifiName: formData.classifiName, // 분류명
+      propertyColor: formData.propertyColor, // 물품 색상
+      phone: formData.reporterPhone, // 신고자 연락처
+      address: `${formData.acquirePlace_adress1} ${formData.acquirePlace_adress2}`, // 주소
+      acquirePropertyName: formData.acquirePropertyName, // 물품 이름
+      area: formData.acquireArea, // 습득 지역
+      place: formData.acquirePlace, // 습득 장소
+      placeClassifi: formData.acquirePlace_classifi, // 장소 분류
+      date: formData.acquireDate, // 습득 일자
       member: {
-        memberNickName: formData.memberNickName, // 사용자가 입력한 값으로 변경
+        memberNickName: formData.memberNickName, // 사용자 닉네임
       },
-      boardTitle: formData.boardTitle,
-      classifiName: formData.classifiName,
-      acquirePropertyName: formData.acquirePropertyName,
-      acquireArea: formData.acquireArea,
-      acquirePlace: formData.acquirePlace,
-      acquirePlace_classifi: formData.acquirePlace_classifi,
-      acquireDate: formData.acquireDate, 
-      boardContent: formData.boardContent,
-      boardImage: imagePreview ? imagePreview.split(',')[1] : null,
-      propertyColor: formData.propertyColor,
-      propertyType: formData.propertyType,
-      reporterPhone: formData.reporterPhone,
-      etc: formData.etc,
-      acquirePlace_adress1: formData.acquirePlace_adress1,
-      acquirePlace_adress2: formData.acquirePlace_adress2,
-      acquirePlace_adress3: formData.acquirePlace_adress3,
-      acquirePlace_adress4: formData.acquirePlace_adress4,
-      acquirePlace_adress5: formData.acquirePlace_adress5,
     };
-
-    console.log("Sending data:", postData);
-
-    fetch(`/boards/acquire-property-board`, {
+  
+    console.log("Sending updated data:", postData);
+  
+    fetch(`/boards/AcquireProperty`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -134,19 +122,18 @@ const PF_Find_Upload = () => {
         }
       })
       .then((data) => {
-        if (data.success || data.postId) { 
-           alert("게시글 작성 성공");
-           console.log("게시글 ID:", data.postId);
+        if (data.success || data.postId) {
+          alert("게시글 작성 성공");
+          console.log("게시글 ID:", data.postId);
         } else {
-           alert(data.message || "게시글 작성 실패");
+          alert(data.message || "게시글 작성 성공");
         }
-     })
+      })
       .catch((error) => {
         console.error("Error:", error);
         alert("분실물 게시글 작성 중 오류가 발생했습니다.");
       });
   };
-  
 
   return (
     <div className="body">
@@ -160,7 +147,7 @@ const PF_Find_Upload = () => {
               습득물 신고양식입니다. (*) 표시는 필수 입력 항목입니다.
             </span>
           </div>
-  
+
           <form
             name="commandMap"
             id="commandMap"
@@ -177,7 +164,7 @@ const PF_Find_Upload = () => {
             <input type="hidden" id="CHRGR_ID" name="CHRGR_ID" />
             <input type="hidden" id="CHRGR_NM" name="CHRGR_NM" />
             <input type="hidden" id="ORG_ID2" name="ORG_ID2" />
-  
+
             <div className="Box">
               <div className="titls01">습득정보</div>
               <table className="lost_insert">
@@ -236,7 +223,7 @@ const PF_Find_Upload = () => {
                 </tbody>
               </table>
             </div>
-  
+
             <div className="Box">
               <div className="titls01">추가정보</div>
               <table className="lost_insert">
@@ -258,7 +245,7 @@ const PF_Find_Upload = () => {
                 </tbody>
               </table>
             </div>
-  
+
             <div className="Box">
               <div className="titls01">파일첨부</div>
               <table className="lost_insert" summary="파일첨부 입력">
@@ -278,7 +265,7 @@ const PF_Find_Upload = () => {
                 </tbody>
               </table>
             </div>
-  
+
             <div className="submit_area">
               <button type="submit" className="submit_btn">제출</button>
               <button type="reset" className="reset_btn">초기화</button>
@@ -288,7 +275,6 @@ const PF_Find_Upload = () => {
       </div>
     </div>
   );
-  
 };
 
 export default PF_Find_Upload;

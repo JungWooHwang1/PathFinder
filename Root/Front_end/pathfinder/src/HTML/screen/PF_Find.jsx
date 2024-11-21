@@ -17,7 +17,7 @@ const PF_Find = () => {
   const [currentPage, setCurrentPage] = useState(1); // 현재 페이지
   const [postsPerPage] = useState(10); // 페이지당 게시글 수
   const [previewImage, setPreviewImage] = useState(null); // 미리보기 이미지 상태 추가
- 
+
   const [formData, setFormData] = useState({
     memberNickName: '',
     boardTitle: '',
@@ -53,7 +53,7 @@ const PF_Find = () => {
   const generateRandomNumber = () => {
     return Math.floor(100000 + Math.random() * 900000); // 6자리 랜덤 숫자 생성
   };
-  
+
   // 추가로 사용할 상태 선언
   const resetSearch = () => {
     setFormData({
@@ -197,7 +197,7 @@ const PF_Find = () => {
                                   top: '0',
                                   left: '0',
                                   right: '0',
-                                  backgroundColor: 'rgba(255, 255, 255, 0.8)', 
+                                  backgroundColor: 'rgba(255, 255, 255, 0.8)',
                                   borderRadius: '5px',
                                   padding: '5px',
                                   zIndex: '1',
