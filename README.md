@@ -27,8 +27,6 @@
 ## 카카오 DEV 주소 
 - https://developers.kakao.com/console/app/1135990
 - 
-## "찾아드림" 로고 제작
-## 9월 7일 18시까지 
 
 ## 팀 일정 
 
